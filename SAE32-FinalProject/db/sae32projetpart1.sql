@@ -29,8 +29,8 @@ USE `sae32projetpart1`;
 -- Structure de la table `tblUser`
 --
 
-DROP TABLE IF EXISTS `tblUsers`;
-CREATE TABLE `tblUsers` (
+DROP TABLE IF EXISTS `tblUser`;
+CREATE TABLE `tblUser` (
   `id` int(11) NOT NULL,
   `firstName` varchar(20) NOT NULL,
   `lastName` varchar(20) NOT NULL
@@ -43,7 +43,7 @@ CREATE TABLE `tblUsers` (
 --
 -- Index pour la table `tblUser`
 --
-ALTER TABLE `tblUsers`
+ALTER TABLE `tblUser`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -51,9 +51,9 @@ ALTER TABLE `tblUsers`
 --
 
 --
--- AUTO_INCREMENT pour la table `tblUsers`
+-- AUTO_INCREMENT pour la table `tblUser`
 --
-ALTER TABLE `tblUsers`
+ALTER TABLE `tblUser`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
