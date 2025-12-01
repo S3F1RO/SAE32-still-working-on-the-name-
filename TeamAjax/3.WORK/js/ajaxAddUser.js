@@ -12,10 +12,12 @@ $(document).ready(function(){
 
     var firstName = jQuery("input[name='firstName']").val();
     var lastName  = jQuery("input[name='lastName']").val();
+    // var nickname  = jQuery("input[name='nickname']").val();
 
     sendAjax("ajaxAddUser.php", {
       firstName: firstName,
-      lastName: lastName
+      lastName: lastName,
+      // nickname:nickname,
     });
   });
 
