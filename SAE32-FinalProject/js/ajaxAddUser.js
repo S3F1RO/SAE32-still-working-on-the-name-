@@ -12,10 +12,12 @@ $(document).ready(function(){
 
     var firstName = jQuery("input[name='firstName']").val();
     var lastName  = jQuery("input[name='lastName']").val();
+    var nickname  = jQuery("input[name='nickname']").val();
 
     sendAjax("ajaxAddUser.php", {
       firstName: firstName,
-      lastName: lastName
+      lastName: lastName,
+      nickname:nickname,
     });
   });
 
@@ -29,14 +31,19 @@ function redirect(serverUrl) {
 function receiveAjax(data) {
 
   if (data['success']) {
-    var id = data["id"];
-    jQuery("body").html("ID utilisateur reçu : " + id);
+
+    var id = data["id"];           // récupère l'id
+    var nickname = data["nickname"]; // récupère le nickname
+
+    jQuery("body").html(
+      "ID utilisateur reçu : " + id +
+      "Nickname reçu : " + nickname
+    );
+
   } else {
-    // redirect("logout.php");/
+    // redirect("logout.php");
   }
-};
-
-
+}
 
 // --- Send AJAX data to server
 function sendAjax(serverUrl, data) {
