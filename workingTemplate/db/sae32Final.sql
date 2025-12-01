@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : lun. 01 déc. 2025 à 11:49
+-- Généré le : lun. 01 déc. 2025 à 12:28
 -- Version du serveur : 11.8.3-MariaDB-0+deb13u1 from Debian
 -- Version de PHP : 8.4.11
 
@@ -55,7 +55,7 @@ CREATE TABLE `tblSkills` (
   `domain` varchar(15) NOT NULL,
   `level` int(11) NOT NULL,
   `imgUrl` varchar(100) DEFAULT NULL,
-  `color` int(11) NOT NULL
+  `color` varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
