@@ -18,10 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `sae32projetpart1`
+-- Base de données : `sae32Final`
 --
-CREATE DATABASE IF NOT EXISTS `sae32projetpart1` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `sae32projetpart1`;
+CREATE DATABASE IF NOT EXISTS `sae32Final` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `sae32Final`;
 
 -- --------------------------------------------------------
 
