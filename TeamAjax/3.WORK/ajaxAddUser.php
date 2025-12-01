@@ -16,7 +16,7 @@ $data = json_decode($_POST['data'], true);
 // Initialiser les variables
 $firstName = NULL;
 $lastName  = NULL;
-$nickname  = NULL;
+// $nickname  = NULL;
 
 if (isset($data['firstName'])) {
     $firstName = $data['firstName'];
