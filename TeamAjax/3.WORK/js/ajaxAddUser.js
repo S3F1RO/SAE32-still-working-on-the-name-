@@ -31,20 +31,12 @@ function redirect(serverUrl) {
 function receiveAjax(data) {
 
   if (data['success']) {
-
-    var id = data["id"];           // récupère l'id
-    var nickname = data["nickname"]; // récupère le nickname
-
-    jQuery("body").html(
-      "ID utilisateur reçu : " + id + "<br>" +
-      "Nickname reçu : " + nickname
-    );
-
+    var id = data["id"];
+    jQuery("body").html("ID utilisateur reçu : " + id);
   } else {
-    // redirect("logout.php");
+    // redirect("logout.php");/
   }
-}
-
+};
 
 
 
