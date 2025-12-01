@@ -1,0 +1,1 @@
+./generateSticker.sh 00ccff 8 3 sae32-exemple 'Full-stack' '' 'SAE32' 'KR-259000' '2025' 'VivienRobinet'
