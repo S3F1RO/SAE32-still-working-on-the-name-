@@ -1,13 +1,13 @@
 <?php
 include_once('./utils.php');
-include_once('dataStorage.php');
+include_once('./dataStorage.php');
 
 // DB open
   include_once("./cfgDbTest.php");
   $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
   $db->set_charset("utf8");
 
-// Autoriser le contenu JSON
+// Allow JSON content
 header("Content-Type: application/json; charset=UTF-8");
 
 // Data ajax from server (filtered + escaped)
@@ -30,21 +30,22 @@ header("Content-Type: application/json; charset=UTF-8");
 
   // Check
   if ($idUCreator == NULL || $mainName == NULL || $subName == NULL || $domain == NULL || $level == NULL || $color == NULL) {
-    echo json_encode([null]);
+    echo json_encode(["success" => false, "message" => "Aucune donnée reçue"]);
     exit;
   }
   
   // DB close
   $db->close();
   
+  //Add skill in DB
   $idSkill = DataStorage::addSkill($idUCreator, $mainName, $subName, $domain, $level, $imgUrl, $color);
   
-  // Exemple de traitement
+  // Responce
   $response = [
     "id" => $idSkill
   ];
   
-  // Renvoyer une réponse JSON
+  // Send back a JSON response
   echo json_encode($response);
   
   ?>

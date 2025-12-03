@@ -7,7 +7,7 @@ include_once('dataStorage.php');
   $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
   $db->set_charset("utf8");
 
-// Autoriser le contenu JSON
+// Allow JSON content
 header("Content-Type: application/json; charset=UTF-8");
 
 // Data ajax from server (filtered + escaped)
@@ -21,21 +21,22 @@ header("Content-Type: application/json; charset=UTF-8");
 
   // Check
   if ($firstName == NULL || $lastName == NULL || $nickname == NULL) {
-    echo json_encode([null]);
+    echo json_encode(["success" => false, "message" => "Aucune donnée reçue"]);
     exit;
   }
   
   // DB close
   $db->close();
   
+  //Add user in DB
   $idUser = DataStorage::addUser($firstName, $lastName, $nickname);
   
-  // Exemple de traitement
+  // Responce
   $response = [
     "id" => $idUser
   ];
   
-  // Renvoyer une réponse JSON
+  // Send back a JSON response
   echo json_encode($response);
   
   ?>

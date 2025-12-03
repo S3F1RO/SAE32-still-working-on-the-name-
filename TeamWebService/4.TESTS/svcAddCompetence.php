@@ -3,7 +3,7 @@ include_once('./utils.php');
 include_once('dataStorage.php');
 
 
-// Autoriser le contenu JSON
+// Allow JSON content
 header("Content-Type: application/json; charset=UTF-8");
 
 // Data ajax from server (filtered + escaped)
@@ -25,15 +25,15 @@ header("Content-Type: application/json; charset=UTF-8");
     exit;
   }
   
-  
+  //Add user in DB
   $idCompetence = DataStorage::addCompetence($idUTeacher, $idUStudent, $idSkill, $revokedDate, $masteringLevel);
   
-  // Exemple de traitement
+  //Responce
   $response = [
     "id" => $idCompetence
   ];
   
-  // Renvoyer une réponse JSON
+  // Send back a JSON response
   echo json_encode($response);
   
   ?>
