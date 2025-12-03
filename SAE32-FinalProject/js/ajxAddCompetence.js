@@ -1,6 +1,10 @@
 $(document).ready(function () {
 
+<<<<<<< HEAD
+    $("#btnOk").click(function () {
+=======
   $("#btnOK").click(function () {
+>>>>>>> 780a48325fe3dd51fbf0e49766b57643e8129ff5
 
     var idUTeacher     = $("select[name='idUTeacher']").val();
     var idUStudent     = $("select[name='idUStudent']").val();

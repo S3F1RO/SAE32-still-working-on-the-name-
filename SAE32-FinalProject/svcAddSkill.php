@@ -31,7 +31,7 @@ header("Content-Type: application/json; charset=UTF-8");
   }
   
   
-  $idSkill = DataStorage::addSkill($idUCreator, $mainName, $subName, $domain, $level, $imgUrl, $color);
+  // $idSkill = DataStorage::addSkill($idUCreator, $mainName, $subName, $domain, $level, $imgUrl, $color);
   
   // Exemple de traitement
   $response = [

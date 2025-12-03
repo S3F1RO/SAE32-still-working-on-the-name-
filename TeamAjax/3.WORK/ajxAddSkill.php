@@ -6,20 +6,20 @@ if (!isset($_POST['data'])) {
     exit();
 }
 
+// Data from Client
 $data = json_decode($_POST['data'], true);
 
 $response = sendAjax(
     "http://localhost/SAE32/TeamAjax/3.WORK/svcAddSkill.php",
     [
-        "idUCreator" => $data["idUCreator"],
+        "idUCreator" => 1,
         "mainName"   => $data["mainName"],
         "subName"    => $data["subName"],
         "domain"     => $data["domain"],
         "level"      => $data["level"],
-        "imgUrl"     => $data["imgUrl"],
         "color"      => $data["color"]
     ]
 );
+echo json_encode(["id"=>$response['id']]);
 
-echo json_encode($response);
 ?>

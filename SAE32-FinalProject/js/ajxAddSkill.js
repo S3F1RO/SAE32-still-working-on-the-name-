@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $("#btnAddSkill").click(function () {
+    $("#btnOk").click(function () {
 
         var idUCreator = $("input[name='idUCreator']").val();
         var mainName   = $("input[name='mainName']").val();
