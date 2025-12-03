@@ -12,7 +12,7 @@
 
     <!-- JS files -->
     <script type='text/javascript' src='./js/jquery-3.7.0.min.js'></script>
-    <script type='text/javascript' src='./js/ajxAddSkill.js'></script> 
+    <script type='text/javascript' src='./js/ajaxAddUser.js'></script> 
     <!-- <script type='text/javascript' src='./js/refresh1s.js'></script> -->
     <script type='text/javascript' src='./js/web.js'></script>
 
@@ -26,7 +26,7 @@
     <link rel='icon' type='image/png' href='./medias/iut.png' />
 
     <!-- Title -->
-    <title>Skills</title>
+    <title>Compétence</title>
   </head>
 
 
@@ -36,33 +36,29 @@
     <!-- Wrapper -->
     <div class='wrapper'>
 
-	<h1>Add skills</h1>
-	<ul>
+				<h1>Add Compétence</h1>
+					<ul>
 
-    <!-- éléments venant de l'AJAX -->
+          </ul>
+    <!-- Champ des utilisateurs-->
+     
+    <li>
+      <article>
+   
+        <input type = "date" min = "2025" max = "2047" required />
+        <input type = "date" min = "2025" max = "2047" required />
+       
+      <select size = " 1 " >
+        <option value = " v1 " > Comprise </option>
+        <option value = " v2 " > Acquise </option>
+        <option value = " v3 " > Maîtrisée </option>
+        <option value= " v4 " selected> Enseignée </option>
+      </select >
+        <button id= "btnOK" type='submit'  > OK</button>
 
-    <!-- Champ des skills--> 
-  <li>    
-  <section>
-   <input type='text' name='mainName' placeholder='Le titre' required />
-<input type='text' name='subName' placeholder='Sous-titre' required />
-<input type='text' name='idUCreator' placeholder='idUCreator' required />
-<input type='text' name='domain' placeholder='Le domaine' required />
+      </article>
+    </li>
 
-<input type="number" name="level" min="0" max="8" step="1" value="8" required />
-
-<input type="color" name="color" value="#FF0000" />
-
-    <button id="btnOK" type='button'>OK</button>
-  </section> 
-</li>
-
-<!-- Zone pour afficher ce que JS a lu -->
-<div id="debug"></div>
-
-
-
-  </ul>
     </div>
   </body>
 </html>
