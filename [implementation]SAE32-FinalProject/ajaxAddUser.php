@@ -27,7 +27,7 @@ if (isset($data['nickname'])) {
     $nickname = $data['nickname'];
 }
 // Réponse AJAX envoyée au JavaScript
-$data = sendAjax("http://localhost/SAE32/workingTemplate/svcAddUser.php", ["firstName" => $firstName, "lastName"  => $lastName, "nickname" => $nickname]);
+$data = sendAjax("http://localhost/SAE32/[implementation]SAE32-FinalProject/svcAddUser.php", ["firstName" => $firstName, "lastName"  => $lastName, "nickname" => $nickname]);
 echo json_encode(["success" => true, "id" => $data["id"]]);
 
 ?>

@@ -2,35 +2,41 @@
 include_once('./utils.php');
 include_once('dataStorage.php');
 
+// DB open
+  include_once("./cfgDbEscape.php");
+  $db = new mysqli(DBESCAPE_HOST, DBESCAPE_LOGIN, DBESCAPE_PWD, DBESCAPE_NAME);
+  $db->set_charset("utf8");
+
 // Autoriser le contenu JSON
 header("Content-Type: application/json; charset=UTF-8");
 
-// Lire la requête JSON envoyée par le client
-$input = file_get_contents("php://input");
-$data = json_decode($input, true);
+// Data ajax from server (filtered + escaped)
+  $data = json_decode(file_get_contents('php://input'), true);
+  $firstName = NULL;
+  if (preg_match("/^[A-Za-z0-9\-]{1,20}$/", $data['firstName'])) $firstName = $db->real_escape_string($data['firstName']);
+  $lastName = NULL;
+  if (preg_match("/^[A-Za-z0-9\-]{1,20}$/", $data['lastName'])) $lastName = $db->real_escape_string($data['lastName']);
+  $nickname = NULL;
+  if (preg_match("/^[A-Za-z0-9\-]{1,20}$/", $data['nickname'])) $nickname = $db->real_escape_string($data['nickname']);
 
-$firstName=$data["firstName"];
-$lastName=$data["lastName"];
-$nickname=$data["nickname"];
+  // // Check
+  if ($firstName == NULL || $lastName == NULL || $nickname == NULL) {
+    echo json_encode([null]);
+    exit;
+  }
+  
+  // // DB close
+  $db->close();
+  
+  $idUser = DataStorage::addUser($firstName, $lastName, $nickname);
+  
+  // // Exemple de traitement
+  $response = [
+    "id" => $idUser
+  ];
+  
+  // // Renvoyer une réponse JSON
+  echo json_encode($response);
+  // echo json_encode(["id"=>"debug"]);
+  ?>
 
-$idUser=DataStorage::addUser($firstName, $lastName, $nickname);
-
-
-// Vérification d'erreur
-if ($data == null) {
-  echo json_encode([
-    null
-  ]);
-  exit;
-};
-
-
-// Exemple de traitement
-$response = [
-  "id" => $idUser
-];
-
-// Renvoyer une réponse JSON
-echo json_encode($response);
-
-?>
