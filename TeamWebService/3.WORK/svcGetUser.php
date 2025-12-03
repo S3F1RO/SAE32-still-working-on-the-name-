@@ -2,6 +2,10 @@
 include_once('./utils.php');
 include_once('dataStorage.php');
 
+// DB open
+  include_once("./cfgDb.php");
+  $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
+  $db->set_charset("utf8");
 
 // Autoriser le contenu JSON
 header("Content-Type: application/json; charset=UTF-8");
@@ -17,6 +21,8 @@ header("Content-Type: application/json; charset=UTF-8");
     exit;
   }
   
+  // DB close
+  $db->close();
   
   $responce = DataStorage::getUser($idUser);
   

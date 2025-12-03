@@ -25,11 +25,11 @@ header("Content-Type: application/json; charset=UTF-8");
   $imgUrl = NULL;
   if (preg_match("/^.{0,100}$/", $data['imgUrl'])) $imgUrl = $db->real_escape_string($data['imgUrl']);
   $color = NULL;
-  if (preg_match("/^#[A-Fa-f0-9]{6}$/", $data['color'])) $color = $db->real_escape_string($data['color']);
+  if (preg_match("/^[A-Fa-f0-9]{6}$/", $data['color'])) $color = $db->real_escape_string($data['color']);
   
 
   // Check
-  if ($idUCreator == NULL || $mainName == NULL || $subName == NULL || $domain == NULL || $level == NULL || $imgUrl == NULL || $color == NULL) {
+  if ($idUCreator == NULL || $mainName == NULL || $subName == NULL || $domain == NULL || $level == NULL || $color == NULL) {
     echo json_encode([null]);
     exit;
   }

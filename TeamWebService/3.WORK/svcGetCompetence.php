@@ -12,19 +12,19 @@ header("Content-Type: application/json; charset=UTF-8");
 
 // Data ajax from server (filtered + escaped)
   $data = json_decode(file_get_contents('php://input'), true);
-  $idSkill = NULL;
-  if (preg_match("/^[0-9]+$/", $data['idSkill'])) $idSkill = $db->real_escape_string($data['idSkill']);
+  $idCompetence = NULL;
+  if (preg_match("/^[0-9]+$/", $data['idCompetence'])) $idCompetence = $db->real_escape_string($data['idCompetence']);
   
   // Check
-  if ($idSkill == NULL) {
+  if ($idCompetence == NULL) {
     echo json_encode([null]);
     exit;
   }
-
+  
   // DB close
   $db->close();
   
-  $responce = DataStorage::getSkill($idSkill);
+  $responce = DataStorage::getUser($idCompetence);
   
   // Renvoyer une réponse JSON
   echo json_encode($responce);
