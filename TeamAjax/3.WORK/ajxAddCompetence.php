@@ -1,98 +1,71 @@
 <?php
 include_once('./utils.php');
 
-<<<<<<< HEAD
+// Vérifier si les données arrivent bien
 if (!isset($_POST['data'])) {
-    echo json_encode(["success" => false, "message" => "Aucune donnée reçue"]);
+    echo json_encode([
+        "success" => false,
+        "message" => "Aucune donnée reçue"
+    ]);
     exit();
 }
+
+// Décoder les données envoyées par le JS
 $data = json_decode($_POST['data'], true);
 
+// Vérifier que les données attendues existent
+if (!isset($data["idUTeacher"])   ||
+    !isset($data["idUStudent"])   ||
+    !isset($data["idSkill"])      ||
+    !isset($data["currentDate"])  ||
+    !isset($data["masteringLevel"])) 
+{
+    echo json_encode([
+        "success" => false,
+        "message" => "Données manquantes"
+    ]);
+    exit();
+}
+
+// Récupération des valeurs en toute sécurité
+$idUTeacher     = $data["idUTeacher"];
+$idUStudent     = $data["idUStudent"];
+$idSkill        = $data["idSkill"];
+$currentDate    = $data["currentDate"];
+$revokedDate    = $data["revokedDate"] ;
+$masteringLevel = $data["masteringLevel"]; // ⚠ bien "masteringLevel"
+
+// ----- Envoi au WebService -----
 $response = sendAjax(
     "http://localhost/SAE32/TeamAjax/3.WORK/svcAddCompetence.php",
     [
-        "idUTeacher"     => $data["idUTeacher"],
-        "idUStudent"     => $data["idUStudent"],
-        "idSkill"        => $data["idSkill"],
-        "masteringLevel" => $data["masteringLevel"],
-        "currentDate"    => $data["currentDate"]
+        "idUTeacher"     => $idUTeacher,
+        "idUStudent"     => $idUStudent,
+        "idSkill"        => $idSkill,
+        "currentDate"    => $currentDate,
+        "revokedDate"    => $revokedDate,
+        "masteringLevel" => $masteringLevel,
     ]
 );
 
-=======
-// Vérifier si on a bien reçu les données JSON
-if (!isset($_POST['data'])) {
-  echo json_encode([
-    "success" => false,
-    "message" => "Aucune donnée reçue"
-  ]);
-  exit();<?php
-include_once('./utils.php');
+// Debug si besoin :
+// echo json_encode(["debug" => $response]);
+// exit();
 
-// Vérifier si on a bien reçu les données JSON
-if (!isset($_POST['data'])) {
-  echo json_encode([
-    "success" => false,
-    "message" => "Aucune donnée reçue"
-  ]);
-  exit();
+// Vérifier la réponse du serveur
+if (!isset($response["id"])) {
+    echo json_encode([
+        "success" => false,
+        "message" => "Réponse serveur invalide",
+        "serverResponse" => $response
+    ]);
+    exit();
 }
 
-// Décoder JSON reçu depuis sendAjax()
-$data = json_decode($_POST['data'], true);
-
-// Récupération des champs envoyés par le JS
-$idUTeacher     = $data["idUTeacher"]     ?? "";
-$idUStudent     = $data["idUStudent"]     ?? "";
-$idSkill        = $data["idSkill"]        ?? "";
-$currentDate    = $data["currentDate"]    ?? "";
-$revokedDate    = $data["revokedDate"]    ?? "";
-$masteryLevel   = $data["masteryLevel"]   ?? "";
-
-// Envoi vers le webservice serveur
-$response = sendAjax(
-  "http://localhost/SAE32/SAE32-FinalProject/svcAddCompetence.php",
-  [
-    "idUTeacher"   => $idUTeacher,
-    "idUStudent"   => $idUStudent,
-    "idSkill"      => $idSkill,
-    "currentDate"  => $currentDate,
-    "revokedDate"  => $revokedDate,
-    "masteryLevel" => $masteryLevel
-  ]
-);
-
-// Retour au JS
-echo json_encode($response);
-?>
-
-}
-
-// Décoder JSON reçu depuis sendAjax()
-$data = json_decode($_POST['data'], true);
-
-// Récupération des champs envoyés par le JS
-$idUTeacher     = $data["idUTeacher"]     ?? "";
-$idUStudent     = $data["idUStudent"]     ?? "";
-$idSkill        = $data["idSkill"]        ?? "";
-$currentDate    = $data["currentDate"]    ?? "";
-$revokedDate    = $data["revokedDate"]    ?? "";
-$masteryLevel   = $data["masteryLevel"]   ?? "";
-
-// Envoi vers le webservice serveur
-$response = sendAjax(
-  "http://localhost/SAE32/TeamAjax/3.WORK/svcAddCompetence.php",
-  [
-    "idUTeacher"   => $idUTeacher,
-    "idUStudent"   => $idUStudent,
-    "idSkill"      => $idSkill,
-    "currentDate"  => $currentDate,
-    "revokedDate"  => $revokedDate,
-    "masteryLevel" => $masteryLevel
-  ]
-);
-
-// Retour au JS
->>>>>>> 780a48325fe3dd51fbf0e49766b57643e8129ff5
-echo json_encode($response);
+// Réponse finale pour le JS
+echo json_encode([
+    "success" => true,
+    "id"      => $response["id"]
+]);
+exit();
 ?>
