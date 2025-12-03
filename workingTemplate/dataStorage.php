@@ -4,7 +4,7 @@ include_once("./utils.php");
 
 class DataStorage {
     
-    static function addUser(string $firstName, string $lastName) {
+    static function addUser(string $firstName, string $lastName, string $nickname) {
         // DB open
         include_once("./cfgDb.php");
         $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
