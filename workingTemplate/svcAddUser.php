@@ -1,36 +1,36 @@
 <?php
-include_once('./utils.php');
-include_once('dataStorage.php');
+  include_once('./utils.php');
+  include_once('dataStorage.php');
 
-// Autoriser le contenu JSON
-header("Content-Type: application/json; charset=UTF-8");
+  // Allow JSON content
+  header("Content-Type: application/json; charset=UTF-8");
 
-// Lire la requête JSON envoyée par le client
-$input = file_get_contents("php://input");
-$data = json_decode($input, true);
+  // Read the JSON request sent by the client
+  $input = file_get_contents("php://input");
+  $data = json_decode($input, true);
 
-$firstName=$data["firstName"];
-$lastName=$data["lastName"];
-$nickname=$data["nickname"];
+  $firstName=$data["firstName"];
+  $lastName=$data["lastName"];
+  $nickname=$data["nickname"];
 
-$idUser=DataStorage::addUser($firstName, $lastName, $nickname);
-
-
-// Vérification d'erreur
-if ($data == null) {
-  echo json_encode([
-    null
-  ]);
-  exit;
-};
+  // adding to the database and retrieving the ID
+  $idUser=DataStorage::addUser($firstName, $lastName, $nickname);
 
 
-// Exemple de traitement
-$response = [
-  "id" => $idUser
-];
+  // Check
+  if ($data == null) {
+    echo json_encode([
+      null
+    ]);
+    exit;
+  };
 
-// Renvoyer une réponse JSON
-echo json_encode($response);
+  // Response
+  $response = [
+    "id" => $idUser
+  ];
+
+  // Send back a JSON response
+  echo json_encode($response);
 
 ?>

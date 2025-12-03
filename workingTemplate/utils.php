@@ -66,35 +66,39 @@
     exit();
   }
   function sendAjax(string $url, array $data): array {
-    // Convertir en JSON
+    // Convertion to JSON
     $jsonPayload = json_encode($data);
 
-    // Préparer cURL
+    // Prepare cURL
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonPayload);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-    // En-têtes JSON
+    // JSON Headers
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
       "Content-Type: application/json",
       "Content-Length: " . strlen($jsonPayload)
     ]);
 
-    // Exécuter la requête
+    // Run query
     $response = curl_exec($ch);
 
-    // Erreur cURL
+    // cURL error
     if ($response == false) {
       return null;
     }
 
     curl_close($ch);
 
-    // Retourner la réponse JSON décodée
+    // Return the decoded JSON response
     $decoded = json_decode($response, true);
 
-    return $decoded != null ? $decoded : null;
+    if ($decoded != null) {
+      return $decoded;
+    } else {
+      return null;
+    }
   }
 
 ?>
