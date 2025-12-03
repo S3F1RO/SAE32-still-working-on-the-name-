@@ -16,17 +16,17 @@ header("Content-Type: application/json; charset=UTF-8");
   if (preg_match("/^[0-9]+$/", $data['idSkill'])) $idSkill = $db->real_escape_string($data['idSkill']);
   $revokedDate = NULL;
   if (preg_match("/^.{0,100}$/", $data['revokedDate'])) $revokedDate = $db->real_escape_string($data['revokedDate']);
-  $masteryLevel = NULL;
-  if (preg_match("/^[0-9]+$/", $data['masteryLevel'])) $masteryLevel = $db->real_escape_string($data['masteryLevel']);
+  $masteringLevel = NULL;
+  if (preg_match("/^[0-9]+$/", $data['masteryLevel'])) $masteringLevel = $db->real_escape_string($data['masteringLevel']);
   
   // Check
-  if ($idUTeacher == NULL || $idUStudent == NULL || $idSkill == NULL || $masteryLevel == NULL) {
+  if ($idUTeacher == NULL || $idUStudent == NULL || $idSkill == NULL || $masteringLevel == NULL) {
     echo json_encode([null]);
     exit;
   }
   
   
-  $idCompetence = DataStorage::addCompetence($idUTeacher, $idUStudent, $idSkill, $revokedDate, $masteryLevel);
+  $idCompetence = DataStorage::addCompetence($idUTeacher, $idUStudent, $idSkill, $revokedDate, $masteringLevel);
   
   // Exemple de traitement
   $response = [
