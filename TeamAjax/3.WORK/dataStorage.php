@@ -27,25 +27,27 @@ class DataStorage {
     }
 
 
-    static function addSkill(string $idUCreator, string $mainName, string $subName, string $domain, int $level, string $imgUrl, string $color ) {
+    static function addSkill(string $idUCreator, string $mainName, string $subName, string $domain, int $level, string $color ) {
         // DB open
         include_once("./cfgDb.php");
         $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
         $db->set_charset("utf8");
 
         // DB insert
-        $query = "INSERT INTO tblSkills (id ,idUCreator, mainName, subName, domain, level, imgUrl, color) VALUES (NULL , '$idUCreator', '$mainName', '$subName', '$domain', '$level', '$imgUrl', '$color');";
-        $success = $db->query($query);
+        $query = "INSERT INTO tblSkills (id ,idUCreator, mainName, subName, domain, level, imgUrl, color) 
+                  VALUES (NULL , '$idUCreator', '$mainName', '$subName', '$domain', '$level', NULL, '$color')";
+        return $query;
+        // $success = $db->query($query);
 
         // Check
-        if (!$success) {
-            return false;
-        }
-        $lastInsertedId = $db->insert_id;
+        // if (!$success) {
+        //     return false;
+        // }
+        // $lastInsertedId = $db->insert_id;
 
-        $db->close();
+        // $db->close();
         
-        return $lastInsertedId;
+        // return $lastInsertedId;
         // DB close
     }
 

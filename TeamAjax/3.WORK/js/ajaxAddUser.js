@@ -17,7 +17,7 @@ $(document).ready(function(){
     sendAjax("ajaxAddUser.php", {
       firstName: firstName,
       lastName: lastName,
-      nickname:nickname,
+      nickname: nickname
     });
   });
 
@@ -31,19 +31,14 @@ function redirect(serverUrl) {
 function receiveAjax(data) {
 
   if (data['success']) {
-
-    var id = data["id"];           // récupère l'id
-    var nickname = data["nickname"]; // récupère le nickname
-
-    jQuery("body").html(
-      "ID utilisateur reçu : " + id +
-      "Nickname reçu : " + nickname
-    );
-
+    var id = data["id"];
+    jQuery("body").html("ID utilisateur reçu : " + id);
   } else {
-    // redirect("logout.php");
+    // redirect("logout.php");/
   }
-}
+};
+
+
 
 // --- Send AJAX data to server
 function sendAjax(serverUrl, data) {

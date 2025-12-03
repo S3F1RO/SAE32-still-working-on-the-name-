@@ -7,7 +7,8 @@ $(document).ready(function(){
       subName:  $("input[name='subName']").val(),
       domain:   $("input[name='domain']").val(),
       level:    $("input[name='level']").val(),
-      color:    $("input[name='color']").val()
+      color:    $("input[name='color']").val().replace(/^#/, ''),
+      idUCreator: $("input[name='idUCreator']").val()
     };
 
     console.log("Envoi AJAX :", data);

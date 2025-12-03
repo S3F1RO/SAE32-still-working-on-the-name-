@@ -2,6 +2,10 @@
 include_once('./utils.php');
 include_once('dataStorage.php');
 
+// DB open
+  include_once("./cfgDbTest.php");
+  $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
+  $db->set_charset("utf8");
 
 // Autoriser le contenu JSON
 header("Content-Type: application/json; charset=UTF-8");
@@ -11,9 +15,9 @@ header("Content-Type: application/json; charset=UTF-8");
   $idUCreator = NULL;
   if (preg_match("/^[0-9]+$/", $data['idUCreator'])) $idUCreator = $db->real_escape_string($data['idUCreator']);
   $mainName = NULL;
-  if (preg_match("/^[A-Za-z0-9\-]{1,10}$/", $data['mainName'])) $mainName = $db->real_escape_string($data['mainName']);
+  if (preg_match("/^[A-Za-z0-9]{1,10}$/", $data['mainName'])) $mainName = $db->real_escape_string($data['mainName']);
   $subName = NULL;
-  if (preg_match("/^[A-Za-z0-9\-]{1,10}$/", $data['subName'])) $subName = $db->real_escape_string($data['subName']);
+  if (preg_match("/^[A-Za-z0-9]{1,10}$/", $data['subName'])) $subName = $db->real_escape_string($data['subName']);
   $domain = NULL;
   if (preg_match("/^[A-Za-z0-9\-]{1,15}$/", $data['domain'])) $domain = $db->real_escape_string($data['domain']);
   $level = NULL;
@@ -30,6 +34,8 @@ header("Content-Type: application/json; charset=UTF-8");
     exit;
   }
   
+  // DB close
+  $db->close();
   
   $idSkill = DataStorage::addSkill($idUCreator, $mainName, $subName, $domain, $level, $imgUrl, $color);
   

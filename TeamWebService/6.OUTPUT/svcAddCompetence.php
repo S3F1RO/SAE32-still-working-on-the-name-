@@ -2,6 +2,10 @@
 include_once('./utils.php');
 include_once('dataStorage.php');
 
+// DB open
+  include_once("./cfgDbTest.php");
+  $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
+  $db->set_charset("utf8");
 
 // Autoriser le contenu JSON
 header("Content-Type: application/json; charset=UTF-8");
@@ -24,6 +28,9 @@ header("Content-Type: application/json; charset=UTF-8");
     echo json_encode([null]);
     exit;
   }
+
+  // DB close
+  $db->close();
   
   
   $idCompetence = DataStorage::addCompetence($idUTeacher, $idUStudent, $idSkill, $revokedDate, $masteringLevel);

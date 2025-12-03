@@ -13,20 +13,26 @@ if (!isset($_POST['data'])) {
 // Décoder les données envoyées par le JS
 $data = json_decode($_POST['data'], true);
 
-// Vérification minimale
-$mainName = $data["mainName"] ?? "";
-$subName  = $data["subName"] ?? "";
-$domain   = $data["domain"] ?? "";
-$level    = $data["level"] ?? "";
-$color    = $data["color"] ?? "";
-
-if ($mainName === "" || $subName === "" || $domain === "" || $level === "" || $color === "") {
+// Vérifier que toutes les données attendues existent
+if (!isset($data["mainName"]) ||
+    !isset($data["subName"])  ||
+    !isset($data["domain"])   ||
+    !isset($data["level"])    ||
+    !isset($data["color"])) 
+{
     echo json_encode([
         "success" => false,
         "message" => "Données manquantes"
     ]);
     exit();
 }
+// Récupération des valeurs en toute sécurité
+$mainName   = $data["mainName"];
+$subName    = $data["subName"];
+$domain     = $data["domain"];
+$level      = $data["level"];
+$color      = $data["color"];
+
 
 // ----- Envoi au WebService -----
 $response = sendAjax(
@@ -37,7 +43,7 @@ $response = sendAjax(
         "subName"    => $subName,
         "domain"     => $domain,
         "level"      => $level,
-        "color"      => $color
+        "color"      => $color,
     ]
 );
 

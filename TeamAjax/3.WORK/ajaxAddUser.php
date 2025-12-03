@@ -16,7 +16,6 @@ $data = json_decode($_POST['data'], true);
 // Initialiser les variables
 $firstName = NULL;
 $lastName  = NULL;
-$nickname  = NULL;
 
 if (isset($data['firstName'])) {
     $firstName = $data['firstName'];
@@ -28,7 +27,7 @@ if (isset($data['nickname'])) {
     $nickname = $data['nickname'];
 }
 // Réponse AJAX envoyée au JavaScript
-$data = sendAjax("http://localhost/SAE32/TeamAjax/3.WORK/svcAddUser.php", ["firstName" => $firstName, "lastName"  => $lastName, "nickname" => $nickname]);
-echo json_encode(["success" => true, "id" => $data["id"],"firstName"=>$data["firstName"],"nickname"=>$data["nickname"]]);
+$data = sendAjax("http://localhost/SAE32/workingTemplate/svcAddUser.php", ["firstName" => $firstName, "lastName"  => $lastName, "nickname" => $nickname]);
+echo json_encode(["success" => true, "id" => $data["id"]]);
 
 ?>
