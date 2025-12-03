@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : lun. 01 déc. 2025 à 12:28
+-- Généré le : mer. 03 déc. 2025 à 16:14
 -- Version du serveur : 11.8.3-MariaDB-0+deb13u1 from Debian
 -- Version de PHP : 8.4.11
 
@@ -50,8 +50,8 @@ DROP TABLE IF EXISTS `tblSkills`;
 CREATE TABLE `tblSkills` (
   `id` int(11) NOT NULL,
   `idUCreator` int(11) NOT NULL,
-  `mainName` varchar(10) NOT NULL,
-  `subName` varchar(10) NOT NULL,
+  `mainName` varchar(20) NOT NULL,
+  `subName` varchar(20) NOT NULL,
   `domain` varchar(15) NOT NULL,
   `level` int(11) NOT NULL,
   `imgUrl` varchar(100) DEFAULT NULL,
@@ -71,6 +71,14 @@ CREATE TABLE `tblUsers` (
   `lastName` varchar(20) NOT NULL,
   `nickname` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `tblUsers`
+--
+
+INSERT INTO `tblUsers` (`id`, `firstName`, `lastName`, `nickname`) VALUES
+(1, 'S', 'J', ''),
+(7, 'SJJJ', 'NNcdjncdnj', 'Cjfndjnfjf');
 
 --
 -- Index pour les tables déchargées
@@ -119,7 +127,7 @@ ALTER TABLE `tblSkills`
 -- AUTO_INCREMENT pour la table `tblUsers`
 --
 ALTER TABLE `tblUsers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Contraintes pour les tables déchargées

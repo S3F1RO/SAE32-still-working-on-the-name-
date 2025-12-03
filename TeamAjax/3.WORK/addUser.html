@@ -12,7 +12,7 @@
 
     <!-- JS files -->
     <script type='text/javascript' src='./js/jquery-3.7.0.min.js'></script>
-    <script type='text/javascript' src='./js/ajxAddSkill.js'></script> 
+    <script type='text/javascript' src='./js/ajaxAddUser.js'></script> 
     <!-- <script type='text/javascript' src='./js/refresh1s.js'></script> -->
     <script type='text/javascript' src='./js/web.js'></script>
 
@@ -26,7 +26,7 @@
     <link rel='icon' type='image/png' href='./medias/iut.png' />
 
     <!-- Title -->
-    <title>Skills</title>
+    <title>Client</title>
   </head>
 
 
@@ -36,25 +36,21 @@
     <!-- Wrapper -->
     <div class='wrapper'>
 
-	<h1>Add skills</h1>
-	<ul>
+				<h1>Ajouter un utilisateur</h1>
+					<ul>
 
-    <!-- éléments venant de l'AJAX -->
-
-    <!-- Champ des skills--> 
-    <li>    
-      <section>
-        <input type='text' name='mainName' placeholder='Le titre' pattern='[a-z0-9]{0,20}' required autofocus/> 
-        <input type='text' name='subName' placeholder='Sous-titre' pattern='[a-z0-9]{0,20}' required />
-        <input type='text' name='domain' placeholder='Le domain' pattern='[a-z0-9]{0,20}' required />
-        <input type= "number" min = "0" max = "8" step = "1" value = "8" required />
-        <input type= "color" value="#FF0000" />
-    		<button id= "btnOK" type='submit'> OK</button>
-      </section> 
+          </ul>
+    <!-- Champ des utilisateurs-->
+     
+    <li>
+        <input type='text' name='firstName' placeholder='Prénom' pattern='[a-z0-9]{0,20}' required autofocus/>
+        <input type='text' name='lastName' placeholder='Nom' pattern='[a-z0-9]{0,20}' required />
+        <input type='text' name='nickname' placeholder='Pseudo' pattern='[a-z0-9]{0,20}' required />
+    		<button id= "btnOK" type='submit'  > OK</button>
     </li>
 
 
-  </ul>
+
     </div>
   </body>
 </html>

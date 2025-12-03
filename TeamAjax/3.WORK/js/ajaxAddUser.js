@@ -36,7 +36,7 @@ function receiveAjax(data) {
     var nickname = data["nickname"]; // récupère le nickname
 
     jQuery("body").html(
-      "ID utilisateur reçu : " + id + "<br>" +
+      "ID utilisateur reçu : " + id +
       "Nickname reçu : " + nickname
     );
 

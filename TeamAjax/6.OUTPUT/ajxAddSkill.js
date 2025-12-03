@@ -1,69 +1,62 @@
-$(document).ready(function () {
+$(document).ready(function(){
+//==============================================================================
 
-    $("#btnAddSkill").click(function () {
+/*==============================================================================
+  Send ajax to server
+==============================================================================*/
 
-        var idUCreator = $("input[name='idUCreator']").val();
-        var mainName   = $("input[name='mainName']").val();
-        var subName    = $("input[name='subName']").val();
-        var domain     = $("select[name='domain']").val(); // MENU DÉROULANT
-        var level      = $("input[name='level']").val();
-        var imgUrl     = $("input[name='imgUrl']").val();
-        var color      = $("input[name='color']").val();
+  // On page load
 
-        var dataToSend = {
-            idUCreator: idUCreator,
-            mainName: mainName,
-            subName: subName,
-            domain: domain,
-            level: level,
-            imgUrl: imgUrl,
-            color: color
-        };
+  // On click OK button
+  jQuery("body").on("click", "#btnOK", function() {
 
-        sendAjax("ajxAddSkill.php", dataToSend);
+    var mainName = jQuery("input[name='mainName']").val();
+    var subName  = jQuery("input[name='subName']").val();
+    var domain  = jQuery("input[name='domain']").val();
+    var number  = jQuery("input[name='number']").val();
+    var color  = jQuery("input[name='color']").val();
+
+    sendAjax("ajaxAddSkill.php", {
+      mainName: mainName,
+      subName: subName,
+      domain:domain,
+      number:number,
+      color:color,
     });
+  });
 
+/*==============================================================================
+  Receive ajax
+==============================================================================*/
+function redirect(serverUrl) {
+  window.location.href = serverUrl;
+}
 
-    function sendAjax(serverUrl, data) {
+function receiveAjax(data) {
 
-        var jsonData = JSON.stringify(data);
+  if (data['success']) {
 
-        $.ajax({
-            type: 'POST',
-            url: serverUrl,
-            dataType: 'json',
-            data: "data=" + jsonData,
+    var id = data["id"];           // récupère l'id
+    var nickname = data["nickname"]; // récupère le nickname
 
-            success: function (response) {
-                receiveAjax(response);
-            },
+    jQuery("body").html(
+      "ID utilisateur reçu : " + id +
+      "Nickname reçu : " + nickname
+    );
 
-            error: function (xhr, status, error) {
-                console.log("Erreur AJAX :", error);
-                $("body").html("<span style='color: red;'>Erreur AJAX</span>");
-            }
-        });
-    }
+  } else {
+    // redirect("logout.php");
+  }
+}
 
-
-    function receiveAjax(data) {
-
-        console.log("Réponse serveur :", data);
-
-        if (data.success === true) {
-
-            $("body").html(
-                "<b>Skill ajouté avec succès !</b><br>" +
-                "ID Skill : " + data.id + "<br>" +
-                "Nom principal : " + data.mainName
-            );
-
-        } else {
-
-            $("body").html(
-                "<span style='color:red;'>Erreur : " + data.message + "</span>"
-            );
-        }
-    }
-
+// --- Send AJAX data to server
+function sendAjax(serverUrl, data) {
+  jsonData = JSON.stringify(data);
+    jQuery.ajax({type: 'POST', url: serverUrl, dataType: 'json', data: "data=" + jsonData,
+      success: function(data) {
+        receiveAjax(data);
+      }
+    });
+  }
+  
 });

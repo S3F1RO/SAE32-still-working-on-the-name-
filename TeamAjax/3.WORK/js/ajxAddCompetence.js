@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $("#btnOk").click(function () {
+    $("#btnAddCompetence").click(function () {
 
         var idUTeacher     = $("select[name='idUTeacher']").val();
         var idUStudent     = $("select[name='idUStudent']").val();
