@@ -15,9 +15,9 @@ $(document).ready(function(){
     var nickname  = jQuery("input[name='nickname']").val();
 
     sendAjax("ajaxAddUser.php", {
-      firstName: firstName,
-      lastName: lastName,
-      nickname: nickname
+      'firstName': firstName,
+      'lastName': lastName,
+      'nickname': nickname
     });
   });
 
@@ -29,12 +29,11 @@ function redirect(serverUrl) {
 }
 
 function receiveAjax(data) {
-
   if (data['success']) {
     var id = data["id"];
     jQuery("body").html("ID utilisateur reçu : " + id);
   } else {
-    // redirect("logout.php");/
+    alert("Error");
   }
 };
 
@@ -43,11 +42,11 @@ function receiveAjax(data) {
 // --- Send AJAX data to server
 function sendAjax(serverUrl, data) {
   jsonData = JSON.stringify(data);
-    jQuery.ajax({type: 'POST', url: serverUrl, dataType: 'json', data: "data=" + jsonData,
-      success: function(data) {
-        receiveAjax(data);
-      }
-    });
-  }
+  jQuery.ajax({type: 'POST', url: serverUrl, dataType: 'json', data: "data=" + jsonData,
+    success: function(data) {
+      receiveAjax(data);
+    }
+  });
+}
   
 });

@@ -12,7 +12,7 @@
 
     <!-- JS files -->
     <script type='text/javascript' src='./js/jquery-3.7.0.min.js'></script>
-    <script type='text/javascript' src='./js/ajaxAddUser.js'></script> 
+    <script type='text/javascript' src='./js/ajxDisplayBadges.js'></script> 
     <!-- <script type='text/javascript' src='./js/refresh1s.js'></script> -->
     <script type='text/javascript' src='./js/web.js'></script>
 
@@ -26,31 +26,22 @@
     <link rel='icon' type='image/png' href='./medias/iut.png' />
 
     <!-- Title -->
-    <title>Client</title>
+    <title>Compétence</title>
   </head>
 
 
 
-  <!-- Body -->
-  <body>
-    <!-- Wrapper -->
-    <div class='wrapper'>
+<?php 
+    include_once("./utils.php");
+    include_once("./params.php");
+    echo $_GET['idC'];
+    if (isset($_GET['idC'])) {
+        $idCompetences=explode(",",$_GET['idC']);
+        sendAjax("$URL.svcGetCompetences.php",$idCompetences);
+    }
+    else if (isset($_GET['idS'])) {
+        $idCompetences=explode(",",$_GET['idS']);
+        sendAjax("$URL.svcGetCompetences.php",$idCompetences);;
 
-				<h1>Ajouter un utilisateur</h1>
-					<ul>
-
-          </ul>
-    <!-- Champ des utilisateurs-->
-     
-    <li>
-        <input type='text' name='firstName' placeholder='Nom' pattern='[a-z0-9]{0,20}' required autofocus/>
-        <input type='text' name='lastName' placeholder='Prénom' pattern='[a-z0-9]{0,20}' required />
-        <input type='text' name='nickname' placeholder='Surnom' pattern='[a-z0-9]{0,20}' required />
-    		<button id= "btnOK" type='submit'> OK</button>
-    </li>
-
-
-
-    </div>
-  </body>
-</html>
+    } 
+?>
