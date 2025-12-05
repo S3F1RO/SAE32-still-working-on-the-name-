@@ -4,6 +4,6 @@
   define("DBESCAPE_HOST", "localhost");
   define("DBESCAPE_LOGIN", "root");
   define("DBESCAPE_PWD", "root");
-  define("DBESCAPE_NAME", "dbTest");
+  define("DBESCAPE_NAME", "dbEscape");
   
 ?>

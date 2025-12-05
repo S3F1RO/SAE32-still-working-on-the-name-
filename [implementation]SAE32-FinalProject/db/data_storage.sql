@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mer. 03 déc. 2025 à 16:14
+-- Généré le : mer. 03 déc. 2025 à 20:46
 -- Version du serveur : 11.8.3-MariaDB-0+deb13u1 from Debian
 -- Version de PHP : 8.4.11
 
@@ -18,10 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `sae32Final`
+-- Base de données : `data_storage`
 --
-CREATE DATABASE IF NOT EXISTS `sae32Final` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `sae32Final`;
+CREATE DATABASE IF NOT EXISTS `data_storage` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `data_storage`;
 
 -- --------------------------------------------------------
 
@@ -36,9 +36,21 @@ CREATE TABLE `tblCompetences` (
   `idUStudent` int(11) NOT NULL,
   `idSkill` int(11) NOT NULL,
   `currentDate` timestamp NOT NULL,
-  `revokedDate` timestamp NOT NULL,
+  `revokedDate` timestamp NULL DEFAULT NULL,
   `masteringLevel` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `tblCompetences`
+--
+
+INSERT INTO `tblCompetences` (`id`, `idUTeacher`, `idUStudent`, `idSkill`, `currentDate`, `revokedDate`, `masteringLevel`) VALUES
+(1, 7, 1, 3, '2025-12-01 12:50:00', NULL, 4),
+(2, 3, 3, 1, '2025-12-01 12:50:00', '2025-12-01 12:50:00', 0),
+(3, 1, 2, 2, '2025-12-01 12:50:00', NULL, 2),
+(4, 7, 4, 2, '2025-12-01 12:50:00', '2027-07-01 03:00:00', 1),
+(5, 7, 5, 2, '2025-12-01 12:50:00', '2027-07-01 03:00:00', 1),
+(6, 7, 6, 2, '2025-12-01 12:50:00', '2025-12-01 12:50:00', 1);
 
 -- --------------------------------------------------------
 
@@ -57,6 +69,15 @@ CREATE TABLE `tblSkills` (
   `imgUrl` varchar(100) DEFAULT NULL,
   `color` varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `tblSkills`
+--
+
+INSERT INTO `tblSkills` (`id`, `idUCreator`, `mainName`, `subName`, `domain`, `level`, `imgUrl`, `color`) VALUES
+(1, 7, 'PHP', 'requêtes SQL', 'Web', 0, NULL, 'e4bd52'),
+(2, 7, 'PHP', '', 'Programmation', 1, NULL, 'e4bd52'),
+(3, 1, 'Full-stack', '', 'SAE32', 8, NULL, '00ccff');
 
 -- --------------------------------------------------------
 
@@ -77,8 +98,13 @@ CREATE TABLE `tblUsers` (
 --
 
 INSERT INTO `tblUsers` (`id`, `firstName`, `lastName`, `nickname`) VALUES
-(1, 'S', 'J', ''),
-(7, 'SJJJ', 'NNcdjncdnj', 'Cjfndjnfjf');
+(1, 'Lucas', 'Douez Ribal', 'lulupro973'),
+(2, 'Benjamin', 'Macabou', 'Splenchy'),
+(3, 'Sulyvan', 'Papaya', 'sheyboiii972'),
+(4, 'Kinberly', 'Lauristin', 'Kini'),
+(5, 'Myindia', 'Joseph', 'MJ'),
+(6, 'Stanley', 'Talent', 'Le S'),
+(7, 'Vivien', 'Robinet', 'vone');
 
 --
 -- Index pour les tables déchargées
@@ -115,19 +141,19 @@ ALTER TABLE `tblUsers`
 -- AUTO_INCREMENT pour la table `tblCompetences`
 --
 ALTER TABLE `tblCompetences`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pour la table `tblSkills`
 --
 ALTER TABLE `tblSkills`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `tblUsers`
 --
 ALTER TABLE `tblUsers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Contraintes pour les tables déchargées
