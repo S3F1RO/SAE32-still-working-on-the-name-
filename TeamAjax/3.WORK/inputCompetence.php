@@ -12,7 +12,7 @@
 
     <!-- JS files -->
     <script type='text/javascript' src='./js/jquery-3.7.0.min.js'></script>
-    <script type='text/javascript' src='./js/ajax.js'></script> 
+    <script src="./js/ajxInputCompetence.js"></script>
     <!-- <script type='text/javascript' src='./js/refresh1s.js'></script> -->
     <script type='text/javascript' src='./js/web.js'></script>
 
@@ -26,39 +26,18 @@
     <link rel='icon' type='image/png' href='./medias/iut.png' />
 
     <!-- Title -->
-    <title>Compétence</title>
+    <title>Client</title>
   </head>
 
 
 
   <!-- Body -->
-  <body>
-    <!-- Wrapper -->
-    <div class='wrapper'>
+<body>
 
-				<h1>Add Compétence</h1>
-					<ul>
+<h2>Entrer un ID de compétence</h2>
 
-          </ul>
-    <!-- Champ des utilisateurs-->
-     
-    <li>
-      <article>
-   
-        <input type = "date" min = "2025" max = "2047" required />
-        <input type = "date" min = "2025" max = "2047" required />
-       
-      <select size = " 1 " >
-        <option value = " v1 " > Comprise </option>
-        <option value = " v2 " > Acquise </option>
-        <option value = " v3 " > Maîtrisée </option>
-        <option value= " v4 " selected> Enseignée </option>
-      </select >
-        <button id= "btnOK" type='submit'  > OK</button>
+<input type="text" name="idCompetence" placeholder="Ex : 5" />
+<button id="btnOK">OK</button>
 
-      </article>
-    </li>
-
-    </div>
-  </body>
+</body>
 </html>

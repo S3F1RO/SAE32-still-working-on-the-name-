@@ -3,7 +3,7 @@
 include_once("./utils.php");
 
 class DataStorage {
-    
+    //ADD User
     static function addUser(string $firstName, string $lastName, string $nickname) {
         // DB open
         include_once("./cfgDb.php");
@@ -26,7 +26,7 @@ class DataStorage {
         // DB close
     }
 
-
+    //ADD Skill
     static function addSkill(string $idUCreator, string $mainName, string $subName, string $domain, int $level, string $imgUrl, string $color ) {
         // DB open
         include_once("./cfgDb.php");
@@ -49,7 +49,7 @@ class DataStorage {
         // DB close
     }
 
-    #Il faut récup la currenDate
+    //ADD Competence
     static function addCompetence(string $idUTeacher, string $idUStudent, string $idSkill, string $revokedDate, int $masteryLevel) {
         // DB open
         include_once("./cfgDb.php");
@@ -93,7 +93,9 @@ class DataStorage {
         }
         return false;
     }
-    static function getUser($idUser) {
+
+    //GET User infos from idUser
+    static function getUser($idUser) { 
             
         // DB open
         include_once("./cfgDb.php");
@@ -107,8 +109,7 @@ class DataStorage {
 
         // Check
         if ($numRows == 0) {
-            header("Location: logout.php");
-            exit();
+            return NULL;
         }
 
         $data = [];
@@ -123,8 +124,8 @@ class DataStorage {
         return $data;
         // DB close
     }
-
-    static function getSkill($idSkill) {
+    //Gets skill infos from idSkill
+    static function getSkill($idSkill) {    
         // DB open
         include_once("./cfgDb.php");
         $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
@@ -137,8 +138,7 @@ class DataStorage {
         
         // Check
         if ($numRows == 0) {
-            header("Location: logout.php");
-            exit();
+            return NULL;
         }
 
         // Data from DB
@@ -155,8 +155,8 @@ class DataStorage {
         return $data;
         // DB close
     }
-
-    static function getCompetence($idCompetence) {
+    //GET Comptence infos from idCompetence
+    static function getCompetence($idCompetence) {  //Gets competence infos from if idCompetence
 
         // DB open
         include_once("./cfgDb.php");
@@ -170,8 +170,7 @@ class DataStorage {
 
         // Check
         if ($numRows == 0) {
-            header("Location: logout.php");
-            exit();
+            return NULL;
         }
 
         // Data from DB
@@ -187,32 +186,191 @@ class DataStorage {
         return $data;
         // DB close
     }
-
-    static getSkillCreator($idSkill){
+    //GET skill creator infos from idSkill
+    static function getSkillCreator($idSkill) {  // Get skill's creator infos from idSKill
         // DB open
         include_once("./cfgDb.php");
         $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
         $db->set_charset("utf8");
         
         // DB select
-        $query = "SELECT idUSer FROM tbl WHERE id = '$idCompetence';";
+        $query = "SELECT idUCreator, mainName, subName, domain, level, imgUrl, color 
+            FROM `tblCompetences` as competence
+            INNER JOIN tblSkills as skill ON competence.idSkill = skill.id 
+            WHERE competence.id = 14 AND skill.id = competence.idSkill;";
         $result = $db->query($query);
         $numRows = $result->num_rows;
 
         // Check
         if ($numRows == 0) {
-            header("Location: logout.php");
-            exit();
+            return NULL;
         }
 
         // Data from DB
         while ($row = $result->fetch_assoc()) {
-            $data['idUteacher'] = $row['idUTeacher'];
-            $data['idUStudent'] = $row['idUStudent'];
-            $data['idSkill'] = $row['idSkill'];
-            $data['currentDate'] = $row['currentDate'];
-            $data['revokedDate'] = $row['revokedDate'];
-            $data['masteringLevel'] = $row['masteringLevel'];
+            $data['firstName'] = $row['firstName'];
+            $data['lastName'] = $row['lastName'];
+            $data['nickname'] = $row['nickname'];
+        }
+        $result->close();
+        return $data;
+        // DB close
+    }
+    // GET Competence skills infos from idCompetence
+    static function getCompetenceSkill($idCompetence){
+        // DB open
+        include_once("./cfgDb.php");
+        $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
+        $db->set_charset("utf8");
+        
+        // DB select
+        $query = "SELECT idUCreator, mainName, subName, domain, level, imgUrl, color 
+            FROM `tblCompetences` as competence
+            INNER JOIN tblSkills as skill ON competence.idSkill = skill.id 
+            WHERE competence.id = $idCompetence;";
+            
+        $result = $db->query($query);
+        $numRows = $result->num_rows;
+
+        // Check
+        if ($numRows == 0) {
+            return NULL;
+        }
+
+        // Data from DB
+        while ($row = $result->fetch_assoc()) {
+            $data['idUCreator'] = $row['idUCreator'];
+            $data['mainName'] = $row['mainName'];
+            $data['subName'] = $row['subName'];
+            $data['domain'] = $row['domain'];
+            $data['level'] = $row['level'];
+            $data['imgUrl'] = $row['imgUrl'];
+            $data['color'] = $row['color'];
+        }
+        $result->close();
+        return $data;
+        // DB close
+    }
+    
+    static function getCompetenceTeacher($idCompetence){
+        // DB open
+        include_once("./cfgDb.php");
+        $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
+        $db->set_charset("utf8");
+        
+        // DB select
+        $query = "SELECT firstName, lastName, nickname
+            FROM `tblCompetences` as competence
+            INNER JOIN tblUsers as user ON competence.idUTeacher = user.id 
+            WHERE competence.id = $idCompetence;";
+            
+        $result = $db->query($query);
+        $numRows = $result->num_rows;
+
+        // Check
+        if ($numRows == 0) {
+            return NULL;
+        }
+
+        // Data from DB
+        while ($row = $result->fetch_assoc()) {
+            $data['firstName'] = $row['firstName'];
+            $data['lastName'] = $row['lastName'];
+            $data['nickname'] = $row['nickname'];
+        }
+        $result->close();
+        return $data;
+        // DB close
+    }
+
+    static function getCompetenceStudent($idCompetence){
+        // DB open
+        include_once("./cfgDb.php");
+        $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
+        $db->set_charset("utf8");
+        
+        // DB select
+        $query = "SELECT firstName, lastName, nickname
+            FROM `tblCompetences` as competence
+            INNER JOIN tblUsers as user ON competence.idUStudent = user.id 
+            WHERE competence.id = $idCompetence ;";
+            
+        $result = $db->query($query);
+        $numRows = $result->num_rows;
+
+        // Check
+        if ($numRows == 0) {
+            return NULL;
+        }
+
+        // Data from DB
+        while ($row = $result->fetch_assoc()) {
+            $data['firstName'] = $row['firstName'];
+            $data['lastName'] = $row['lastName'];
+            $data['nickname'] = $row['nickname'];
+        }
+        $result->close();
+        return $data;
+        // DB close
+    }
+
+    static function getCompetenceCreator($idCompetence){
+        // DB open
+        include_once("./cfgDb.php");
+        $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
+        $db->set_charset("utf8");
+        
+        // DB select
+        $query = "SELECT firstName, lastName, nickname
+                FROM `tblCompetences` as competence
+                INNER JOIN tblSkills as skill ON competence.idSkill = skill.id 
+                INNER JOIN tblUsers as user ON skill.idUCreator = user.id
+                WHERE competence.id = $idCompetence;";
+            
+        $result = $db->query($query);
+        $numRows = $result->num_rows;
+
+        // Check
+        if ($numRows == 0) {
+            return NULL;
+        }
+
+        // Data from DB
+        while ($row = $result->fetch_assoc()) {
+            $data['firstName'] = $row['firstName'];
+            $data['lastName'] = $row['lastName'];
+            $data['nickname'] = $row['nickname'];
+        }
+        $result->close();
+        return $data;
+        // DB close
+    }
+
+    static function getStudentCompetences($idStudent){
+        // DB open
+        include_once("./cfgDb.php");
+        $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
+        $db->set_charset("utf8");
+        
+        // DB select
+        $query = "SELECT idUTeacher, idSkill, currentDate, revokedDate, masteringLevel
+                FROM `tblUsers` as user
+                INNER JOIN tblCompetences as competence ON user.id = competence.idUStudent 
+                WHERE competence.id = $idCompetence;";
+            
+        $result = $db->query($query);
+        $numRows = $result->num_rows;
+
+        // Check
+        if ($numRows == 0) {
+            return NULL;
+        }
+
+        // Data from DB
+        while ($row = $result->fetch_assoc()) {
+            $data['firstName'] = $row['firstName'];
+            $data['lastName'] = $row['lastName'];
+            $data['nickname'] = $row['nickname'];
         }
         $result->close();
         return $data;
