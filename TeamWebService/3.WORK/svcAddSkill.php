@@ -3,8 +3,8 @@
   include_once('./dataStorage.php');
 
   // DB open
-  include_once("./cfgDbTest.php");
-  $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
+  include_once("./cfgDbEscape.php");
+  $db = new mysqli(DBESCAPE_HOST, DBESCAPE_LOGIN, DBESCAPE_PWD, DBESCAPE_NAME);
   $db->set_charset("utf8");
 
   // Allow JSON content
@@ -16,11 +16,11 @@
   $idUCreator = NULL;
   if (preg_match("/^[0-9]+$/", $data['idUCreator'])) $idUCreator = $db->real_escape_string($data['idUCreator']);
   $mainName = NULL;
-  if (preg_match("/^[A-Za-z0-9\-\_]{1,20}$/", $data['mainName'])) $mainName = $db->real_escape_string($data['mainName']);
+  if (preg_match("/^[A-Za-z0-9\- ]{1,20}$/", $data['mainName'])) $mainName = $db->real_escape_string($data['mainName']);
   $subName = NULL;
-  if (preg_match("/^[A-Za-z0-9\-\_]{1,20}$/", $data['subName'])) $subName = $db->real_escape_string($data['subName']);
+  if (preg_match("/^[A-Za-z0-9\- ]{1,20}$/", $data['subName'])) $subName = $db->real_escape_string($data['subName']);
   $domain = NULL;
-  if (preg_match("/^[A-Za-z0-9\-\_]{1,15}$/", $data['domain'])) $domain = $db->real_escape_string($data['domain']);
+  if (preg_match("/^[A-Za-z0-9\- ]{1,15}$/", $data['domain'])) $domain = $db->real_escape_string($data['domain']);
   $level = NULL;
   if (preg_match("/^[0-9]+$/", $data['level'])) $level = $db->real_escape_string($data['level']);
   $imgUrl = NULL;

@@ -3,8 +3,8 @@ include_once('./utils.php');
 include_once('dataStorage.php');
 
 // DB open
-  include_once("./cfgDbTest.php");
-  $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
+  include_once("./cfgDbEscape.php");
+  $db = new mysqli(DBESCAPE_HOST, DBESCAPE_LOGIN, DBESCAPE_PWD, DBESCAPE_NAME);
   $db->set_charset("utf8");
 
 // Allow JSON content
