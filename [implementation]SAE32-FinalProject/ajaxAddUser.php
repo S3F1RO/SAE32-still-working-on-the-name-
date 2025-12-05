@@ -1,6 +1,5 @@
 <?php
 include_once('./utils.php');
-include_once('./params.php');
 
 // Vérifier si on a reçu des données
 if (!isset($_POST['data'])) {
@@ -28,7 +27,7 @@ if (isset($data['nickname'])) {
     $nickname = $data['nickname'];
 }
 // Réponse AJAX envoyée au JavaScript
-$data = sendAjax(URL, ["firstName" => $firstName, "lastName"  => $lastName, "nickname" => $nickname]);
+$data = sendAjax("http://localhost/SAE32/[implementation]SAE32-FinalProject/svcAddUser.php", ["firstName" => $firstName, "lastName"  => $lastName, "nickname" => $nickname]);
 echo json_encode(["success" => true, "id" => $data["id"]]);
 
 ?>

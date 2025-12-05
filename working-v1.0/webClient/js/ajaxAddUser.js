@@ -14,18 +14,10 @@ $(document).ready(function(){
     var lastName  = jQuery("input[name='lastName']").val();
     var nickname  = jQuery("input[name='nickname']").val();
 
-
-    ///FILTREEEEE
-    
-//     if (!firstName.checkValidity() || !lastName.checkValidity() || !nickname.checkValidity()) {
-//     alert("Format invalide");
-//     return;
-// }
-
     sendAjax("ajaxAddUser.php", {
-      firstName: firstName,
-      lastName: lastName,
-      nickname: nickname
+      'firstName': firstName,
+      'lastName': lastName,
+      'nickname': nickname
     });
   });
 
@@ -38,19 +30,23 @@ function redirect(serverUrl) {
 
 function receiveAjax(data) {
   if (data['success']) {
-    redirect("addSkill.html");
+    var id = data["id"];
+    jQuery("body").html("ID utilisateur reçu : " + id);
   } else {
-    alert(data['message'] || "Erreur inconnue");
+    alert("Error");
   }
 };
+
+
+
 // --- Send AJAX data to server
 function sendAjax(serverUrl, data) {
   jsonData = JSON.stringify(data);
-    jQuery.ajax({type: 'POST', url: serverUrl, dataType: 'json', data: "data=" + jsonData,
-      success: function(data) {
-        receiveAjax(data);
-      }
-    });
-  }
+  jQuery.ajax({type: 'POST', url: serverUrl, dataType: 'json', data: "data=" + jsonData,
+    success: function(data) {
+      receiveAjax(data);
+    }
+  });
+}
   
 });

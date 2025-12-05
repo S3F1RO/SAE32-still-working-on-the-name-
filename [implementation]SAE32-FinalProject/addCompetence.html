@@ -26,7 +26,7 @@
     <link rel='icon' type='image/png' href='./medias/iut.png' />
 
     <!-- Title -->
-    <title>Client</title>
+    <title>Compétence</title>
   </head>
 
 
@@ -36,20 +36,28 @@
     <!-- Wrapper -->
     <div class='wrapper'>
 
-				<h1>Ajouter un utilisateur</h1>
+				<h1>Add Compétence</h1>
 					<ul>
 
           </ul>
     <!-- Champ des utilisateurs-->
      
     <li>
-        <input type='text' name='firstName' placeholder='Nom' pattern='[a-z0-9]{0,20}' required autofocus/>
-        <input type='text' name='lastName' placeholder='Prénom' pattern='[a-z0-9]{0,20}' required />
-        <input type='text' name='nickname' placeholder='Surnom' pattern='[a-z0-9]{0,20}' required />
-    		<button id= "btnOK" type='submit'> OK</button>
+      <article>
+   
+        <input type = "date" min = "2025" max = "2047" required />
+        <input type = "date" min = "2025" max = "2047" required />
+       
+      <select size = " 1 " >
+        <option value = " v1 " > Comprise </option>
+        <option value = " v2 " > Acquise </option>
+        <option value = " v3 " > Maîtrisée </option>
+        <option value= " v4 " selected> Enseignée </option>
+      </select >
+        <button id= "btnOK" type='submit'  > OK</button>
+
+      </article>
     </li>
-
-
 
     </div>
   </body>

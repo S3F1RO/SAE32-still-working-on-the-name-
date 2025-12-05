@@ -36,7 +36,7 @@ $color      = $data["color"];
 
 // ----- Envoi au WebService -----
 $response = sendAjax(
-    "http://localhost/SAE32/TeamAjax/3.WORK/svcAddSkill.php",
+    "http://localhost/SAE32/[implementation]SAE32-FinalProject/svcAddSkill.php",
     [
         "idUCreator" => 1,
         "mainName"   => $mainName,

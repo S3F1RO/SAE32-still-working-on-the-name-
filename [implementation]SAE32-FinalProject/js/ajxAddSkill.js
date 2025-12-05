@@ -7,7 +7,7 @@ $(document).ready(function(){
       subName:  $("input[name='subName']").val(),
       domain:   $("input[name='domain']").val(),
       level:    $("input[name='level']").val(),
-      color:    $("input[name='color']").val().replace(/^#/, ''),
+      color:    $("input[type='color']").val().substring(1),
       idUCreator: $("input[name='idUCreator']").val()
     };
 
