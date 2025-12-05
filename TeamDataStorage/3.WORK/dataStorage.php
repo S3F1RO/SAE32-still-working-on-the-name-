@@ -361,10 +361,9 @@ class DataStorage {
         $db->set_charset("utf8");
         
         // DB select
-        $query = "SELECT firstName, lastName, nickname
-                FROM `tblCompetences` as competence
-                INNER JOIN tblSkills as skill ON competence.idSkill = skill.id 
-                INNER JOIN tblUsers as user ON skill.idUCreator = user.id
+        $query = "SELECT idUTeacher, idSkill, currentDate, revokedDate, masteringLevel
+                FROM `tblUsers` as user
+                INNER JOIN tblCompetences as competence ON user.id = competence.idUStudent 
                 WHERE competence.id = $idCompetence;";
             
         $result = $db->query($query);
