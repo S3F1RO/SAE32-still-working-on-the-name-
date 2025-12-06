@@ -11,7 +11,7 @@ class DataStorage {
         $db->set_charset("utf8");
 
         // DB insert
-        $query = "INSERT INTO tblUsers (id ,firstName, lastName, nickname) VALUES (NULL , '$firstName', '$lastName', '$nickname');";
+        $query = "INSERT INTO tblUsers (id ,firstName, lastName, nickname) VALUES (NULL, '$firstName', '$lastName', '$nickname');";
         $success = $db->query($query);
         
         // Check

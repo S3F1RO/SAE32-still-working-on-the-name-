@@ -1,5 +1,5 @@
 
-<!-- if u wana test blud -->
+<!-- if u wana test blud just pass to .php -->
 
 <!-- <?php
 
