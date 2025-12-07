@@ -101,5 +101,9 @@
       return null;
     }
   }
+  function debug($debugItem) {
+    echo json_encode(["debug"=>"fonctionnel","requiredItem"=>$debugItem]);
+    exit();
+  }
 
 ?>

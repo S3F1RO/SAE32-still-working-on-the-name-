@@ -34,7 +34,7 @@
   $data = ["idSkill" => $idSkill, "idUTeacher" => $idUTeacher, "idUStudent" => $idUStudent, "revokedDate" => $revokedDate, "masteringLevel" => $masteringLevel];
 
   // ----- Envoi au WebService -----
-
+  // debug();
   $response = sendAjax($URL . "svcAddCompetence.php", $data);
 
   // Debug si besoin :
