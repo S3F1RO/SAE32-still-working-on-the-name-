@@ -1,108 +1,47 @@
 <?php
-include_once('./utils.php');
 
-// Vérifier si les données arrivent bien
-if (!isset($_POST['data'])) {
-    echo json_encode([
-        "success" => false,
-        "message" => "Aucune donnée reçue"
-    ]);
+  include_once('./utils.php');
+  include_once('./params.php');
+  
+  // Data from session
+  session_start();
+  $idUTeacher = NULL;
+  if (isset($_SESSION['idUser'])) $idUTeacher = $_SESSION['idUser'];
+
+  // Check
+  if ($idUTeacher == NULL) {
+    header("Location: logout.php");
     exit();
+  }
+
+  $html = "<span>Information(s) incorrecte(s)</span>";
+
+  if (isset($_POST['data'])) $data = json_decode($_POST['data'], true);
+  $idSkill = NULL;
+  if (preg_match("/^[0-9]+$/", $data['idSkill'])) $idSkill = $data['idSkill'];
+  $idUStudent = NULL;
+  if (preg_match("/^[0-9]+$/", $data['idUStudent'])) $idUStudent = $data['idUStudent'];
+  $masteringLevel = NULL;
+  if (preg_match("/^[0-9]$/", $data['masteringLevel'])) $masteringLevel = $data['masteringLevel'];
+  $revokedDate = NULL;
+  if (preg_match("/^[0-9\-]{10}$/", $data['revokedDate'])) $revokedDate = $data['revokedDate'];
+
+  // Check
+  if ($idUStudent == NULL || $masteringLevel == NULL || $idSkill == NULL) {
+    echo json_encode(["success"=>false, 'html'=>$html]);
+    exit();
+  }
+  
+  $data = ["idSkill" => $idSkill, "idUTeacher" => $idUTeacher, "idUStudent" => $idUStudent, "revokedDate" => $revokedDate, "masteringLevel" => $masteringLevel];
+
+    // ----- Send to WebService -----
+  $response = sendAjax($URL . "svcAddCompetence.php", $data);
+
+   // Check the server response
+if (!isset($response["id"]) || $response["id"] == NULL) {
+  fail(NULL, NULL, $html);
 }
 
-// Décoder les données envoyées par le JS
-$data = json_decode($_POST['data'], true);
-
-// Vérifier que les données attendues existent
-if (!isset($data["idUTeacher"])   ||
-    !isset($data["idUStudent"])   ||
-    !isset($data["idSkill"])      ||
-    !isset($data["currentDate"])  ||
-    !isset($data["masteringLevel"])) 
-{
-    echo json_encode([
-        "success" => false,
-        "message" => "Données manquantes"
-    ]);
-    exit();
-}
-
-// Récupération des valeurs en toute sécurité
-$idUTeacher     = $data["idUTeacher"];
-$idUStudent     = $data["idUStudent"];
-$idSkill        = $data["idSkill"];
-$currentDate    = $data["currentDate"];
-$revokedDate    = $data["revokedDate"] ;
-$masteringLevel = $data["masteringLevel"]; 
-
-
-
-// =========================
-//   FILTRES 
-// =========================
-
-// idUTeacher : chiffres uniquement
-// if (!preg_match("/^[0-9]+$/", $idUTeacher)) {
-//     echo json_encode(["success" => false, "message" => "idUTeacher invalide"]);
-//     exit();
-// }
-
-// // idUStudent : chiffres uniquement
-// if (!preg_match("/^[0-9]+$/", $idUStudent)) {
-//     echo json_encode(["success" => false, "message" => "idUStudent invalide"]);
-//     exit();
-// }
-
-// // idSkill : chiffres uniquement
-// if (!preg_match("/^[0-9]+$/", $idSkill)) {
-//     echo json_encode(["success" => false, "message" => "idSkill invalide"]);
-//     exit();
-// }
-
-// // revokedDate : max 100 caractères
-// if (!preg_match("/^.{0,100}$/", $revokedDate)) {
-//     echo json_encode(["success" => false, "message" => "revokedDate invalide"]);
-//     exit();
-// }
-
-// // masteringLevel : chiffres uniquement
-// if (!preg_match("/^[0-9]+$/", $masteringLevel)) {
-//     echo json_encode(["success" => false, "message" => "masteringLevel invalide"]);
-//     exit();
-// }
-
-
-// ----- Envoi au WebService -----
-$response = sendAjax(
-    "http://localhost/SAE32/TeamAjax/3.WORK/svcAddCompetence.php",
-    [
-        "idUTeacher"     => $idUTeacher,
-        "idUStudent"     => $idUStudent,
-        "idSkill"        => $idSkill,
-        "currentDate"    => $currentDate,
-        "revokedDate"    => $revokedDate,
-        "masteringLevel" => $masteringLevel,
-    ]
-);
-
-// Debug si besoin :
-// echo json_encode(["debug" => $response]);
-// exit();
-
-// Vérifier la réponse du serveur
-if (!isset($response["id"])) {
-    echo json_encode([
-        "success" => false,
-        "message" => "Réponse serveur invalide",
-        "serverResponse" => $response
-    ]);
-    exit();
-}
-
-// Réponse finale pour le JS
-echo json_encode([
-    "success" => true,
-    "id"      => $response["id"]
-]);
-exit();
+  // Final response for JS
+ success(NULL, NULL, NULL, NULL, ["id" => $response["id"]]);
 ?>

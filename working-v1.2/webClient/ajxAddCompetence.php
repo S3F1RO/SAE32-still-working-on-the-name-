@@ -36,4 +36,6 @@
 
   success(["idCompetence"=> $data["idCompetence"]]);
 
+  // Final response for JS
+ success(NULL, NULL, NULL, NULL, ["id" => $response["id"]]);
 ?>
