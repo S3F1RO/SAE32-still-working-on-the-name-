@@ -44,11 +44,11 @@ function redirect(serverUrl) {
 function receiveAjax(data) {
 
   if (data['success']) {
-    var id = data["id"];
-    jQuery("body").html("ID utilisateur reçu : " + id);
+    var idUser = data["idUser"];
+    jQuery("body").html("ID utilisateur reçu : " + idUser);
   } else {
     var html = data["html"];
-    jQuery("p").html(html);
+    jQuery("span").html(html);
   }
 };
 

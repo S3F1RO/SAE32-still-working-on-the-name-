@@ -33,10 +33,10 @@ $(document).ready(function() {
   //============================================================================
   function receiveAjax(data) {
      if (data['success']) {
-      alert("Compétence créée id : " + data['id'])
+      alert("Compétence créée id : " + data['idUser'])
       // redirect("getCompetences.php?data['id']")
     } else {
-      jQuery("p").html(data["html"]);
+      jQuery("span").html(data["html"]);
     }
   }
 

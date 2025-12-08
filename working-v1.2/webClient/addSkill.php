@@ -42,9 +42,9 @@
     <!-- Wrapper -->
     <div class='wrapper'>
       <h1>Add skills</h1>
-      <p></p>
+      <span></span>
           
-      <!-- Champ des skills--> 
+      <!-- Skills field --> 
       <section>
         <ul>
           <li>
@@ -57,7 +57,7 @@
             <input type='text' name='domain' placeholder='Le domain' pattern='[a-z0-9]{0,20}' required />
           </li>
           <li>
-            <input type= "number" name="level" min = "0" max = "8" step = "1" value = "8" required />
+            <input type= "range" name="level" min = "0" max = "8" step = "1" value = "8" required />
           </li>
           <li>
             <input type= "color" value="#FF0000" />

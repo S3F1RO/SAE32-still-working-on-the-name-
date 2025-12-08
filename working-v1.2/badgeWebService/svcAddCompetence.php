@@ -29,9 +29,7 @@
   $idCompetence = DataStorage::addCompetence($idUTeacher, $idUStudent, $idSkill, "$revokedDate", $masteringLevel);
   
   // Exemple de traitement
-  $response = [
-    "id" => $idCompetence
-  ];
+  $response = ["idCompetence" => $idCompetence];
   
   // Renvoyer une réponse JSON
   echo json_encode($response);

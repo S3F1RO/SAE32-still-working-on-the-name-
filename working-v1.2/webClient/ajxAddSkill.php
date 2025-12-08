@@ -1,8 +1,10 @@
 <?php
-include_once('./utils.php');
-include_once('./params.php');
 
-  $html = "<span>Information(s) invalide(s) ou manquante(s)</span>";
+  include_once('./utils.php');
+  include_once('./params.php');
+
+  $html = "Information(s) invalide(s) ou manquante(s)";
+
   // Data from session
   session_start();
   $idUser = NULL;
@@ -10,70 +12,35 @@ include_once('./params.php');
 
   // Check
   if ($idUser == NULL) {
-    echo json_encode([
-      "success" => false,
-      "html" => $html
-    ]);
-    exit();
+    fail($html);
   }
 
-// Vérifier si les données arrivent bien
-if (!isset($_POST['data'])) {
-    echo json_encode([
-      "success" => false,
-      "html" => $html
-    ]);
-    exit();
-}
+  if (isset($_POST['data'])) $data = json_decode($_POST['data'], true);
+  $mainName = NULL;
+  if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]{1,20}$/", $data['mainName'])) $mainName = $data['mainName'];
+  $subName = NULL;
+  if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]$/", $data['subName'])) $subName = $data['subName'];
+  $domain = NULL;
+  if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]{1,20}$/", $data['domain'])) $domain = $data['domain'];
+  $level = NULL;
+  if (preg_match("/^[0-9]+$/", $data['level'])) $level = $data['level'];
+  $color = NULL;
+  if (preg_match("/^[A-Fa-f0-9]{6}$/", $data['color'])) $color = $data['color'];
 
-// Décoder les données envoyées par le JS
-$data = json_decode($_POST['data'], true);
+  // Check
+  if ($mainName == NULL || $subName == NULL || $domain == NULL || $level == NULL || $color == NULL) {
+    fail($html);
+  }
 
-// Vérifier que toutes les données attendues existent
-if (!isset($data["mainName"]) ||
-    !isset($data["domain"])   ||
-    !isset($data["level"])    ||
-    !isset($data["color"])) 
-{
-    echo json_encode([
-        "success" => false,
-        "html" => $html
-    ]);
-    exit();
-}
-// Récupération des valeurs en toute sécurité
-$mainName   = $data["mainName"];
-$subName    = $data["subName"];
-$domain     = $data["domain"];
-$level      = $data["level"];
-$color      = $data["color"];
+  // ----- Send to WebService -----
+  $response = sendAjax($URL . "svcAddSkill.php", ["idUCreator"=>$idUser, "mainName"=>$mainName, "subName"=>$subName, "domain"=>$domain, "level"=>$level, "color"=>$color]);
 
-// ----- Envoi au WebService -----
-$response = sendAjax(
-    $URL . "svcAddSkill.php",
-    [
-        "idUCreator" => $idUser,
-        "mainName"   => $mainName,
-        "subName"    => $subName,
-        "domain"     => $domain,
-        "level"      => $level,
-        "color"      => $color,
-    ]
-);
+  // Check response
+  if (!isset($response["idSkill"])) {
+    fail($html);
+  }
 
-// Vérifier la réponse du serveur
-if (!isset($response["id"])) {
-    echo json_encode([
-        "success" => false,
-        "html" => $html
-    ]);
-    exit();
-}
+  // Client response
+  success(["idSkill" => $response["idSkill"]]);
 
-// Réponse finale pour le JS
-echo json_encode([
-    "success" => true,
-    "id"      => $response["id"]
-]);
-exit();
 ?>

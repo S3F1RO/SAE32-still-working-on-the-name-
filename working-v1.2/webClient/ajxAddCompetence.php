@@ -8,13 +8,12 @@
   $idUTeacher = NULL;
   if (isset($_SESSION['idUser'])) $idUTeacher = $_SESSION['idUser'];
 
+  $html = "Information(s) incorrecte(s)";
+
   // Check
   if ($idUTeacher == NULL) {
-    header("Location: logout.php");
-    exit();
+    fail($html);
   }
-
-  $html = "<span>Information(s) incorrecte(s)</span>";
 
   if (isset($_POST['data'])) $data = json_decode($_POST['data'], true);
   $idSkill = NULL;
@@ -28,29 +27,19 @@
 
   // Check
   if ($idUStudent == NULL || $masteringLevel == NULL || $idSkill == NULL) {
-    echo json_encode(["success"=>false, 'html'=>$html]);
-    exit();
+    fail($html);
   }
   
   $data = ["idSkill" => $idSkill, "idUTeacher" => $idUTeacher, "idUStudent" => $idUStudent, "revokedDate" => $revokedDate, "masteringLevel" => $masteringLevel];
 
-  // ----- Envoi au WebService -----
-  $response = sendAjax($URL . "svcAddCompetence.php", $data);
+  // ----- Send to WebService -----
+  $data = sendAjax($URL . "svcAddCompetence.php", $data);
 
-  // Vérifier la réponse du serveur
-  if ($response["id"] == NULL) {
-    echo json_encode([
-      "success" => false,
-      'html'=>$html
-    ]);
-    exit();
+  // Check response
+  if ($data["idCompetence"] == NULL) {
+    fail($html);
   }
-
-  // Réponse finale pour le JS
-  echo json_encode([
-    "success" => true,
-    "id"      => $response["id"]
-  ]);
-  exit();
+  
+  success(["idCompetence"=> $data["idCompetence"]]);
 
 ?>

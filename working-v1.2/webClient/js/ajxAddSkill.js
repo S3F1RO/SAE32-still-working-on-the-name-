@@ -18,9 +18,9 @@ $(document).ready(function(){
 
   function receiveAjax(data) {
     if (data["success"]) {
-      alert(data["id"])
+      alert(data["idUser"])
     } else {
-      jQuery("p").html(data["html"]);
+      jQuery("span").html(data["html"]);
     }
   }
 

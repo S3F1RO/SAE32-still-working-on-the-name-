@@ -57,8 +57,8 @@
 
       <h1>Ajout Compétence</h1>
 
-      <!-- Champ des utilisateurs-->
-     <p></p>
+      <!-- User field -->
+     <span></span>
      
       <article>
         <ul>
