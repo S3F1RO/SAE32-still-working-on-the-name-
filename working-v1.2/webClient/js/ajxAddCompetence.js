@@ -32,8 +32,8 @@ $(document).ready(function() {
   //    Receive ajax from server
   //============================================================================
   function receiveAjax(data) {
-     if (data['success']) {
-      alert("Compétence créée id : " + data['idUser'])
+    if (data['success']) {
+      alert("Compétence créée id : " + data['idCompetence'])
       // redirect("getCompetences.php?data['id']")
     } else {
       jQuery("span").html(data["html"]);

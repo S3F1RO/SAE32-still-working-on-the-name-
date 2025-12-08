@@ -19,7 +19,7 @@
   $mainName = NULL;
   if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]{1,20}$/", $data['mainName'])) $mainName = $data['mainName'];
   $subName = NULL;
-  if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]$/", $data['subName'])) $subName = $data['subName'];
+  if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]{1,20}$/", $data['subName'])) $subName = $data['subName'];
   $domain = NULL;
   if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]{1,20}$/", $data['domain'])) $domain = $data['domain'];
   $level = NULL;
@@ -28,19 +28,19 @@
   if (preg_match("/^[A-Fa-f0-9]{6}$/", $data['color'])) $color = $data['color'];
 
   // Check
-  if ($mainName == NULL || $subName == NULL || $domain == NULL || $level == NULL || $color == NULL) {
+  if ($mainName == NULL || $domain == NULL || $level == NULL || $color == NULL) {
     fail($html);
   }
 
   // ----- Send to WebService -----
-  $response = sendAjax($URL . "svcAddSkill.php", ["idUCreator"=>$idUser, "mainName"=>$mainName, "subName"=>$subName, "domain"=>$domain, "level"=>$level, "color"=>$color]);
+  $data = sendAjax($URL . "svcAddSkill.php", ["idUCreator"=>$idUser, "mainName"=>$mainName, "subName"=>$subName, "domain"=>$domain, "level"=>$level, "color"=>$color]);
 
   // Check response
-  if (!isset($response["idSkill"])) {
+  if (!isset($data["idSkill"])) {
     fail($html);
   }
 
   // Client response
-  success(["idSkill" => $response["idSkill"]]);
+  success(["idSkill" => $data["idSkill"]]);
 
 ?>

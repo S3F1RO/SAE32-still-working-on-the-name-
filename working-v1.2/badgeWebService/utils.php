@@ -18,13 +18,7 @@
 
 
   // SUCCESS / FAIL functions
-  function success($db=NULL, $result=NULL, $html=NULL, $obj=NULL, $fields=[]) {
-    // DB close
-    if ($db != NULL) $db->close();
-
-    // Result close
-    if ($result != NULL) $result->close();
-
+  function success($fields=[], $html=NULL, $obj=NULL) {
     // Merge
     $out = array_merge(["success"=>true, "html"=>$html, "obj"=>$obj], $fields);
 
@@ -32,17 +26,16 @@
     echo json_encode($out);
     exit();
   }
-  function fail($db=NULL, $result=NULL, $errorMsg=NULL) {
-    // DB close
-    if ($db != NULL) $db->close();
 
-    // Result close
-    if ($result != NULL) $result->close();
+  function fail($html=NULL, $fields=[]) {
+    // Merge
+    $out = array_merge(["success"=>false, "html"=>$html], $fields);
 
     // Data ajax to client
-    echo json_encode(array("success"=>false, "errorMsg"=>$errorMsg));
+    echo json_encode($out);
     exit();
   }
+
   function logout($db=NULL, $result=NULL) {
     // DB close
     if ($db != NULL) $db->close();
@@ -54,6 +47,7 @@
     header("Location: logout.php");
     exit();
   }
+  
   function redirect($page, $db=NULL, $result=NULL) {
     // DB close
     if ($db != NULL) $db->close();
@@ -101,11 +95,16 @@
       return null;
     }
   }
-  
+
   function escape_string($str) {
     $search  = ["\\",   "\x00", "\n",  "\r",  "'",   '"',  "\x1a"];
     $replace = ["\\\\", "\\0",  "\\n", "\\r", "\\'", '\\"', "\\Z"];
     return str_replace($search, $replace, $str);
+  }
+  
+  function debug($debugItem) {
+    echo json_encode(["debug"=>"fonctionnel","requiredItem"=>$debugItem]);
+    exit();
   }
 
 ?>

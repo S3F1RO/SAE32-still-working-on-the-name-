@@ -18,7 +18,7 @@ $(document).ready(function(){
 
   function receiveAjax(data) {
     if (data["success"]) {
-      alert(data["idUser"])
+      alert(data["idSkill"])
     } else {
       jQuery("span").html(data["html"]);
     }

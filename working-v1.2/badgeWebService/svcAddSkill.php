@@ -1,5 +1,6 @@
 <?php
 
+  // Inclusions 
   include_once('./utils.php');
   include_once('./dataStorage.php');
 
@@ -31,10 +32,10 @@
     exit;
   }
 
+  // add skill
   $idSkill = DataStorage::addSkill($idUCreator, $mainName, $subName, $domain, $level, $imgUrl, $color);
 
-  // Renvoyer une réponse JSON
-  // echo json_encode(["Hello"=>"Hiiii"]);
+  // JSON send back
   echo json_encode(["idSkill" => $idSkill]);
   
 ?>
