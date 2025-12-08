@@ -34,6 +34,6 @@
   ];
   
   // Renvoyer une réponse JSON
-  echo json_encode($response);
+  success($response);
   
 ?>

@@ -27,7 +27,7 @@
   $idUser = DataStorage::addUser($firstName, $lastName, $nickname);
   
   // Send back a JSON response
-  echo json_encode(["id" => $idUser]);
+  success(["id" => $idUser]);
   exit;
 
 ?>

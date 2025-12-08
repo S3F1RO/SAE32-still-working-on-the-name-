@@ -28,15 +28,16 @@
     // Get competence data
     $competence = DataStorage::getCompetence($idCompetence);
     // Add competence data to array
-    if ($competence != null) $competences[] = $competence;
+    if (!empty($competence)) $competences[] = $competence;
   }
-  // debug($competences);
-    
   // DB close
   $db->close();
-  
+  if (empty($competences)) {
+    echo json_encode(["success" => false, "message" => "Aucune donnée reçue"]);
+    exit;
+  }
   // Send back a JSON response
-  echo json_encode($competences);
-  
+  echo json_encode(['success'=>true,'competences'=>$competences]);
+  exit(); 
   ?>
 

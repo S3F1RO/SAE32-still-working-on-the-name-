@@ -170,7 +170,7 @@ class DataStorage {
 
         // Check
         if ($numRows == 0) {
-            header("Location: logout.php");
+            return null;
             exit();
         }
 
@@ -194,6 +194,5 @@ class DataStorage {
 
 // print_r(DataStorage::getUser(36));
 // print_r(DataStorage::getSkill($idSkill));
-// print_r(DataStorage::getCompetence($idCompetence));
 
 ?>

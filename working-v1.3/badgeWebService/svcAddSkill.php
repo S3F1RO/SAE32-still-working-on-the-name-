@@ -27,7 +27,7 @@
 
   // Check
   if ($idUCreator == NULL || $mainName == NULL || $domain == NULL || $level == NULL || $color == NULL) {
-    echo json_encode([null]);
+    fail();
     exit;
   }
 
@@ -35,6 +35,6 @@
 
   // Renvoyer une réponse JSON
   // echo json_encode(["Hello"=>"Hiiii"]);
-  echo json_encode(["id" => $idSkill]);
+  success(["id" => $idSkill]);
   
 ?>
