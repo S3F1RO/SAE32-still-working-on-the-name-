@@ -15,8 +15,6 @@
     return $randomString;
   }
 
-
-
   // SUCCESS / FAIL functions
   function success($fields=[], $html=NULL, $obj=NULL) {
     // Merge
@@ -47,7 +45,7 @@
     header("Location: logout.php");
     exit();
   }
-  
+
   function redirect($page, $db=NULL, $result=NULL) {
     // DB close
     if ($db != NULL) $db->close();
@@ -74,6 +72,40 @@
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
       "Content-Type: application/json",
       "Content-Length: " . strlen($jsonPayload)
+    ]);
+
+    // Run query
+    $response = curl_exec($ch);
+
+    // cURL error
+    if ($response == false) {
+      return null;
+    }
+
+    curl_close($ch);
+
+    // Return the decoded JSON response
+    $decoded = json_decode($response, true);
+
+    if ($decoded != null) {
+      return $decoded;
+    } else {
+      return null;
+    }
+  }
+  
+  function sendAjaxTxt(string $url, string $data): array {
+
+    // Prepare cURL
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    // JSON Headers
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+      "Content-Type: application/json",
+      "Content-Length: " . strlen($data)
     ]);
 
     // Run query
