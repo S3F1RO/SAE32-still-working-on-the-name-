@@ -32,16 +32,18 @@
 
 
 <?php 
-    include_once("./utils.php");
-    include_once("./params.php");
-    echo $_GET['idC'];
-    if (isset($_GET['idC'])) {
-        $idCompetences=explode(",",$_GET['idC']);
-        sendAjax("$URL.svcGetCompetences.php",$idCompetences);
-    }
-    else if (isset($_GET['idS'])) {
-        $idCompetences=explode(",",$_GET['idS']);
-        sendAjax("$URL.svcGetCompetences.php",$idCompetences);;
 
-    } 
+  include_once("./utils.php");
+  include_once("./params.php");
+
+  echo $_GET['idC'];
+
+  if (isset($_GET['idC'])) {
+    $idCompetences=explode(",",$_GET['idC']);
+    sendAjax("$URL.svcGetCompetences.php",$idCompetences);
+  } else if (isset($_GET['idS'])) {
+    $idCompetences=explode(",",$_GET['idS']);
+    sendAjax("$URL.svcGetCompetences.php",$idCompetences);;
+  }
+  
 ?>

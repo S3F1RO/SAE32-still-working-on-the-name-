@@ -1,47 +1,35 @@
 <?php
-include_once('./utils.php');
-include_once('./params.php');
+
+  include_once('./utils.php');
+  include_once('./params.php');
 
 
-$html = "<span>Prénom, nom ou pseudo invalide</span>";
+  $html = "Prénom, nom ou pseudo invalide";
 
-// Vérifier si on a reçu des données
-if (!isset($_POST['data'])) {
-    echo json_encode([
-        "success" => false,
-        "html" => $html
-    ]);
-    exit();
-}
+  // Check
+  if (!isset($_POST['data'])) {
+    fail($html);
+  }
 
-// Décoder les données JSON envoyées
-$data = json_decode($_POST['data'], true);
+  // JSON decode
+  $data = json_decode($_POST['data'], true);
 
-// Initialiser les variables
-$firstName = NULL;
-$lastName  = NULL;
-$nickname = NULL;
 
-if (isset($data['firstName'])) {
-    $firstName = $data['firstName'];
-}
-if (isset($data['lastName'])) {
-    $lastName = $data['lastName'];
-}
-if (isset($data['nickname'])) {
-    $nickname = $data['nickname'];
-}
+  if (isset($_POST['data'])) $data = json_decode($_POST['data'], true);
+  $firstName = NULL;
+  if (preg_match("/^[A-Za-z\-éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ]{1,20}$/", $data['firstName'])) $firstName = $data['firstName'];
+  $lastName = NULL;
+  if (preg_match("/^[A-Za-z\-éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ ]{1,20}$/", $data['lastName'])) $lastName = $data['lastName'];
+  $nickname = NULL;
+  if (preg_match("/^[A-Za-z0-9\-\'\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ& ]{1,20}$/", $data['nickname'])) $nickname = $data['nickname'];
 
-if ($firstName == NULL || $lastName == NULL || $nickname == NULL) {
-    echo json_encode([
-        "success" => false,
-        "html" => $html
-    ]);
-    exit();
-}
+  // Check
+  if ($lastName == NULL || $nickname == NULL || $firstName == NULL) {
+    fail($html);
+  }
 
-// Réponse AJAX envoyée au JavaScript
-$data = sendAjax($URL . "svcAddUser.php", ["firstName" => $firstName, "lastName"  => $lastName, "nickname" => $nickname]);
-echo json_encode(["success" => true, "id" => $data["id"]]);
+  // Réponse AJAX envoyée au JavaScript
+  $data = sendAjax($URL . "svcAddUser.php", ["firstName" => $firstName, "lastName"  => $lastName, "nickname" => $nickname]);
+  success(["idUser" => $data["idUser"]])
 
 ?>

@@ -1,5 +1,7 @@
 $(document).ready(function(){
-
+ //============================================================================
+  //  Send ajax to server
+  //============================================================================
   $("#btnOK").on("click", function() {
 
     var data = {
@@ -15,15 +17,19 @@ $(document).ready(function(){
 
     sendAjax("ajxAddSkill.php", data);
   });
-
+  //============================================================================
+  //    Receive ajax from server
+  //============================================================================
   function receiveAjax(data) {
     if (data["success"]) {
-      alert(data["id"])
+      alert(data["idSkill"])
     } else {
-      jQuery("p").html(data["html"]);
+      jQuery("span").html(data["html"]);
     }
   }
-
+  //============================================================================
+  //  Usefull functions
+  //============================================================================
   function sendAjax(serverUrl, data) {
     $.ajax({
       type: "POST",

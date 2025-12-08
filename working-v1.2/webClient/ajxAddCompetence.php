@@ -8,14 +8,12 @@
   $idUTeacher = NULL;
   if (isset($_SESSION['idUser'])) $idUTeacher = $_SESSION['idUser'];
 
+  $html = "Information(s) incorrecte(s)";
+
   // Check
   if ($idUTeacher == NULL) {
-    header("Location: logout.php");
-    exit();
+    fail($html);
   }
-
-  $html = "<span>Information(s) incorrecte(s)</span>";
-
   if (isset($_POST['data'])) $data = json_decode($_POST['data'], true);
   $idSkill = NULL;
   if (preg_match("/^[0-9]+$/", $data['idSkill'])) $idSkill = $data['idSkill'];
@@ -25,32 +23,19 @@
   if (preg_match("/^[0-9]$/", $data['masteringLevel'])) $masteringLevel = $data['masteringLevel'];
   $revokedDate = NULL;
   if (preg_match("/^[0-9\-]{10}$/", $data['revokedDate'])) $revokedDate = $data['revokedDate'];
-
+  
   // Check
   if ($idUStudent == NULL || $masteringLevel == NULL || $idSkill == NULL) {
-    echo json_encode(["success"=>false, 'html'=>$html]);
-    exit();
+    fail($html);
   }
   
-  $data = ["idSkill" => $idSkill, "idUTeacher" => $idUTeacher, "idUStudent" => $idUStudent, "revokedDate" => $revokedDate, "masteringLevel" => $masteringLevel];
+  $competence = ["idSkill" => $idSkill, "idUTeacher" => $idUTeacher, "idUStudent" => $idUStudent, "revokedDate" => $revokedDate, "masteringLevel" => $masteringLevel];
+  
+  // ----- Send to WebService -----
+  $data = sendAjax($URL . "svcAddCompetence.php", $competence);
 
-  // ----- Envoi au WebService -----
-  $response = sendAjax($URL . "svcAddCompetence.php", $data);
+  success(["idCompetence"=> $data["idCompetence"]]);
 
-  // Vérifier la réponse du serveur
-  if ($response["id"] == NULL) {
-    echo json_encode([
-      "success" => false,
-      'html'=>$html
-    ]);
-    exit();
-  }
-
-  // Réponse finale pour le JS
-  echo json_encode([
-    "success" => true,
-    "id"      => $response["id"]
-  ]);
-  exit();
-
+  // Final response for JS
+ success(NULL, NULL, NULL, NULL, ["id" => $response["id"]]);
 ?>

@@ -29,10 +29,9 @@ function redirect(serverUrl) {
 function receiveAjax(data) {
 
   if (data['success']) {
-    var id = data["id"];
-    jQuery("body").html("ID utilisateur reçu : " + id);
+    redirect("main.php");
   } else {
-    // redirect("logout.php");/
+    redirect("logout.php");
   }
 };
 

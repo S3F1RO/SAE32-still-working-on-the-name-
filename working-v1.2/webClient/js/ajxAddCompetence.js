@@ -32,11 +32,11 @@ $(document).ready(function() {
   //    Receive ajax from server
   //============================================================================
   function receiveAjax(data) {
-     if (data['success']) {
-      alert("Compétence créée id : " + data['id'])
+    if (data['success']) {
+      alert("Compétence créée id : " + data['idCompetence'])
       // redirect("getCompetences.php?data['id']")
     } else {
-      jQuery("p").html(data["html"]);
+      jQuery("span").html(data["html"]);
     }
   }
 
