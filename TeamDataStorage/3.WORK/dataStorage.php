@@ -160,7 +160,7 @@ class DataStorage {
 
 
     //GET Basic competences informations
-    static function getCompetence($idCompetence) { 
+    static function getCompetence($idCompetence,$isMastering=false) { 
 
         // DB open
         include_once("./cfgDb.php");
@@ -176,7 +176,7 @@ class DataStorage {
         if ($numRows == 0) {
             return NULL;
         }
-
+        
         // Data from DB
         while ($row = $result->fetch_assoc()) {
             $data['idCompetence'] = $row['id'];
@@ -273,7 +273,10 @@ class DataStorage {
     //GET informations for multiple competences
     static function getCompetences($idCompetences){
         foreach ($idCompetences as $idCompetence){
-            $competences = DataStorage::getCompetence($idCompetence);
+            $competence = DataStorage::getCompetence($idCompetence);
+            if ($competence != 0){
+                
+            }
         }
         return $competences;
     }
