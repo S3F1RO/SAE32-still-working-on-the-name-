@@ -9,15 +9,12 @@
 
 /* Body & Wrapper */
 .wrapper {
-	min-height: 100px;
-	margin: 0 auto 0 auto;
   background-color: #cddadd;
   max-width: 700px;
   width: 100%;
   padding: 40px;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
 
@@ -35,13 +32,14 @@
 
 /* Body & Wrapper */
 body {
-	background: #3B82F6;
+    background: #3B82F6;
     min-height: 100vh;
-    margin: 35px;
+    margin: 0;
     padding: 40px 20px;
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
   /* Titles */
@@ -49,8 +47,8 @@ body {
 h1 {
     text-align: center;
     color: #1E3A8A;
-    font-size: 28px;
-    margin-bottom: 30px;
+    font-size: 30px;
+    margin-bottom: 40px;
 }
 
 li {
@@ -60,8 +58,12 @@ li {
     gap: 15px;
     justify-content: center;
     width: 100%;             
-
     
+}
+
+ul {
+    padding: 0;
+    margin: 0;
 }
 
 input {
@@ -186,12 +188,18 @@ input:focus, select:focus {
 ==============================*/
 
 /* Media query : mobile */
+    
 @media (max-width: 600px) {
+  section {
+        max-width: 100%;
+        gap: 12px;
+    }
 
-
+    button, #btnOK {
+        padding: 12px 30px;
 }
 
-
+}
 
 /* Media query : tablet */
 @media (min-width: 600px) and (max-width: 1200px) {

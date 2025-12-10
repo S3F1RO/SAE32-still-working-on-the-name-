@@ -24,7 +24,7 @@ header("Content-Type: application/json; charset=UTF-8");
   // DB close
   $db->close();
   
-  $responce = DataStorage::getStudentQr($idStudent);
+  $responce = DataStorage::getStudentCompetences($idStudent);
   
   // Send back a JSON response
   echo json_encode($responce);

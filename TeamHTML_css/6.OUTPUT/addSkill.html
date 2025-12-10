@@ -47,8 +47,10 @@
         <input type='text' name='mainName' placeholder='Le titre' pattern='[a-z0-9]{0,20}' required autofocus/> 
         <input type='text' name='subName' placeholder='Sous-titre' pattern='[a-z0-9]{0,20}' required />
         <input type='text' name='domain' placeholder='Le domain' pattern='[a-z0-9]{0,20}' required />
-        <input type= "number" min = "0" max = "8" step = "1" value = "8" required />
-        <input type= "color" value="#FF0000" />
+        <input type= "range" name= 'level' min = "0" max = "8" step = "1" value = "8" required />
+        <input type='file' name='file' required /> 
+        <input type= "color" name= 'color'  value="#FF0000" />
+				
     		<button id= "btnOK" type='submit'  > OK</button>
       </section> 
     </li>
