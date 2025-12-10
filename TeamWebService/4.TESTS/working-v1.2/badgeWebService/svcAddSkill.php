@@ -20,27 +20,19 @@
   if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]{1,20}$/", $data['domain'])) $domain = escape_string($data['domain']);
   $level = NULL;
   if (preg_match("/^[0-9]+$/", $data['level'])) $level = escape_string($data['level']);
+  $imgUrl = "";
+  if (preg_match("/^.{0,100}$/", $data['imgUrl'])) $imgUrl = escape_string($data['imgUrl']);
   $color = NULL;
   if (preg_match("/^[A-Fa-f0-9]{6}$/", $data['color'])) $color = escape_string($data['color']);
-  $file = "";
-  if (preg_match("/^.{0,100}$/", $data['file'])) $file = escape_string($data['file']);
 
-  
+
   // Check
   if ($idUCreator == NULL || $mainName == NULL || $domain == NULL || $level == NULL || $color == NULL) {
     echo json_encode([null]);
     exit;
   }
-  
-  // ----- Send img to image WebService -----
-  $imgUrl = sendAjax($URL . "svcAddSkill.php", ["files" => $data['file']]);  
-  if (preg_match("/^.{0,100}$/", $imgUrl)) $imgUrl = escape_string($imgUrl);
 
-  // Check
-  if ($imgUrl == NULL) {
-    echo json_encode([null]);
-    exit;
-  }
+  
 
   // add skill
   $idSkill = DataStorage::addSkill($idUCreator, $mainName, $subName, $domain, $level, $imgUrl, $color);

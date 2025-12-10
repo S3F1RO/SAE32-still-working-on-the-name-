@@ -12,7 +12,7 @@
 
     <!-- JS files -->
     <script type='text/javascript' src='./js/jquery-3.7.0.min.js'></script>
-    <script type='text/javascript' src='./js/ajaxAddUser.js'></script> 
+    <script type='text/javascript' src='./js/ajxDisplayBadges.js'></script> 
     <!-- <script type='text/javascript' src='./js/refresh1s.js'></script> -->
     <script type='text/javascript' src='./js/web.js'></script>
 
@@ -26,37 +26,24 @@
     <link rel='icon' type='image/png' href='./medias/iut.png' />
 
     <!-- Title -->
-    <title>Skills</title>
+    <title>Compétence</title>
   </head>
 
 
 
-  <!-- Body -->
-  <body>
-    <!-- Wrapper -->
-    <div class='wrapper'>
+<?php 
 
-	<h1>Add skills</h1>
-	<ul>
+  include_once("./utils.php");
+  include_once("./params.php");
 
-    <!-- éléments venant de l'AJAX -->
+  echo $_GET['idC'];
 
-    <!-- Champ des skills--> 
-    <li>    
-      <section>
-        <input type='text' name='mainName' placeholder='Le titre' pattern='[a-z0-9]{0,20}' required autofocus/> 
-        <input type='text' name='subName' placeholder='Sous-titre' pattern='[a-z0-9]{0,20}' required />
-        <input type='text' name='domain' placeholder='Le domain' pattern='[a-z0-9]{0,20}' required />
-        <input type= "range" name= 'level' min = "0" max = "8" step = "1" value = "8" required />
-        <input type='file' name='file' required /> 
-        <input type= "color" name= 'color'  value="#FF0000" />
-				
-    		<button id= "btnOK" type='submit'  > OK</button>
-      </section> 
-    </li>
-
-
-  </ul>
-    </div>
-  </body>
-</html>
+  if (isset($_GET['idC'])) {
+    $idCompetences=explode(",",$_GET['idC']);
+    sendAjax("$URL.svcGetCompetences.php",$idCompetences);
+  } else if (isset($_GET['idS'])) {
+    $idCompetences=explode(",",$_GET['idS']);
+    sendAjax("$URL.svcGetCompetences.php",$idCompetences);;
+  }
+  
+?>
