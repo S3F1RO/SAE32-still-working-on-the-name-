@@ -355,7 +355,7 @@ class DataStorage {
 
     static function getCreatorSkills($idUCreator){
         $creatorSkills = DataStorage::getSkills(DataStorage::getCreatorIdSkills($idUCreator));
-        return $creatorSkills;
+        return $cr  eatorSkills;
     }
 }
 
