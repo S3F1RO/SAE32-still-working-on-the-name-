@@ -10,8 +10,8 @@
   // Data ajax from server (filtered + escaped)
   $data = json_decode(file_get_contents('php://input'), true);
 
-  $idUCreator = NULL;
-  if (preg_match("/^[0-9]+$/", $data['idUCreator'])) $idUCreator = escape_string($data['idUCreator']);
+  // $idUCreator = NULL;
+  // if (preg_match("/^[0-9]+$/", $data['idUCreator'])) $idUCreator = escape_string($data['idUCreator']);
   $mainName = NULL;
   if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]{1,20}$/", $data['mainName'])) $mainName = escape_string($data['mainName']);
   $subName = "";
@@ -22,30 +22,35 @@
   if (preg_match("/^[0-9]+$/", $data['level'])) $level = escape_string($data['level']);
   $color = NULL;
   if (preg_match("/^[A-Fa-f0-9]{6}$/", $data['color'])) $color = escape_string($data['color']);
-  $file = "";
-  if (preg_match("/^.{0,100}$/", $data['file'])) $file = escape_string($data['file']);
+  $imgFile = NULL;
+  if ($data['file']["file"]["error"] == UPLOAD_ERR_OK) $imgFile = $data['file'];
 
   
   // Check
-  if ($idUCreator == NULL || $mainName == NULL || $domain == NULL || $level == NULL || $color == NULL) {
-    echo json_encode([null]);
+  if ($mainName == NULL || $domain == NULL || $level == NULL || $color == NULL || $imgFile == NULL) {
+    fail();
     exit;
   }
   
-  // ----- Send img to image WebService -----
-  $imgUrl = sendAjax($URL . "svcAddSkill.php", ["files" => $data['file']]);  
-  if (preg_match("/^.{0,100}$/", $imgUrl)) $imgUrl = escape_string($imgUrl);
+  // // ----- Send img to image WebService -----
+  // $imgUrl = sendAjax($URL . "svcAddSkill.php", ["File" => $imgFile]);  
+  // if (preg_match("/^.{0,100}$/", $imgUrl)) $imgUrl = escape_string($imgUrl);
 
-  // Check
-  if ($imgUrl == NULL) {
-    echo json_encode([null]);
-    exit;
-  }
+  // // Check
+  // if ($imgUrl == NULL) {
+  //   echo json_encode([null]);
+  //   exit;
+  // }
 
-  // add skill
-  $idSkill = DataStorage::addSkill($idUCreator, $mainName, $subName, $domain, $level, $imgUrl, $color);
+  // TEST
+  // Save file (À SUPPRIMER)
+  $newFilename = generateRandomString($length=20);
+  $success =  move_uploaded_file($imgFile["file"]["tmp_name"], "uploads/$newFilename.png");
 
-  // JSON send back
-  echo json_encode(["idSkill" => $idSkill]);
+  // // Add skill
+  // $idSkill = DataStorage::addSkill($idUCreator, $mainName, $subName, $domain, $level, $imgUrl, $color);
+
+  // // JSON send back
+  // success(["idSkill" => $idSkill]);
   
 ?>

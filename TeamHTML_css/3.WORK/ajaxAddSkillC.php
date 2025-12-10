@@ -15,22 +15,22 @@ include_once('./params.php');
 
  // Data from client (ajax)
  $mainName = NULL;
- if (preg_match("/^.{0,20}$/", $_POST['mainName'])) {
+ if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]{1,20}$/", $_POST['mainName'])) {
      $mainName = $_POST['mainName'];
  }
 
  $subName = NULL;
- if (preg_match("/^.{0,20}$/", $_POST['subName'])) {
+ if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]{1,20}$/", $_POST['subName'])) {
      $subName = $_POST['subName'];
  }
 
  $domain = NULL;
- if (preg_match("/^.{0,20}$/", $_POST['domain'])) {
+ if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]{1,20}$/", $_POST['domain'])) {
      $domain = $_POST['domain'];
  }
 
  $level = NULL;
- if (preg_match("/^.{0,20}$/", $_POST['level'])) {
+ if (preg_match("/^[0-9]+$/", $_POST['level'])) {
      $level = $_POST['level'];
  }
 
@@ -46,24 +46,20 @@ if ($mainName==NULL || $subName==NULL || $domain==NULL || $level==NULL || $color
  }
 
 
-// // Save file
-  //$newFilename = "$color";
-  //$success =  move_uploaded_file($_FILES["file"]["tmp_name"], "uploads/$color.png ");
-
-  // // Save file
+  // // Save file (à supprimer )
   $newFilename = generateRandomString($length=20);
   $success =  move_uploaded_file($_FILES["file"]["tmp_name"], "uploads/$newFilename.png");
   
 
 
-// Réponse AJAX envoyée au JavaScript  ,// Call WebService
+// Réponse AJAX envoyée au JavaScript, Call WebService
 $data = sendAjax($URL . "svcAddSkill.php", 
                   ["mainName" => $mainName, 
                   "subName"  => $subName, 
                   "domain" => $domain , 
                   "level" => $level, 
                   "color" => $color, 
-                  "file"  => $clientFilename,
+                  "file"  => $_FILES,
 
 ]);
 

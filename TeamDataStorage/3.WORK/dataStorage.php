@@ -4,14 +4,14 @@ include_once("./utils.php");
 
 class DataStorage {
     //ADD User
-    static function addUser(string $firstName, string $lastName, string $nickname, string $pubU) {
+    static function addUser(string $firstName, string $lastName, string $nickname, string $pubU, string $userInfosHashCryptPrivU) {
         // DB open
         include_once("./cfgDb.php");
         $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
         $db->set_charset("utf8");
 
         // DB insert
-        $query = "INSERT INTO tblUsers (id ,firstName, lastName, nickname) VALUES (NULL , '$firstName', '$lastName', '$nickname' '$pubU');";
+        $query = "INSERT INTO tblUsers (id ,firstName, lastName, nickname, pubU, userInfosHashCryptPrivU) VALUES (NULL , '$firstName', '$lastName', '$nickname' '$pubU', '$userInfosHashCryptPrivU');";
         $success = $db->query($query);
 
         // Check
@@ -27,14 +27,14 @@ class DataStorage {
     }
 
     //ADD Skill
-    static function addSkill(string $idUCreator, string $mainName, string $subName, string $domain, int $level, string $imgUrl, string $color, string $skillInfosHashCryptPrivUC ) {
+    static function addSkill(string $idUCreator, string $mainName, string $subName, string $domain, int $level, string $imgUrl, string $color, string $skillInfosHashCryptPrivUC) {
         // DB open
         include_once("./cfgDb.php");
         $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
         $db->set_charset("utf8");
 
         // DB insert
-        $query = "INSERT INTO tblSkills (id ,idUCreator, mainName, subName, domain, level, imgUrl, color, $skillInfosHashCryptPrivUC) VALUES (NULL , '$idUCreator', '$mainName', '$subName', '$domain', '$level', NULL, '$color', '$skillInfosHashCryptPrivUC');";
+        $query = "INSERT INTO tblSkills (id ,idUCreator, mainName, subName, domain, level, imgUrl, color, skillInfosHashCryptPrivUC) VALUES (NULL , '$idUCreator', '$mainName', '$subName', '$domain', '$level', NULL, '$color', '$skillInfosHashCryptPrivUC');";
         $success = $db->query($query);
 
         // Check
@@ -119,6 +119,8 @@ class DataStorage {
             $data['firstName'] = $row['firstName'];
             $data['lastName'] = $row['lastName'];
             $data['nickname'] = $row['nickname'];
+            $data['pubU'] = $row['pubU'];
+            $data['userInfosHashCryptPrivU'] = $row['userInfosHashCryptPrivU'];
         }
 
         $result->close();
@@ -152,6 +154,7 @@ class DataStorage {
             $data['level'] = $row['level'];
             $data['imgUrl'] = $row['imgUrl'];
             $data['color'] = $row['color'];
+            $data['skillInfosHashCryptPrivUC'] = $row['skillInfosHashCryptPrivUC'];
         }
         $result->close();
         return $data;
@@ -186,6 +189,7 @@ class DataStorage {
             $data['beginDate'] = $row['beginDate'];
             $data['revokedDate'] = $row['revokedDate'];
             $data['masteringLevel'] = $row['masteringLevel'];
+            $data['competenceInfosHashCryptPrivUT'] = $row['competenceInfosHashCryptPrivUT'];
         }
         $result->close();
         return $data;
@@ -233,8 +237,7 @@ class DataStorage {
 
         // Data from DB
         while ($row = $result->fetch_assoc()) {
-            $data['studentIdCompetences'] = $row['id'];
-            
+            $data[] = $row['id'];
         }
         $result->close();
         return $data;
@@ -261,7 +264,7 @@ class DataStorage {
 
         // Data from DB
         while ($row = $result->fetch_assoc()) {
-            $data['teacherIdCompetences'] = $row['id'];
+            $data[] = $row['id'];   
             
         }
         $result->close();
@@ -272,26 +275,25 @@ class DataStorage {
 
     //GET informations for multiple competences
     static function getCompetences($idCompetences){
+        $competences = [];
         foreach ($idCompetences as $idCompetence){
-            $competence = DataStorage::getCompetence($idCompetence);
-            if ($competence != 0){
-                
-            }
+            $competences[] = DataStorage::getFullCompetence($idCompetence);
         }
         return $competences;
     }
     //GET informations for multiple competences obtained for a user
     static function getStudentCompetences($idUStudent){
-        $studentCompetences=DataStorage::getCompetences(DataStorage::getStudentIdCompetences($idUStudent));
+        $studentCompetences = DataStorage::getCompetences(DataStorage::getStudentIdCompetences($idUStudent));
         return $studentCompetences;
     }
     //GET informations for multiple competences given by a user
     static function getTeacherCompetences($idUTeacher){
-        $teacherCompetences=DataStorage::getCompetences(DataStorage::getTeacherIdCompetences($idUTeacher));
+        $teacherCompetences = DataStorage::getCompetences(DataStorage::getTeacherIdCompetences($idUTeacher));
+        return $teacherCompetences;
     }
 
 
-    static function skillCompetences($idSkill){
+    static function getSkillCompetences($idSkill){
                 // DB open
         include_once("./cfgDb.php");
         $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
@@ -307,6 +309,7 @@ class DataStorage {
             return NULL;
         }
 
+        $competences = [];
         // Data from DB
         while ($row = $result->fetch_assoc()) {
             $data['idCompetence'] = $row['id'];
@@ -315,10 +318,12 @@ class DataStorage {
             $data['idSkill'] = $row['idSkill'];
             $data['beginDate'] = $row['beginDate'];
             $data['revokedDate'] = $row['revokedDate'];
-            $data['masteringLevel'] = $row['masteringLevel'];         
+            $data['masteringLevel'] = $row['masteringLevel'];   
+            $data['competenceInfosHashCryptPrivUT'] = $row['competenceInfosHashCryptPrivUT'];
+            $competences[] = $data;
         }
         $result->close();
-        return $data;
+        return $competences;
         // DB close
     }
     static function getCreatorIdSkills($idUCreator){
@@ -339,22 +344,23 @@ class DataStorage {
 
         // Data from DB
         while ($row = $result->fetch_assoc()) {
-            $data['creatorIdSkills'] = $row['id'];
+            $data[] = $row['id'];
             
         }
         $result->close();
         return $data;
         // DB close
     }
-    static function getSkillCompetences($idSkills){
+    static function getSkills($idSkills){
+        $skills = [];
         foreach ($idSkills as $idSkill){
-            $skills = DataStorage::getSkill($idSkill);
+            $skills[] = DataStorage::getFullSkill($idSkill);
         }
         return $skills;
     }
 
-    static function getCreatorSKills($idUCreator){
-        $creatorSkills=DataStorage::getSkills(DataStorage::getCreatorIdSkills($idUCreator));
+    static function getCreatorSkills($idUCreator){
+        $creatorSkills = DataStorage::getSkills(DataStorage::getCreatorIdSkills($idUCreator));
         return $creatorSkills;
     }
 }
@@ -362,8 +368,6 @@ class DataStorage {
 // $idSkill = DataStorage::addSkill(36, "macabou", "le poto", "RT2", 1, "", "ffffff");
 // $idCompetence = DataStorage::addCompetence(22, 36, 21, "", 1);
 
-// print_r(DataStorage::getUser(36));
 // print_r(DataStorage::getSkill($idSkill));
-// print_r(DataStorage::getCompetence($idCompetence));
-
+// $competencesList = 28;
 ?>

@@ -20,7 +20,7 @@ $(document).ready(function(){
 
 
         // Send file
-        sendAjaxFile("ajaxAddUserC.php", file, {
+        sendAjaxFile("ajaxAddSkillC.php", file, {
             mainName: mainName,
             subName: subName,
             domain: domain,
@@ -28,8 +28,6 @@ $(document).ready(function(){
             color: color
           
           }, this);
-        
-
     });
 
 
@@ -38,15 +36,10 @@ $(document).ready(function(){
  ============================================================================== */
 
     function receiveAjax(data, domElt) {
-      alert("coucou 5.1");
-
         if (data['success'])
             jQuery(domElt).css("background-color", "green");
         else
             jQuery(domElt).css("background-color", "red");
-
-        alert("coucou 5.2");
-
     }
 
 
@@ -64,7 +57,7 @@ $(document).ready(function(){
         for (var key in data) {
             formData.append(key, data[key]);
         }
-    
+   
         // Send ajax
         jQuery.ajax({
             type: 'POST',
@@ -86,9 +79,6 @@ $(document).ready(function(){
 		if (typeof myVar != 'undefined') return true;
 		return false;
 	}
-
-    
-        //alert("coucou Final");
 
 /*============================================================================== */
 });
