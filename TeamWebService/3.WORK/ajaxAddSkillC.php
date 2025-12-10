@@ -2,6 +2,8 @@
 include_once('./utils.php');
 include_once('./params.php');
 
+  echo json_encode(["success" => "coucou 1"]);
+
  // File from client (ajax)
  $clientFilename = NULL;
  if ($_FILES["file"]["error"] == UPLOAD_ERR_OK) {
@@ -13,17 +15,17 @@ include_once('./params.php');
 
  // Data from client (ajax)
  $mainName = NULL;
- if (preg_match("/^[A-Za-z0-9\-éèêëÉÈÊËïÏàÀçÇ&\' ]{1,20}$/", $_POST['mainName'])) {
+ if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]{1,20}$/", $_POST['mainName'])) {
      $mainName = $_POST['mainName'];
  }
 
  $subName = NULL;
- if (preg_match("/^[A-Za-z0-9\-éèêëïàç&\' ]{1,20}$/", $_POST['subName'])) {
+ if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]{1,20}$/", $_POST['subName'])) {
      $subName = $_POST['subName'];
  }
 
  $domain = NULL;
- if (preg_match("/^[A-Za-z0-9\-éèêëïàç&\' ]{1,20}$/", $_POST['domain'])) {
+ if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]{1,20}$/", $_POST['domain'])) {
      $domain = $_POST['domain'];
  }
 
@@ -43,10 +45,12 @@ if ($mainName==NULL || $subName==NULL || $domain==NULL || $level==NULL || $color
     exit();
  }
 
-// Save file (à supprimer)
-$newFilename = generateRandomString($length=20);
-$success =  move_uploaded_file($_FILES["file"]["tmp_name"], "uploads/$newFilename.png");
+
+  // // Save file (à supprimer )
+  $newFilename = generateRandomString($length=20);
+  $success =  move_uploaded_file($_FILES["file"]["tmp_name"], "uploads/$newFilename.png");
   
+
 
 // Réponse AJAX envoyée au JavaScript, Call WebService
 $data = sendAjax($URL . "svcAddSkill.php", 
@@ -56,9 +60,9 @@ $data = sendAjax($URL . "svcAddSkill.php",
                   "level" => $level, 
                   "color" => $color, 
                   "file"  => $_FILES,
+
 ]);
 
-  // Renvoyer une réponse JSON
 success(["idUser" => $data["idUser"]])
 
 ?>]
