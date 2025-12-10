@@ -74,9 +74,9 @@ class DataStorage {
         if ($isTeacher || $skill['idUCreator'] == $idUTeacher) {
             // DB insert
             if ($revokedDate == "") {
-                $query = "INSERT INTO tblCompetences (id ,idUTeacher, idUStudent, idSkill, currentDate, revokedDate, masteringLevel, competenceInfosHashCryptPrivUT) VALUES (NULL , '$idUTeacher', '$idUStudent', '$idSkill', NOW(), NULL, '$masteryLevel', '$competenceInfosHashCryptPrivUT');";
+                $query = "INSERT INTO tblCompetences (id ,idUTeacher, idUStudent, idSkill, beginDate, revokedDate, masteringLevel, competenceInfosHashCryptPrivUT) VALUES (NULL , '$idUTeacher', '$idUStudent', '$idSkill', NOW(), NULL, '$masteryLevel', '$competenceInfosHashCryptPrivUT');";
             } else {
-                $query = "INSERT INTO tblCompetences (id ,idUTeacher, idUStudent, idSkill, currentDate, revokedDate, masteringLevel, competenceInfosHashCryptPrivUT) VALUES (NULL , '$idUTeacher', '$idUStudent', '$idSkill', NOW(), '$revokedDate', '$masteryLevel', '$competenceInfosHashCryptPrivUT');";
+                $query = "INSERT INTO tblCompetences (id ,idUTeacher, idUStudent, idSkill, beginDate, revokedDate, masteringLevel, competenceInfosHashCryptPrivUT) VALUES (NULL , '$idUTeacher', '$idUStudent', '$idSkill', NOW(), '$revokedDate', '$masteryLevel', '$competenceInfosHashCryptPrivUT');";
             }
             $success = $db->query($query);
 
@@ -183,7 +183,7 @@ class DataStorage {
             $data['idUTeacher'] = $row['idUTeacher'];
             $data['idUStudent'] = $row['idUStudent'];
             $data['idSkill'] = $row['idSkill'];
-            $data['currentDate'] = $row['currentDate'];
+            $data['beginDate'] = $row['beginDate'];
             $data['revokedDate'] = $row['revokedDate'];
             $data['masteringLevel'] = $row['masteringLevel'];
         }
@@ -313,7 +313,7 @@ class DataStorage {
             $data['idUTeacher'] = $row['idUTeacher'];
             $data['idUStudent'] = $row['idUStudent'];
             $data['idSkill'] = $row['idSkill'];
-            $data['currentDate'] = $row['currentDate'];
+            $data['beginDate'] = $row['beginDate'];
             $data['revokedDate'] = $row['revokedDate'];
             $data['masteringLevel'] = $row['masteringLevel'];         
         }
