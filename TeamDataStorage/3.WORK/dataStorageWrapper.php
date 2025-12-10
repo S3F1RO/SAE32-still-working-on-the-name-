@@ -1,16 +1,20 @@
 <?php
 
-include_once("./utils.php");
+    include_once("./dataStorage.php");
 
-{
 
-    
-}
+    function verifyData($pubU, $InfosHashCryptPrivU, $data) {
+        // Decode
+        $InfosHashCryptPrivU = base64_decode($InfosHashCryptPrivU);
+        $pubU = base64_decode($pubU);
 
-// $idSkill = DataStorage::addSkill(36, "macabou", "le poto", "RT2", 1, "", "ffffff");
-// $idCompetence = DataStorage::addCompetence(22, 36, 21, "", 1);
+        // Asym verify data : (dataA, dataAHashSignPrivA, pubA) --> (isDataAVerified)
+        return openssl_verify($data, $userInfosHashSignPrivU, $pubU, "sha256WithRSAEncryption");
+    }
 
-// print_r(DataStorage::getUser(36));
-// print_r(DataStorage::getSkill($idSkill));
-// $competencesList = 28;
+    function addVerifiedUser(string $firstName, string $lastName, string $nickname, string $pubU) {
+        DataStorage::addUser(string $firstName, string $lastName, string $nickname, string $pubU);
+    }
+
+
 ?>
