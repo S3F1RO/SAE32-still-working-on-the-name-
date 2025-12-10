@@ -3,7 +3,6 @@
   include_once('./utils.php');
   include_once('./dataStorage.php');
 
-  echo json_encode(["success" => "coucou 1"]);
 
 
   // Allow JSON content
