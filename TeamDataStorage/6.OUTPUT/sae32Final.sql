@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mer. 10 déc. 2025 à 10:44
+-- Généré le : mer. 10 déc. 2025 à 10:52
 -- Version du serveur : 11.8.3-MariaDB-0+deb13u1 from Debian
 -- Version de PHP : 8.4.11
 
@@ -32,7 +32,7 @@ CREATE TABLE `tblCompetences` (
   `idUTeacher` int(11) NOT NULL,
   `idUStudent` int(11) NOT NULL,
   `idSkill` int(11) NOT NULL,
-  `currentDate` timestamp NOT NULL,
+  `beginDate` timestamp NOT NULL,
   `revokedDate` timestamp NULL DEFAULT NULL,
   `masteringLevel` int(11) NOT NULL,
   `competenceInfosHashCryptPrivUT` varchar(2048) NOT NULL
@@ -42,7 +42,7 @@ CREATE TABLE `tblCompetences` (
 -- Déchargement des données de la table `tblCompetences`
 --
 
-INSERT INTO `tblCompetences` (`id`, `idUTeacher`, `idUStudent`, `idSkill`, `currentDate`, `revokedDate`, `masteringLevel`, `competenceInfosHashCryptPrivUT`) VALUES
+INSERT INTO `tblCompetences` (`id`, `idUTeacher`, `idUStudent`, `idSkill`, `beginDate`, `revokedDate`, `masteringLevel`, `competenceInfosHashCryptPrivUT`) VALUES
 (13, 28, 22, 21, '2025-12-01 13:18:28', NULL, 4, ''),
 (14, 24, 24, 19, '2025-12-01 13:18:28', '2025-12-01 12:50:00', 0, ''),
 (15, 22, 23, 20, '2025-12-01 13:18:28', NULL, 2, ''),
