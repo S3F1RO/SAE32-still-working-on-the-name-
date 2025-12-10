@@ -233,7 +233,7 @@ class DataStorage {
 
         // Data from DB
         while ($row = $result->fetch_assoc()) {
-            $data['studentIdCompetences'] = $row['id'];
+            $data[] = $row['id'];
             
         }
         $result->close();
@@ -261,7 +261,7 @@ class DataStorage {
 
         // Data from DB
         while ($row = $result->fetch_assoc()) {
-            $data['teacherIdCompetences'] = $row['id'];
+            $data[] = $row['id'];   
             
         }
         $result->close();
@@ -272,11 +272,9 @@ class DataStorage {
 
     //GET informations for multiple competences
     static function getCompetences($idCompetences){
+        $competences = [];
         foreach ($idCompetences as $idCompetence){
-            $competence = DataStorage::getCompetence($idCompetence);
-            if ($competence != 0){
-                
-            }
+            $competences[] = DataStorage::getFullCompetence($idCompetence);
         }
         return $competences;
     }
@@ -288,10 +286,11 @@ class DataStorage {
     //GET informations for multiple competences given by a user
     static function getTeacherCompetences($idUTeacher){
         $teacherCompetences=DataStorage::getCompetences(DataStorage::getTeacherIdCompetences($idUTeacher));
+        return $teacherCompetences;
     }
 
 
-    static function skillCompetences($idSkill){
+    static function getSkillCompetences($idSkill){
                 // DB open
         include_once("./cfgDb.php");
         $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
@@ -339,22 +338,23 @@ class DataStorage {
 
         // Data from DB
         while ($row = $result->fetch_assoc()) {
-            $data['creatorIdSkills'] = $row['id'];
+            $data[] = $row['id'];
             
         }
         $result->close();
         return $data;
         // DB close
     }
-    static function getSkillCompetences($idSkills){
+    static function getSkills($idSkills){
+        $skills = [];
         foreach ($idSkills as $idSkill){
-            $skills = DataStorage::getSkill($idSkill);
+            $skills[] = DataStorage::getFullSkill($idSkill);
         }
         return $skills;
     }
 
-    static function getCreatorSKills($idUCreator){
-        $creatorSkills=DataStorage::getSkills(DataStorage::getCreatorIdSkills($idUCreator));
+    static function getCreatorSkills($idUCreator){
+        $creatorSkills = DataStorage::getSkills(DataStorage::getCreatorIdSkills($idUCreator));
         return $creatorSkills;
     }
 }
@@ -364,6 +364,7 @@ class DataStorage {
 
 // print_r(DataStorage::getUser(36));
 // print_r(DataStorage::getSkill($idSkill));
-// print_r(DataStorage::getCompetence($idCompetence));
+// $competencesList = 28;
+print_r(DataStorage::getCreatorSkills(28));
 
 ?>
