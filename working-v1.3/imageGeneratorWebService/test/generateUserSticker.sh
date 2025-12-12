@@ -13,12 +13,12 @@ THISSCRIPTDIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 # PARAMS
 TMPDIR="$THISSCRIPTDIR/TMP";
 TMPLDIR="$THISSCRIPTDIR/Templates";
-# IMAGEDIR="$THISSCRIPTDIR/IN";
+IMAGEDIR="$THISSCRIPTDIR/IN";
 OUTDIR="$THISSCRIPTDIR/QRCODES";
 
 # ARGS
 TXTIDUSER=$1;
-
+ISUSERSTUDENT=$2
 # Check script args
 if (( $# == 0 )); then
 	# Msg
@@ -46,7 +46,7 @@ elif (( $# == 1 )); then
 	cp -f "$TMPLDIR/tmplFrontUser.svg" "$TMPDIR/"                          && echo -e "\t[OK]   Copy tmplFrontUser" || echo -e "\t[FAIL] Copy tmplFrontUser";
 
 	# Generate QR for user
-	qrencode -s 30 -m 0 -d 500 -l L -o "$TMPDIR/qrUser.png" "http://mescertifs.fr/?u=$TXTIDUSER";
+	qrencode -s 30 -m 0 -d 500 -l L -o "$TMPDIR/qrUser.png" "http://10.122.7.206/SAE32/working-v1.3/webClient/getCompetences.php?idC=$TXTIDUSER";
 
 	# Replace front text
 	./infilesreplace "$TMPDIR/tmplFrontUser.svg" '#user#' "$TXTIDUSER"       && echo -e "\t[OK]   Replace text user" || echo -e "\t[FAIL] Replace text user";

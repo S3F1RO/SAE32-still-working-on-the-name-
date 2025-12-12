@@ -10,6 +10,14 @@ function generateSticker($color,$level,$masteryLevel,$file,$title,$subtitle,$dom
     }
 }
 
+function generateQrCode($idUser){
+    $cmd="./generateUserSticker.sh $idUser";
+    exec($cmd,$output,$returncode);
+    for ($i=0; $i<count($output); $i++){
+        echo "<li>$output[$i]</li>";
+    }
+}
 generateSticker("00ccff",1,3,"logoD",'Full','Strike','SAE32','KR-7778','2025','Sulyvan');
+generateQrCode("2");
 
 ?>
