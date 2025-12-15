@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mer. 10 déc. 2025 à 10:52
+-- Généré le : mer. 10 déc. 2025 à 13:06
 -- Version du serveur : 11.8.3-MariaDB-0+deb13u1 from Debian
 -- Version de PHP : 8.4.11
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `sae32Final`
+-- Base de données : `datastorage`
 --
 
 -- --------------------------------------------------------
@@ -90,22 +90,23 @@ CREATE TABLE `tblUsers` (
   `firstName` varchar(20) NOT NULL,
   `lastName` varchar(20) NOT NULL,
   `nickname` varchar(20) NOT NULL,
-  `pubU` varchar(500) NOT NULL
+  `pubU` varchar(2048) NOT NULL,
+  `userInfosHashCryptPrivU` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `tblUsers`
 --
 
-INSERT INTO `tblUsers` (`id`, `firstName`, `lastName`, `nickname`, `pubU`) VALUES
-(1, 'MACABOU', 'Benjamin', 'AigleJohn973', ''),
-(22, 'Lucas', 'Douez Ribal', 'lulupro973', ''),
-(23, 'Benjamin', 'Macabou', 'Splenchy', ''),
-(24, 'Sulyvan', 'Papaya', 'sheyboiii972', ''),
-(25, 'Kinberly', 'Lauristin', 'Kini', ''),
-(26, 'Myindia', 'Joseph', 'MJ', ''),
-(27, 'Stanley', 'Talent', 'Le S', ''),
-(28, 'Vivien', 'Robinet', 'vone', '');
+INSERT INTO `tblUsers` (`id`, `firstName`, `lastName`, `nickname`, `pubU`, `userInfosHashCryptPrivU`) VALUES
+(1, 'MACABOU', 'Benjamin', 'AigleJohn973', '', ''),
+(22, 'Lucas', 'Douez Ribal', 'lulupro973', '', ''),
+(23, 'Benjamin', 'Macabou', 'Splenchy', '', ''),
+(24, 'Sulyvan', 'Papaya', 'sheyboiii972', '', ''),
+(25, 'Kinberly', 'Lauristin', 'Kini', '', ''),
+(26, 'Myindia', 'Joseph', 'MJ', '', ''),
+(27, 'Stanley', 'Talent', 'Le S', '', ''),
+(28, 'Vivien', 'Robinet', 'vone', '', '');
 
 --
 -- Index pour les tables déchargées
