@@ -47,8 +47,8 @@ if ($mainName==NULL || $subName==NULL || $domain==NULL || $level==NULL || $color
 
 
   // // Save file (à supprimer )
-  $newFilename = generateRandomString($length=20);
-  $success =  move_uploaded_file($_FILES["file"]["tmp_name"], "uploads/$newFilename.png");
+  //$newFilename = generateRandomString($length=20);
+  $success =  move_uploaded_file($_FILES["file"]["tmp_name"], "uploads/$mainName.png");
   
 
 
