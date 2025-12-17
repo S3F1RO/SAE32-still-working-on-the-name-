@@ -15,7 +15,9 @@ $html = "Information(s) invalide(s) ou manquante(s)";
  }
 
  // Data from client (ajax)
-   $mainName = NULL;
+  $idUCreator = NULL;
+  if (preg_match("/^[0-9]+$/", $_POST['idUCreator'])) $idUCreator = $_POST['idUCreator'];
+  $mainName = NULL;
   if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]{1,20}$/", $_POST['mainName'])) $mainName =$_POST['mainName'];
   $subName = NULL;
   if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]{1,20}$/", $_POST['subName'])) $subName = $_POST['subName'];
@@ -25,18 +27,20 @@ $html = "Information(s) invalide(s) ou manquante(s)";
   if (preg_match("/^[0-9]+$/", $_POST['level'])) $level = $_POST['level'];
   $color = NULL;
   if (preg_match("/^.{0,20}$/", $_POST['color'])) $color = $_POST['color'];
- 
- // Check
-if ($mainName == NULL || $subName == NULL || $domain == NULL || $level == NULL || $color == NULL) {
+  $imgFile = $_FILES['file'];
+
+  // Check
+  if ($idUCreator == NULL || $mainName == NULL || $subName == NULL || $domain == NULL || $level == NULL || $color == NULL || !isset($imgFile) || $imgFile['error'] !== UPLOAD_ERR_OK) {
     fail($html);
     exit();
- }
+  } 
 
 
 // Send the data and image to server WebService
 $data = sendAjaxImg(
     $URL . "svcAddSkill.php",
     [
+        "idUCreator" => $idUCreator,
         "mainName" => $mainName,
         "subName"  => $subName,
         "domain"   => $domain,
@@ -48,7 +52,12 @@ $data = sendAjaxImg(
     ]
 );
 
-// Send response back to client
-success(["idUser" => $data["message"]]);
+// Check response
+if (!isset($data["idSkill"])) {
+fail($html);
+}
+
+// Client response
+success(["idSkill" => $data["idSkill"]]);
 
 ?>

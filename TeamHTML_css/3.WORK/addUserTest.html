@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html>
+  <!-- Head -->
+  <head>
+    <!-- CSS files -->
+    <link rel='stylesheet' type='text/css' href='./css/web.css' media='screen' />
+
+    <!-- JS files -->
+    <script type='text/javascript' src='./js/jquery-3.7.0.min.js'></script>
+    <script type='text/javascript' src='./js/ajaxAddUser.js'></script>
+
+    <!-- UTF8 encoding -->
+    <meta charset='UTF-8'>
+
+    <!-- Prevent from zooming -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0,  shrink-to-fit=no">
+
+    <!-- Icon -->
+    <link rel='icon' type='image/png' href='./medias/RTSAE.png'/>
+
+    <!-- Title -->
+    <title>Ajout utilisateur</title>
+  </head>
+
+  <!-- Body -->
+  <body>
+    <!-- Wrapper -->
+    <div class='wrapper'>
+    
+      <h1>Ajouter un utilisateur</h1>
+    <!-- Progress-bar simple -->
+
+      <div class="progress-bar">
+        <div class="progress-step active">1<span>Utilisateur</span></div>
+        <div class="progress-step locked">2<span>Compétence</span></div>
+        <div class="progress-step locked">3<span>Attribution</span></div>
+      </div>
+
+
+    <div id="step1">
+      <div class="form-group">
+        <label>Nom *</label>
+        <input type="text" name="lastName" placeholder="Entrez le nom">
+      </div>
+      <div class="form-group">
+        <label>Prénom *</label>
+        <input type="text" name="firstName" placeholder="Entrez le prénom">
+      </div>
+      <div class="form-group">
+        <label>Pseudo</label>
+        <input type="text" name="nickname" placeholder="Entrez le pseudo">
+      </div>
+      <div class="form-group">
+        <label>Mot de passe *</label>
+        <input type="password" name="password" placeholder="Mot de passe">
+      </div>
+
+      <button class="btn-continue">Continuer →</button>
+
+      </div>
+</body>
+</html>

@@ -1,6 +1,6 @@
 <?php
 
   // utils parameters
-  $URL="http://localhost/SAE32/working-v1.2/badgeWebService/";
+  $URL="http://10.122.6.140/sae32/TeamWebService/3.WORK/svcAddSkill.php"
 
 ?>

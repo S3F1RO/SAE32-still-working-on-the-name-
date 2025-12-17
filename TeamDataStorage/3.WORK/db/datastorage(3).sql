@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mer. 10 déc. 2025 à 13:06
+-- Généré le : mer. 17 déc. 2025 à 17:11
 -- Version du serveur : 11.8.3-MariaDB-0+deb13u1 from Debian
 -- Version de PHP : 8.4.11
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `datastorage`
 --
+CREATE DATABASE IF NOT EXISTS `datastorage` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `datastorage`;
 
 -- --------------------------------------------------------
 
@@ -27,6 +29,7 @@ SET time_zone = "+00:00";
 -- Structure de la table `tblCompetences`
 --
 
+DROP TABLE IF EXISTS `tblCompetences`;
 CREATE TABLE `tblCompetences` (
   `id` int(11) NOT NULL,
   `idUTeacher` int(11) NOT NULL,
@@ -45,7 +48,7 @@ CREATE TABLE `tblCompetences` (
 INSERT INTO `tblCompetences` (`id`, `idUTeacher`, `idUStudent`, `idSkill`, `beginDate`, `revokedDate`, `masteringLevel`, `competenceInfosHashCryptPrivUT`) VALUES
 (13, 28, 22, 21, '2025-12-01 13:18:28', NULL, 4, ''),
 (14, 24, 24, 19, '2025-12-01 13:18:28', '2025-12-01 12:50:00', 0, ''),
-(15, 22, 23, 20, '2025-12-01 13:18:28', NULL, 2, ''),
+(15, 22, 23, 20, '2025-12-01 13:18:28', NULL, 2, 'S3j/phbICbuP5KmMH1WHdsYQTMJi8tlQn6HLFPlJh+52nMdVepbfywmCJSau8Y/e/XiUfsDWEe0ZNTQRofI/xJCKda1T4iMpJ7RygATsTNKZYLO6vVzgHNt+FwRECVblTX0Bg5DiyomyJvPhszW7gC+wHsu2TVgCo6PWJghDelYSlEXqEEiLp5TDmo1n6+bz3m8YlOOx1cZYB+FSvRO6ff45PSjOvSzZCxgn/O1ed9rG6tb2bwyidDREkNRnFdHB2QimGvjxaOj7PsObNeFCMBPgK4LlMr9SpQ67G1Jx+JXwmEADDPZjCO+Xp8ZHnNickkuToON8rTv2hUR+Slf2uQ=='),
 (16, 28, 26, 20, '2025-12-01 13:18:28', '2027-07-01 03:00:00', 1, ''),
 (17, 28, 27, 20, '2025-12-01 13:18:28', '2027-07-01 03:00:00', 1, ''),
 (18, 28, 25, 20, '2025-12-01 13:18:28', '2025-12-01 12:50:00', 1, ''),
@@ -58,6 +61,7 @@ INSERT INTO `tblCompetences` (`id`, `idUTeacher`, `idUStudent`, `idSkill`, `begi
 -- Structure de la table `tblSkills`
 --
 
+DROP TABLE IF EXISTS `tblSkills`;
 CREATE TABLE `tblSkills` (
   `id` int(11) NOT NULL,
   `idUCreator` int(11) NOT NULL,
@@ -77,7 +81,7 @@ CREATE TABLE `tblSkills` (
 INSERT INTO `tblSkills` (`id`, `idUCreator`, `mainName`, `subName`, `domain`, `level`, `imgUrl`, `color`, `skillInfosHashCryptPrivUC`) VALUES
 (19, 28, 'PHP', 'requêtes SQL', 'Web', 0, NULL, 'e4bd52', ''),
 (20, 28, 'PHP', '', 'Programmation', 1, NULL, 'e4bd52', ''),
-(21, 22, 'Full-stack', '', 'SAE32', 8, NULL, '00ccff', '');
+(21, 22, 'Full-stack', '', 'SAE32', 8, NULL, '00ccff', 'fYbj6xzJ2+Kff3B4ZkZR/gPfxFWwRw2pVu8umLwdWgmW4/HNxrlSQXurhLyn7FW0x9Ock0sjuPrK3ZiG+8Uh1btqyjR/e7/IOPxhHlU2oAJ8Vw4wXX5OFVuzUrZbvgKvPnP7Dfvod2qdRCJqRl1Ld4mv6eIK1ZBTuoSbg6msyYFBg0H2n8H7HXVIOy5wFbqoqbO+GVfM0LKmkurnEAHiiW0BYINzazmRF0BMYqL0+gGhIpal5V/kBm/UvYqrQFrj0X+2kKqVKUn0ZBRvtpExexOv9ixW81zhgtID1NJ4iskd3GgqF2r62c0CZpve2+e08RvVoVHIxJUR3iNRFJuzCQ==');
 
 -- --------------------------------------------------------
 
@@ -85,6 +89,7 @@ INSERT INTO `tblSkills` (`id`, `idUCreator`, `mainName`, `subName`, `domain`, `l
 -- Structure de la table `tblUsers`
 --
 
+DROP TABLE IF EXISTS `tblUsers`;
 CREATE TABLE `tblUsers` (
   `id` int(11) NOT NULL,
   `firstName` varchar(20) NOT NULL,
@@ -100,7 +105,7 @@ CREATE TABLE `tblUsers` (
 
 INSERT INTO `tblUsers` (`id`, `firstName`, `lastName`, `nickname`, `pubU`, `userInfosHashCryptPrivU`) VALUES
 (1, 'MACABOU', 'Benjamin', 'AigleJohn973', '', ''),
-(22, 'Lucas', 'Douez Ribal', 'lulupro973', '', ''),
+(22, 'Lucas', 'Douez Ribal', 'lulupro973', '-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmB8Kn+/YegeCEXGncHvK\nyVdzF749skR0kRkO50j6i8ExWVzzvradR9Cy4GEBwFT5EBc7efC1BtnjtIh+X1qK\nmgSBJm2BSJWP4xAttOHCaJoJVFYIXMe5VQTh6eytMCyv8lUyOiWhwiwgQbgeDO+c\nrHBldPGFWaFBOlsXLNHWeiXLwfnO1APfcVcY/xmRME7IJbOm4g8SV1/jDl3GE/BI\neyrkR+AuOK8KOCKpNyDk9j88o6KjBmhYuxONc65wg+9rkugL3PRwn6ZJ6q7qgc98\nl1XmOop3kz1TbczMnM/N5atBhJDH0t9EWafvTcfpL2SxsRZn1C1xNP3GyE6QvqIu\nqQIDAQAB\n-----END PUBLIC KEY-----', ''),
 (23, 'Benjamin', 'Macabou', 'Splenchy', '', ''),
 (24, 'Sulyvan', 'Papaya', 'sheyboiii972', '', ''),
 (25, 'Kinberly', 'Lauristin', 'Kini', '', ''),
@@ -134,28 +139,6 @@ ALTER TABLE `tblSkills`
 ALTER TABLE `tblUsers`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `UNQ_Nickname` (`nickname`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `tblCompetences`
---
-ALTER TABLE `tblCompetences`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
---
--- AUTO_INCREMENT pour la table `tblSkills`
---
-ALTER TABLE `tblSkills`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
---
--- AUTO_INCREMENT pour la table `tblUsers`
---
-ALTER TABLE `tblUsers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- Contraintes pour les tables déchargées
