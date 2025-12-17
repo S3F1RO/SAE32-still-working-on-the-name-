@@ -1,44 +1,45 @@
 <?php
-
   include_once('./utils.php');
   include_once('./dataStorage.php');
-
+  
+  // DB open
+  include_once("./cfgDbEscape.php");
+  $db = new mysqli(DBESCAPE_HOST, DBESCAPE_LOGIN, DBESCAPE_PWD, DBESCAPE_NAME);
+  $db->set_charset("utf8");
   // Allow JSON content
-  // header("Content-Type: application/json; charset=UTF-8");
-  // // Data ajax from server
-  // $data = json_decode(file_get_contents('php://input'), true);
-  // $idCompetences = $data['idCompetences'];
-  // // Check
-  // if (empty($idCompetences)) {
-  //   echo json_encode(["success" => false, "message" => "Aucune donnée reçue"]);
-  //   exit;
-  // }
-
-  $idCompetences = ["19", "16"];
+  header("Content-Type: application/json; charset=UTF-8");
+  // Data ajax from server
+  $data = json_decode(file_get_contents('php://input'), true);
+  $idCompetences = $data['idCompetences'];
+  
+  // Check
+  if (empty($idCompetences)) {
+    echo json_encode(["success" => false, "message" => "Aucune donnée reçue"]);
+    exit;
+  }
   
   //array to stock competences 
-  $competences=[];
+  $idC = [];
   // Loop through each competence ID
   foreach ($idCompetences as $idCompetence) {
     
     // filtered + escaped data
-    if (preg_match("/^[0-9]+$/", $idCompetence)) $idCompetence = escape_string($idCompetence);
-    // Get competence data
-    $competence = DataStorage::getFullCompetence($idCompetence);
-    // Add competence data to array
-    if (!empty($competence)) $competences[] = $competence;
+    if (preg_match("/^[0-9]+$/", $idCompetence)) $idCompetence = $db->real_escape_string($idCompetence);
+    $idC[] = $idCompetence; 
+    
+    // Check
+    if (empty($idC)) {
+      echo json_encode(["success" => false, "message" => "Aucune donnée reçue"]);
+      exit;
+    }
   }
-
-  if (empty($competences)) {
-    echo json_encode(["success" => false, "message" => "Aucune donnée reçue"]);
-    exit;
-  }
-  print_r($competences);
-  exit;
+  // Get competence data
+  $competences = DataStorage::getCompetences($idC);
+  // DB close
+  $db->close();
+  
   // Send back a JSON response
-  echo json_encode(['success'=>true,'competences'=>$competences]);
-  exit(); 
+  success(['competences'=>$competences]);
+  
+  ?>
 
-  $tkt = [["idCompetence", "idUTeacher", "idUStudent", "idSkill", "beginDate", "revokedDate", "masteringLevel", "teacher"=>["idUser", "firstName", "lastName", "nickname"], "student"=>["idUser", "firstName", "lastName", "nickname"]], []];
-
-?>

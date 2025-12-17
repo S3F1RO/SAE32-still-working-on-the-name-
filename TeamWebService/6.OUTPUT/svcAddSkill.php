@@ -1,52 +1,51 @@
 <?php
-include_once('./utils.php');
-include_once('./dataStorage.php');
+  // Includes
+  include_once('./utils.php');
+  include_once('./params.php');
+  include_once('./dataStorage.php');
 
-// DB open
-  include_once("./cfgDbTest.php");
-  $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
-  $db->set_charset("utf8");
+  // Default error message
+  $html = "Information(s) invalide(s) ou manquante(s)";
 
-// Allow JSON content
-header("Content-Type: application/json; charset=UTF-8");
+  // Allow JSON content
+  header("Content-Type: application/json; charset=UTF-8");
 
-// Data ajax from server (filtered + escaped)
-  $data = json_decode(file_get_contents('php://input'), true);
+  // Data from client (ajax)
   $idUCreator = NULL;
-  if (preg_match("/^[0-9]+$/", $data['idUCreator'])) $idUCreator = $db->real_escape_string($data['idUCreator']);
-  $mainName = NULL;
-  if (preg_match("/^[A-Za-z0-9]{1,10}$/", $data['mainName'])) $mainName = $db->real_escape_string($data['mainName']);
+  if (preg_match("/^[0-9]+$/", $_POST['idUCreator'])) $idUCreator = escape_string($_POST['idUCreator']);
+   $mainName = NULL;
+  if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]{1,20}$/", $_POST['mainName'])) $mainName =$_POST['mainName'];
   $subName = NULL;
-  if (preg_match("/^[A-Za-z0-9]{1,10}$/", $data['subName'])) $subName = $db->real_escape_string($data['subName']);
+  if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]{1,20}$/", $_POST['subName'])) $subName = $_POST['subName'];
   $domain = NULL;
-  if (preg_match("/^[A-Za-z0-9\-]{1,15}$/", $data['domain'])) $domain = $db->real_escape_string($data['domain']);
+  if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]{1,20}$/", $_POST['domain'])) $domain = $_POST['domain'];
   $level = NULL;
-  if (preg_match("/^[0-9]+$/", $data['level'])) $level = $db->real_escape_string($data['level']);
-  $imgUrl = NULL;
-  if (preg_match("/^.{0,100}$/", $data['imgUrl'])) $imgUrl = $db->real_escape_string($data['imgUrl']);
+  if (preg_match("/^[0-9]+$/", $_POST['level'])) $level = $_POST['level'];
   $color = NULL;
-  if (preg_match("/^[A-Fa-f0-9]{6}$/", $data['color'])) $color = $db->real_escape_string($data['color']);
-  
+  if (preg_match("/^.{0,20}$/", $_POST['color'])) $color = $_POST['color'];
+  $imgFile = $_FILES['file'];
 
   // Check
-  if ($idUCreator == NULL || $mainName == NULL || $subName == NULL || $domain == NULL || $level == NULL || $color == NULL) {
-    echo json_encode(["success" => false, "message" => "Aucune donnée reçue"]);
+  if ($idUCreator == NULL || $mainName == NULL || $subName == NULL || $domain == NULL || $level == NULL || $color == NULL || !isset($imgFile) || $imgFile['error'] !== UPLOAD_ERR_OK) {
+    fail($html);
+    exit();
+  } 
+  
+  // ----- Send img to image WebService -----
+  $data = sendAjaxImg($URL . "svcImgAddSkill.php", [], ["file" => $imgFile]);  
+  $imgUrl = $URL;
+  if (preg_match("/^.{0,100}$/", $data['imgPath'])) $imgUrl .= escape_string($data['imgPath']);
+
+  // Check
+  if ($imgUrl == NULL) {
+    fail($html);
     exit;
   }
-  
-  // DB close
-  $db->close();
-  
-  //Add skill in DB
-  $idSkill = DataStorage::addSkill($idUCreator, $mainName, $subName, $domain, $level, $imgUrl, $color);
-  
-  // Responce
-  $response = [
-    "id" => $idSkill
-  ];
-  
-  // Send back a JSON response
-  echo json_encode($response);
-  
-  ?>
 
+  // Add skill
+  $idSkill = DataStorage::addSkill($idUCreator, $mainName, $subName, $domain, $level, $imgUrl, $color);
+
+  // JSON send back
+  echo json_encode(["idSkill" => $idSkill]);
+  
+?>

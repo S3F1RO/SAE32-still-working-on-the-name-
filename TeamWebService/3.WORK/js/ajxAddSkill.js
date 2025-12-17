@@ -52,12 +52,12 @@ $(document).ready(function(){
         // Add file to formData
         var formData = new FormData();
         formData.append("file", file);
-
+       
         // Add data
         for (var key in data) {
             formData.append(key, data[key]);
         }
-   
+         //alert (JSON.stringify(formData));
         // Send ajax
         jQuery.ajax({
             type: 'POST',

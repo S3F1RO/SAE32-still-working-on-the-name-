@@ -1,6 +1,4 @@
 <?php 
-$cmd="./test.sh";
-$cmd="./generateSticker.sh 00ccff 8 3 logoD 'Full' 'Test' 'SAE32' 'KR-7777' '2025' 'Sulyvan'";
 
 function generateSticker($color,$level,$masteryLevel,$file,$title,$subtitle,$domain,$idCompetence,$beginDate,$teacherName){
     $cmd="./generateSticker.sh $color $level $masteryLevel '$file' '$title' '$subtitle' '$domain' '$idCompetence' '$beginDate' '$teacherName' ";
@@ -10,6 +8,17 @@ function generateSticker($color,$level,$masteryLevel,$file,$title,$subtitle,$dom
     }
 }
 
-generateSticker("00ccff",1,3,"logoD",'Full','Strike','SAE32','KR-7778','2025','Sulyvan');
+function generateQrCode($id,$isUser=true,$textTitle="Utilisateur"){
+    if ($isUser) $textTitle="Utilisateur";
+    else $textTitle="Compétence";
+    $cmd="./generateUserSticker.sh $id $isUser $textTitle";
+    exec($cmd,$output,$returncode);
+    for ($i=0; $i<count($output); $i++){
+        echo "<li>$output[$i]</li>";
+    }
+}
+generateSticker("00ccff",1,3,"giveMeTheZuck",'The','ZUCK','SAE67','KR-1209','2025','Sulyvan');
+generateQrCode("67");
+generateQrCode("41",false);
 
 ?>

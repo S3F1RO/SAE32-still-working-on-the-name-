@@ -4,49 +4,64 @@
     include_once("./params.php");
     
     if (isset($_GET['idC']) && $_GET['idC'] != "") {
-        $idCompetences = explode(",",$_GET['idC']);
-        $data = ['idCompetences'=>$idCompetences];
-        $competences=sendAjax($URL . "svcGetCompetences.php", $data);
-
-        if (!$competences['success']) $html="No competencies found";
-        else {
-            $html .= "\n<img src='./" . $competences['competences'][0]['imgUrl'] . "' alt='Image diplôme'/>";
-            $html .= "<ul>" . $competences['competences'][0]['name'] . "name";
-            $html .= "\n<li>Skill : " . $competences['competences'][0]['idSkill'] . "</li>";
-            $html .= "\n<li>Teacher: " .  $competences['competences'][0]['idUteacher'] . "</li>";
-            $html .= "\n<li>Date d'obtention: " . $competences['competences'][0]['beginDate'] . "</li>";
-            $html .= "\n<li>Date de fin de certification: " . $competences['competences'][0]['revokedDate'] . "</li>";
-
+      $idCompetences = explode(",",$_GET['idC']);
+      $data = ['idCompetences'=>$idCompetences];
+      $competences=sendAjax($URL . "svcGetCompetences.php", $data);
+      print_r($competences['competences'][1]);
+      if (!$competences['success']) $html="No competencies found";
+      else {
+            $html .= "\n<ul>";
+            $html .= "\n<img src='./" . $competences['competences'][0]['urlImage'] . "' alt='Image diplôme'>";
+            $html .= "<ul>";
+            
+            //Checking if subName exists
+            $formattedSubName="";
+            if (!empty($competences['competences'][0]['skill']['subName'])) $formattedSubName = " - ";
+            
+            $html .= "\n<li>Skill : " .  $competences['competences'][0]['skill']['mainName'].$formattedSubName.$competences['competences'][0]['skill']['subName'] . "</li>";
+            $html .= "\n<li>Domaine : " . $competences['competences'][0]['skill']['domain'] . "</li>";
+            $html .= "\n<li>Teacher : " . $competences['competences'][0]['teacher']['nickname'] . "</li>";
+            $html .= "\n<li>Student : " . $competences['competences'][0]['student']['nickname'] . "</li>";
+            $html .= "\n<li>Date d'obtention : " . $competences['competences'][0]['beginDate'] . "</li>";
+            if (empty($competences['competences'][0]['revokedDate'])) $formattedRevokedDate = "Jamais";
+            else $formattedRevokedDate = $competences['competences'][0]['revokedDate'];
+            $html .= "\n<li>Fin de certification : " . $formattedRevokedDate . "</li>";
+            // Formatting the mastering level
             if ($competences['competences'][0]['masteringLevel'] == 1) $formattedMasteringLevel = "Comprise";
             else if ($competences['competences'][0]['masteringLevel'] == 2) $formattedMasteringLevel = "Acquise";
             else if ($competences['competences'][0]['masteringLevel'] == 3) $formattedMasteringLevel = "Maîtrisée";
             else if ($competences['competences'][0]['masteringLevel'] == 4) $formattedMasteringLevel = "Enseignée";
-
-            $html .= "\n<li>Niveau de maîtrise: " . $formattedMasteringLevel . "</li>";
-            $html .= "\n<li>Skill : " . $competences['competences'][0]['idSkill'] . "</li>";
-            $html .= "\n<li>Teacher: " . $competences['competences'][0]['idUteacher'] . "</li>";
+            
+            $html .= "\n<li>Niveau de maîtrise : " . $formattedMasteringLevel . "</li>";
+            $html .= "\n</ul>";
             $html .= "\n</ul>";
 
             for ($i=1 ; $i<count($competences['competences']) ; $i++) {
-                $html .= "\n<ul class='competence'>";
-                $html .= "\n<img src='./" . $competences['competences'][$i]['urlImage'] . "' alt='Image diplôme'>";
-                $html .= "<ul>" . $competences['competences'][$i]['name'] . "name";
-                $html .= "\n<li>Skill : " . $competences['competences'][$i]['idSkill'] . "</li>";
-                $html .= "\n<li>Teacher: " . $competences['competences'][$i]['idUteacher'] . "</li>";
-                $html .= "\n<li>Date d'obtention: " . $competences['competences'][$i]['beginDate'] . "</li>";
-                $html .= "\n<li>Date de fin de certification: " . $competences['competences'][$i]['revokedDate'] . "</li>";
-                
-                // Formatting the mastering level
-                if ($competences[$i]['masteringLevel'] == 1) $formattedMasteringLevel = "Comprise";
-                else if ($competences[$i]['masteringLevel'] == 2) $formattedMasteringLevel = "Acquise";
-                else if ($competences[$i]['masteringLevel'] == 3) $formattedMasteringLevel = "Maîtrisée";
-                else if ($competences[$i]['masteringLevel'] == 4) $formattedMasteringLevel = "Enseignée";
-                
-                $html .= "\n<li>Niveau de maîtrise: " . $formattedMasteringLevel . "</li>";
-                $html .= "\n<li>Skill : " . $competences[$i]['idSkill'] . "</li>";
-                $html .= "\n<li>Teacher: " . $competences[$i]['idUteacher'] . "</li>";
-                $html .= "\n</ul>";
-                $html .= "\n</ul>";
+                  $html .= "\n<ul class='competence'>";
+                  $html .= "\n<img src='./" . $competences['competences'][$i]['urlImage'] . "' alt='Image diplôme'>";
+                  $html .= "<ul>";
+                  //Checking if subName exists
+                  $formattedSubName="";
+                  if (!empty($competences['competences'][$i]['skill']['subName'])) $formattedSubName = " - ";
+                  
+                  $html .= "\n<li>Skill : " .  $competences['competences'][$i]['skill']['mainName'].$formattedSubName.$competences['competences'][$i]['skill']['subName'] . "</li>";
+                  $html .= "\n<li>Domaine : " . $competences['competences'][$i]['skill']['domain'] . "</li>";
+                  $html .= "\n<li>Teacher : " . $competences['competences'][$i]['teacher']['nickname'] . "</li>";
+                  $html .= "\n<li>Student : " . $competences['competences'][$i]['student']['nickname'] . "</li>";
+                  //Formatting Revoked Date
+                  $html .= "\n<li>Date d'obtention : " . $competences['competences'][0]['beginDate'] . "</li>";
+                  if (empty($competences['competences'][0]['revokedDate'])) $formattedRevokedDate = "Jamais";
+                  $html .= "\n<li>Fin de certification : " . $competences['competences'][$i]['revokedDate'] . "</li>";
+                  
+                  // Formatting the mastering level
+                  if ($competences[$i]['masteringLevel'] == 1) $formattedMasteringLevel = "Comprise";
+                  else if ($competences[$i]['masteringLevel'] == 2) $formattedMasteringLevel = "Acquise";
+                  else if ($competences[$i]['masteringLevel'] == 3) $formattedMasteringLevel = "Maîtrisée";
+                  else if ($competences[$i]['masteringLevel'] == 4) $formattedMasteringLevel = "Enseignée";
+                  
+                  $html .= "\n<li>Niveau de maîtrise : " . $formattedMasteringLevel . "</li>";
+                  $html .= "\n</ul>";
+                  $html .= "\n</ul>";
             }
         }
     } else if (isset($_GET['idS']) && $_GET['idS']!= "") {
