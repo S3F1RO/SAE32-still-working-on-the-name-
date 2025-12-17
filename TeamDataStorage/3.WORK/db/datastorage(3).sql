@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mer. 17 déc. 2025 à 16:33
+-- Généré le : mer. 17 déc. 2025 à 17:11
 -- Version du serveur : 11.8.3-MariaDB-0+deb13u1 from Debian
 -- Version de PHP : 8.4.11
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `datastorage`
 --
+CREATE DATABASE IF NOT EXISTS `datastorage` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `datastorage`;
 
 -- --------------------------------------------------------
 
@@ -27,6 +29,7 @@ SET time_zone = "+00:00";
 -- Structure de la table `tblCompetences`
 --
 
+DROP TABLE IF EXISTS `tblCompetences`;
 CREATE TABLE `tblCompetences` (
   `id` int(11) NOT NULL,
   `idUTeacher` int(11) NOT NULL,
@@ -58,6 +61,7 @@ INSERT INTO `tblCompetences` (`id`, `idUTeacher`, `idUStudent`, `idSkill`, `begi
 -- Structure de la table `tblSkills`
 --
 
+DROP TABLE IF EXISTS `tblSkills`;
 CREATE TABLE `tblSkills` (
   `id` int(11) NOT NULL,
   `idUCreator` int(11) NOT NULL,
@@ -85,6 +89,7 @@ INSERT INTO `tblSkills` (`id`, `idUCreator`, `mainName`, `subName`, `domain`, `l
 -- Structure de la table `tblUsers`
 --
 
+DROP TABLE IF EXISTS `tblUsers`;
 CREATE TABLE `tblUsers` (
   `id` int(11) NOT NULL,
   `firstName` varchar(20) NOT NULL,
