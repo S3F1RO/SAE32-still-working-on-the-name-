@@ -365,9 +365,9 @@ class DataStorage {
     }
 }
 
-// $idSkill = DataStorage::addSkill(36, "macabou", "le poto", "RT2", 1, "", "ffffff");
 // $idCompetence = DataStorage::addCompetence(22, 36, 21, "", 1);
 
+// $idSkill = DataStorage::addSkill(36, "macabou", "le poto", "RT2", 1, "", "ffffff");
 // print_r(DataStorage::getSkill($idSkill));
 // $competencesList = 28;
 ?>
