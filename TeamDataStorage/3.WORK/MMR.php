@@ -22,7 +22,7 @@ class MMR {
     }
 
     function addLeaf($nodeHash=NULL){
-        $leaf=$this->addNode($nodeHash,$level);
+        $leaf=$this->addNode($nodeHash,$level);                  // SULYVAN "$level" is not defined here same in addParent
         $this->recursivelyAddParentFromNode($leaf); 
     }
 
@@ -50,7 +50,7 @@ class MMR {
 
     function addNode($hash,$level,$idChild1=NULL,$idChild2=NULL){
         $this->nodes[] = new Node($this->getLastNodeId()+1,"$hash",$level,$idChild1,$idChild2);
-        return $lastId;
+        return $lastId;                                                                 // SULYYYYY WHO IS THIS F*CKING $lastId
     }
 
     function recursivelyAddParentFromNode($idNode){
@@ -62,7 +62,7 @@ class MMR {
 
     function addParent($idChild1=NULL,$idChild2=NULL){
         //Get parent hash based 
-        $level+=1;
+        $level+=1;                                                          // $level ??? idk what is this
         $parentNodeHash = hash("sha256",$this->nodes[$idChild1]->hash.$this->nodes[$idChild2]->hash);
         $this->nodes[$idChild1]->isPeak = false;
         $this->nodes[$idChild2]->isPeak = false;

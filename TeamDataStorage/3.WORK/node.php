@@ -6,7 +6,7 @@ class Node {
     public $idNode;
     public $hash;
     public $level;
-    public $idChild1;
+    public $idChild1;     // It would be better if called left and right !?!?!?
     public $idChild2;
     public $isPeak;
 
