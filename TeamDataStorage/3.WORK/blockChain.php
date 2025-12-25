@@ -6,13 +6,13 @@
     public int $index;
     public string $previousHash;
     public string $mmrRoot;
-    public int $timestamp;
+    public int $blockTimestamp;
 
     public function __construct(int $index, string $previousHash, string $mmrRoot) {
       $this->index = $index;
       $this->previousHash = $previousHash;
       $this->mmrRoot = $mmrRoot;
-      $this->timestamp = time();
+      $this->blockTimestamp = time();
     }
 
     public function hash(): string {
@@ -21,7 +21,7 @@
         $this->index .
         $this->previousHash .
         $this->mmrRoot .
-        $this->timestamp
+        $this->blockTimestamp
       );
     }
   }
