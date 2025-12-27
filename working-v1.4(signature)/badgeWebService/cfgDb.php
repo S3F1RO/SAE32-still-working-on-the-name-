@@ -4,6 +4,6 @@
   define("DB_HOST", "localhost");
   define("DB_LOGIN", "root");
   define("DB_PWD", "root");
-  define("DB_NAME", "data_storage");
+  define("DB_NAME", "datastorage");
   
 ?>

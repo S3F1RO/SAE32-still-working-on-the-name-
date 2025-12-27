@@ -1,8 +1,9 @@
 <?php
 
   // Inclusions 
-  include_once('./dataStorage.php');
+  include_once('./dataStorageWrapper.php');
   include_once("./utils.php");
+
   // Allow JSON content
   header("Content-Type: application/json; charset=UTF-8");
   
@@ -15,16 +16,21 @@
   $nickname = NULL;
   if (preg_match("/^[A-Za-z0-9\-\'\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ& ]{1,20}$/", $data['nickname'])) $nickname = escape_string($data['nickname']);
   $pubU = NULL;
-  if (preg_match("/^[A-Za-z0-9\-\'\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\=\+ ]{1,1000}$/", $data['pubU'])) $pubU = escape_string($data['pubU']);
-
+  if (preg_match("/^.+$/", $data['pubU'])) $pubU = escape_string($data['pubU']);
+  $userInfosHashCryptPrivU = NULL;
+  if (preg_match("/^.+$/", $data['userInfosHashCryptPrivU'])) $userInfosHashCryptPrivU = escape_string($data['userInfosHashCryptPrivU']);
+  
+  
   // Check
-  if ($firstName == NULL || $lastName == NULL || $nickname == NULL || $pubU == NULL ) {
-    echo json_encode([null]);
-    exit;
+  if ($firstName == NULL || $lastName == NULL || $nickname == NULL || $pubU == NULL || $userInfosHashCryptPrivU == NULL) {
+    fail();
   }
+  
   // Insert user
-  $idUser = DataStorage::addUser($firstName, $lastName, $nickname);
+  $idUser = addVerifiedUser($firstName, $lastName, $nickname, $pubU, $userInfosHashCryptPrivU);
+
   // JSON send back
+  if ($idUser == NULL) fail();
   success(["idUser" => $idUser]);
 
 ?>

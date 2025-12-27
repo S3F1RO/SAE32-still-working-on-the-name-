@@ -68,10 +68,10 @@
         // $pubU = openssl_pkey_get_public($pubU);
         
         $InfosHashCryptPrivU = base64_decode($InfosHashCryptPrivU);
-        echo $data . "\n\n";
+        $pubU = base64_decode($pubU);
+        // echo $data . "\n\n";
 
-        if (openssl_verify($data, $InfosHashCryptPrivU, $pubU, "sha256WithRSAEncryption")){
-            echo "true\n";
+        if (openssl_verify($data, $InfosHashCryptPrivU, $pubU, OPENSSL_ALGO_SHA256)){
             return true;
         } else {
             return false;
@@ -95,7 +95,7 @@
         if (verifyData($pubU, $skillInfosHashCryptPrivUC, $data)) {
             return DataStorage::addSkill($idUCreator, $mainName, $subName, $domain, $level, $imgUrl, $color, $skillInfosHashCryptPrivUC);
         } else {
-            return false;
+            return NULL;
         }
     }
 
@@ -105,7 +105,7 @@
         if (verifyData($pubU, $competenceInfosHashCryptPrivUT, $data)) {
             return DataStorage::addCompetence($idUTeacher, $idUStudent, $idSkill, $revokedDate, $masteryLevel, $competenceInfosHashCryptPrivUT);
         } else {
-            return false;
+            return NULL;
         }
 
     }
@@ -116,7 +116,7 @@
         if (verifyData($user["pubU"], $user["userInfosHashCryptPrivU"], $data)) {
             return $user;
         } else {
-            return false;
+            return NULL;
         }
     }
 
@@ -126,7 +126,7 @@
         if (verifyData($skill["creator"]["pubU"], $skill["skillInfosHashCryptPrivUC"], $data)) {
             return $skill;
         } else {
-            return false;
+            return NULL;
         }
     }
 
@@ -137,7 +137,7 @@
         if (verifyData($competence["teacher"]["pubU"], $competence["competenceInfosHashCryptPrivUT"], $data)) {
             return $competence;
         } else {
-            return false;
+            return NULL;
         }
     }    
 

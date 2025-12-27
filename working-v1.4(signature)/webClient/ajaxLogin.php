@@ -23,14 +23,20 @@
 
   // Check
   if ( $idUser == NULL || $passphrase == NULL ) fail($html);
+  
   //Get Crypted Key from DB
   $query="SELECT * FROM tblUsers WHERE idUser='$idUser'";
   $result = $db->query($query);
+  
+  
+  //Fetch symetric items
   while($row = $result->fetch_assoc()){
     $privUCryptPassU = $row['privUCryptPassU'];
     $privUCryptIv = $row['privUCryptIv'];
     $privUCryptTag  = $row['privUCryptTag'];
   }
+
+  //Decode the keys to use them
   $privUCryptPassU = base64_decode($privUCryptPassU);
   $privUCryptIv = base64_decode($privUCryptIv);
   $privUCryptTag = base64_decode($privUCryptTag);
