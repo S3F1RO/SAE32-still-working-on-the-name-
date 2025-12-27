@@ -23,41 +23,34 @@
     <title>Ajout utilisateur</title>
   </head>
 
+
+
   <!-- Body -->
   <body>
     <!-- Wrapper -->
     <div class='wrapper'>
-    
+
       <h1>Ajouter un utilisateur</h1>
-    <!-- Progress-bar simple -->
+      <span></span>
 
-      <div class="progress-bar">
-        <div class="progress-step active">1<span>Utilisateur</span></div>
-        <div class="progress-step locked">2<span>Compétence</span></div>
-        <div class="progress-step locked">3<span>Attribution</span></div>
-      </div>
-
-
-    <div id="step1">
-      <div class="form-group">
-        <label>Nom *</label>
-        <input type="text" name="lastName" placeholder="Entrez le nom">
-      </div>
-      <div class="form-group">
-        <label>Prénom *</label>
-        <input type="text" name="firstName" placeholder="Entrez le prénom">
-      </div>
-      <div class="form-group">
-        <label>Pseudo</label>
-        <input type="text" name="nickname" placeholder="Entrez le pseudo">
-      </div>
-      <div class="form-group">
-        <label>Mot de passe *</label>
-        <input type="password" name="password" placeholder="Mot de passe">
-      </div>
-
-      <button class="btn-continue">Continuer →</button>
-
-      </div>
-</body>
+      <!-- Client field -->
+      <ul>
+        <li>
+          <input type='text' name='firstName' placeholder='Prénom' pattern='[a-z0-9]{0,20}' required autofocus/>
+        </li>
+        <li>
+          <input type='text' name='lastName' placeholder='Nom' pattern='[a-z0-9]{0,20}' required />
+        </li>
+        <li>
+          <input type='text' name='nickname' placeholder='Pseudo' pattern='[a-z0-9]{0,20}' required />
+        </li>
+        <li>
+          <input type='password' name='passphrase' placeholder='Mot de passe' pattern='[a-z0-9]{0,20}' required />
+        </li>
+        <li>
+          <button class="ok"> OK</button>
+        </li>
+      </ul>
+    </div>
+  </body>
 </html>

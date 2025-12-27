@@ -5,44 +5,35 @@ $(document).ready(function(){
   Send ajax to server
   ==============================================================================*/
 
-  // On click "Continuer →" button
-  $("body").on("click", ".btn-continue", function() {
-    var firstName = $("input[name='firstName']").val().trim();
-    var lastName = $("input[name='lastName']").val().trim();
-    var nickname = $("input[name='nickname']").val().trim();
-    var password = $("input[name='password']").val().trim();
-    
-    if(!firstName || !lastName || !password){
-      alert("Veuillez remplir tous les champs obligatoires (*)");
-      return;
-    }
+  // On page load
 
+  // On click OK button
+  jQuery("body").on("click", ".ok", function() {
+    var firstName = jQuery("input[name='firstName']").val();
+    var lastName = jQuery("input[name='lastName']").val();
+    var nickname = jQuery("input[name='nickname']").val();
+    var passphrase = jQuery("input[name='passphrase']").val();
+    
     sendAjax("ajaxAddUser.php", {
       'firstName': firstName,
       'lastName': lastName,
       'nickname': nickname,
-      'password': password
+      'passphrase': passphrase
     });
   });
 
-  // Trigger ajax on "Enter" key in nickname or password field
-  $("body").on("keyup", "input[name='nickname'], input[name='password']", function(e) {
-    if (e.which == 13) { // Enter key
-      var firstName = $("input[name='firstName']").val().trim();
-      var lastName = $("input[name='lastName']").val().trim();
-      var nickname = $("input[name='nickname']").val().trim();
-      var password = $("input[name='password']").val().trim();
-
-      if(!firstName || !lastName || !password){
-        alert("Veuillez remplir tous les champs obligatoires (*)");
-        return;
-      }
-
+  jQuery("body").on("keyup", "input[name='nickname']", function(key) {
+    if (key.which == 13) {
+      var firstName = jQuery("input[name='firstName']").val();
+      var lastName = jQuery("input[name='lastName']").val();
+      var nickname = jQuery("input[name='nickname']").val();
+      var passphrase = jQuery("input[name='passphrase']").val();
+      
       sendAjax("ajaxAddUser.php", {
         'firstName': firstName,
         'lastName': lastName,
         'nickname': nickname,
-        'password': password
+        'passphrase': passphrase
       });
     }
   });
@@ -57,21 +48,19 @@ $(document).ready(function(){
   function receiveAjax(data) {
     if (data['success']) {
       var idUser = data["idUser"];
-      $("body").html("ID utilisateur reçu : " + idUser);
+      jQuery("body").html("ID utilisateur reçu : " + idUser);
     } else {
       var html = data["html"];
-      $("span").html(html);
+      jQuery("span").html(html);
     }
   };
 
+
+
   // --- Send AJAX data to server
   function sendAjax(serverUrl, data) {
-    var jsonData = JSON.stringify(data);
-    $.ajax({
-      type: 'POST',
-      url: serverUrl,
-      dataType: 'json',
-      data: { data: jsonData },
+    jsonData = JSON.stringify(data);
+    jQuery.ajax({type: 'POST', url: serverUrl, dataType: 'json', data: "data=" + jsonData,
       success: function(data) {
         receiveAjax(data);
       }
