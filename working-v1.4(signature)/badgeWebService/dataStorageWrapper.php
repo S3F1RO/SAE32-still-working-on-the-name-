@@ -85,13 +85,13 @@
         if (verifyData($pubU, $userInfosHashCryptPrivU, $data)) {
             return DataStorage::addUser($firstName, $lastName, $nickname, $pubU, $userInfosHashCryptPrivU);
         } else {
-            return false;
+            return NULL;
         }
     }
 
     function addVerifiedSkill(string $idUCreator, string $mainName, string $subName, string $domain, int $level, string $imgUrl, string $color, string $skillInfosHashCryptPrivUC) {
-        $data = $idUCreator . $mainName . $subName . $domain . $level . $imgUrl . $color;
-        $pubU = DataStorage::getUser($idUCreator)["pubU"];
+        $data = $idUCreator . $mainName . $subName . $domain . $level . $color;
+        $pubU = getVerifiedUser($idUCreator)["pubU"];
         if (verifyData($pubU, $skillInfosHashCryptPrivUC, $data)) {
             return DataStorage::addSkill($idUCreator, $mainName, $subName, $domain, $level, $imgUrl, $color, $skillInfosHashCryptPrivUC);
         } else {
@@ -112,7 +112,7 @@
 
     function getVerifiedUser($idUser) {
         $user = DataStorage::getUser($idUser);
-        $data = $user["idUser"] . $user["firstName"] . $user["lastName"] . $user["nickname"];
+        $data = $user["firstName"] . $user["lastName"] . $user["nickname"] . $user["pubU"];
         if (verifyData($user["pubU"], $user["userInfosHashCryptPrivU"], $data)) {
             return $user;
         } else {

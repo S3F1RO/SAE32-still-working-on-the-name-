@@ -9,9 +9,10 @@
   session_start();
   $idUser = NULL;
   if (isset($_SESSION['idUser'])) $idUser = $_SESSION['idUser'];
+  if (isset($_SESSION['privU'])) $privU = $_SESSION['privU'];
 
   // Check
-  if ($idUser == NULL) {
+  if ($idUser == NULL || $privU == NULL) {
     fail($html);
   }
 
@@ -32,15 +33,22 @@
     fail($html);
   }
 
+  // Signature
+  $privUC = base64_decode($privU);
+  $signatureData = $idUser . $mainName . $subName . $domain . $level . $color;
+  openssl_sign($signatureData, $skillInfosHashCryptPrivUC, $privUC, OPENSSL_ALGO_SHA256);
+  $skillInfosHashCryptPrivUC = base64_encode($skillInfosHashCryptPrivUC);
+
   // ----- Send to WebService -----
-  $data = sendAjax($URL . "svcAddSkill.php", ["idUCreator"=>$idUser, "mainName"=>$mainName, "subName"=>$subName, "domain"=>$domain, "level"=>$level, "color"=>$color]);
+  $data = sendAjax($URL . "svcAddSkill.php", ["idUCreator"=>$idUser, "mainName"=>$mainName, "subName"=>$subName, "domain"=>$domain, "level"=>$level, "color"=>$color, "skillInfosHashCryptPrivUC"=>$skillInfosHashCryptPrivUC]);
 
   // Check response
-  if (!isset($data["idSkill"])) {
+  if (!$data["success"]) {
     fail($html);
+    // fail($data['html']);
+  } else {
+    // Client response
+    success(["idSkill" => $data["idSkill"]]);
   }
-
-  // Client response
-  success(["idSkill" => $data["idSkill"]]);
 
 ?>

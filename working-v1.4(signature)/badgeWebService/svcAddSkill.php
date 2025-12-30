@@ -2,7 +2,7 @@
 
   // Inclusions 
   include_once('./utils.php');
-  include_once('./dataStorage.php');
+  include_once('./dataStorageWrapper.php');
 
   // Allow JSON content
   header("Content-Type: application/json; charset=UTF-8");
@@ -24,18 +24,19 @@
   if (preg_match("/^.{0,100}$/", $data['imgUrl'])) $imgUrl = escape_string($data['imgUrl']);
   $color = NULL;
   if (preg_match("/^[A-Fa-f0-9]{6}$/", $data['color'])) $color = escape_string($data['color']);
-
+  $skillInfosHashCryptPrivUC = NULL;
+  if (preg_match("/^.+$/", $data['skillInfosHashCryptPrivUC'])) $skillInfosHashCryptPrivUC = $data['skillInfosHashCryptPrivUC'];
 
   // Check
-  if ($idUCreator == NULL || $mainName == NULL || $domain == NULL || $level == NULL || $color == NULL) {
-    echo json_encode([null]);
-    exit;
+  if ($idUCreator == NULL || $mainName == NULL || $domain == NULL || $level == NULL || $color == NULL || $skillInfosHashCryptPrivUC == NULL) {
+    fail();
   }
 
   // add skill
-  $idSkill = DataStorage::addSkill($idUCreator, $mainName, $subName, $domain, $level, $imgUrl, $color);
+  $idSkill = addVerifiedSkill($idUCreator, $mainName, $subName, $domain, $level, $imgUrl, $color, $skillInfosHashCryptPrivUC);
 
   // JSON send back
-  echo json_encode(["idSkill" => $idSkill]);
+  if ($idSkill == NULL) fail();
+  success(["idSkill" => $idSkill]);
   
 ?>

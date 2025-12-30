@@ -3,6 +3,10 @@
 include_once("./utils.php");
 
 class DataStorage {
+  //------------------------------------------------------
+  // ADDS
+  //------------------------------------------------------
+
     //ADD User
     static function addUser(string $firstName, string $lastName, string $nickname, string $pubU, string $userInfosHashCryptPrivU) {
       // DB open
@@ -19,15 +23,15 @@ class DataStorage {
 
         // Check
         if (!$success) {
-          return false;
+          return NULL;
         }
 
         $lastInsertedId = $db->insert_id;
 
+        // DB close
         $db->close();
         
         return $lastInsertedId;
-        // DB close
     }
 
     //ADD Skill
@@ -38,19 +42,20 @@ class DataStorage {
         $db->set_charset("utf8");
 
         // DB insert
-        $query = "INSERT INTO tblSkills (id ,idUCreator, mainName, subName, domain, level, imgUrl, color, skillInfosHashCryptPrivUC) VALUES (NULL , '$idUCreator', '$mainName', '$subName', '$domain', '$level', NULL, '$color', '$skillInfosHashCryptPrivUC');";
+        $query = "INSERT INTO tblSkills (id, idUCreator, mainName, subName, domain, `level`, imgUrl, color, skillInfosHashCryptPrivUC) VALUES (NULL , '$idUCreator', '$mainName', '$subName', '$domain', '$level', NULL, '$color', '$skillInfosHashCryptPrivUC');";
         $success = $db->query($query);
 
         // Check
         if (!$success) {
-            return false;
+            return NULL;
         }
+
         $lastInsertedId = $db->insert_id;
 
+        // DB close
         $db->close();
         
         return $lastInsertedId;
-        // DB close
     }
 
     //ADD Competence
@@ -89,16 +94,20 @@ class DataStorage {
                 return false;
             }
             $lastInsertedId = $db->insert_id;
-
+            
+            // DB close
             $db->close();
             
             return $lastInsertedId;
-            // DB close
         }
         return false;
     }
 
-    //GET User infos from idUser
+  //------------------------------------------------------
+  // GETS
+  //------------------------------------------------------
+
+    // GET User infos from idUser
     static function getUser($idUser) { 
             
         // DB open
@@ -128,9 +137,12 @@ class DataStorage {
         }
 
         $result->close();
-        return $data;
         // DB close
+        $db->close();
+
+        return $data;
     }
+
     //Gets skill infos from idSkill
     static function getSkill($idSkill) {    
         // DB open
@@ -374,4 +386,5 @@ class DataStorage {
 // $idSkill = DataStorage::addSkill(36, "macabou", "le poto", "RT2", 1, "", "ffffff");
 // print_r(DataStorage::getSkill($idSkill));
 // $competencesList = 28;
+
 ?>
