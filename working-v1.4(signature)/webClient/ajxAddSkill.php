@@ -9,10 +9,10 @@
   session_start();
   $idUser = NULL;
   if (isset($_SESSION['idUser'])) $idUser = $_SESSION['idUser'];
-  if (isset($_SESSION['privU'])) $privU = $_SESSION['privU'];
+  if (isset($_SESSION['privU'])) $privUC = $_SESSION['privU'];
 
   // Check
-  if ($idUser == NULL || $privU == NULL) {
+  if ($idUser == NULL || $privUC == NULL) {
     fail($html);
   }
 
@@ -34,7 +34,7 @@
   }
 
   // Signature
-  $privUC = base64_decode($privU);
+  $privUC = base64_decode($privUC);
   $signatureData = $idUser . $mainName . $subName . $domain . $level . $color;
   openssl_sign($signatureData, $skillInfosHashCryptPrivUC, $privUC, OPENSSL_ALGO_SHA256);
   $skillInfosHashCryptPrivUC = base64_encode($skillInfosHashCryptPrivUC);

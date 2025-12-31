@@ -91,19 +91,30 @@
 
     function addVerifiedSkill(string $idUCreator, string $mainName, string $subName, string $domain, int $level, string $imgUrl, string $color, string $skillInfosHashCryptPrivUC) {
         $data = $idUCreator . $mainName . $subName . $domain . $level . $color;
-        $pubU = getVerifiedUser($idUCreator)["pubU"];
-        if (verifyData($pubU, $skillInfosHashCryptPrivUC, $data)) {
+        $pubUC = getVerifiedUser($idUCreator)["pubU"];
+        if (verifyData($pubUC, $skillInfosHashCryptPrivUC, $data)) {
             return DataStorage::addSkill($idUCreator, $mainName, $subName, $domain, $level, $imgUrl, $color, $skillInfosHashCryptPrivUC);
         } else {
             return NULL;
         }
     }
 
-    function addVerifiedCompetence(string $idUTeacher, string $idUStudent, string $idSkill, string $revokedDate, int $masteryLevel, string $competenceInfosHashCryptPrivUT) {
-        $data = $idUTeacher . $idUStudent . $idSkill . $revokedDate . $masteryLevel . $competenceInfosHashCryptPrivUT;
-        $pubU = DataStorage::getUser($idUTeacher)["pubU"];
-        if (verifyData($pubU, $competenceInfosHashCryptPrivUT, $data)) {
-            return DataStorage::addCompetence($idUTeacher, $idUStudent, $idSkill, $revokedDate, $masteryLevel, $competenceInfosHashCryptPrivUT);
+    function addVerifiedCompetence(string $idUTeacher, string $idUStudent, string $idSkill, string $beginDate, string $revokedDate, int $masteringLevel, string $competenceInfosHashCryptPrivUT) {
+        $data = $idUTeacher . $idUStudent . $idSkill . $beginDate . $revokedDate . $masteringLevel;
+        $pubUT = getVerifiedUser($idUTeacher)["pubU"];
+
+        // Check if the Teacher can give this skill
+        $isTeacher = false;
+        $competences = getStudentVerifiedCompetences($idUTeacher);
+        $skill = getVerifiedSkill($idSkill);
+        foreach ($competences as $competence) {
+          if ($competence["masteringLevel"] == 4) {
+            $isTeacher = true;
+          }
+        }
+        
+        if (($isTeacher || $skill["idUcreator"] == $idUTeacher) && verifyData($pubUT, $competenceInfosHashCryptPrivUT, $data)) {
+            return DataStorage::addCompetence($idUTeacher, $idUStudent, $idSkill, $beginDate, $revokedDate, $masteringLevel, $competenceInfosHashCryptPrivUT);
         } else {
             return NULL;
         }
@@ -122,7 +133,7 @@
 
     function getVerifiedSkill($idSkill) {
         $skill = DataStorage::getFullSkill($idSkill);
-        $data = $skill["idSkill"] . $skill["idUCreator"] . $skill["mainName"] . $skill["subName"] . $skill["domain"] . $skill["level"] . $skill["imgUrl"] . $skill["color"];
+        $data = $skill["idUCreator"] . $skill["mainName"] . $skill["subName"] . $skill["domain"] . $skill["level"] . $skill["color"];
         if (verifyData($skill["creator"]["pubU"], $skill["skillInfosHashCryptPrivUC"], $data)) {
             return $skill;
         } else {
@@ -133,7 +144,7 @@
 
     function getVerifiedCompetence($idCompetence) {
         $competence = DataStorage::getFullCompetence($idCompetence);
-        $data = $competence["idCompetence"] . $competence["idUTeacher"] . $competence["idUStudent"] . $competence["idSkill"] . $competence["beginDate"] . $competence["revokedDate"] . $competence["masteringLevel"];
+        $data = $competence["idUTeacher"] . $competence["idUStudent"] . $competence["idSkill"] . $competence["beginDate"] . $competence["revokedDate"] . $competence["masteringLevel"];
         if (verifyData($competence["teacher"]["pubU"], $competence["competenceInfosHashCryptPrivUT"], $data)) {
             return $competence;
         } else {
@@ -158,20 +169,14 @@
     }
 
     function getStudentVerifiedCompetences($idUStudent){
-        $studentCompetences = [];
         $studentIdCompetences = DataStorage::getStudentIdCompetences($idUStudent);
-        foreach ($studentIdCompetences as $studentIdCompetence) {
-            $studentCompetences[] = getVerifiedCompetence($studentIdCompetence);
-        }
+        $studentCompetences = getVerifiedCompetences($studentIdCompetences);
         return $studentCompetences;
     }  
     
     function getTeacherVerifiedCompetences($idUTeacher){
-        $teacherCompetences = [];
         $teacherIdCompetences = DataStorage::getTeacherIdCompetences($idUTeacher);
-        foreach ($teacherIdCompetences as $teacherIdCompetence) {
-            $teacherCompetences[] = getVerifiedCompetence($teacherIdCompetence);
-        }
+        $teacherCompetences = getVerifiedCompetences($teacherIdCompetences);
         return $teacherCompetences;
     }
 
