@@ -113,7 +113,7 @@
           }
         }
         
-        if (($isTeacher || $skill["idUcreator"] == $idUTeacher) && verifyData($pubUT, $competenceInfosHashCryptPrivUT, $data)) {
+        if (($isTeacher || $skill["idUCreator"] == $idUTeacher) && verifyData($pubUT, $competenceInfosHashCryptPrivUT, $data)) {
             return DataStorage::addCompetence($idUTeacher, $idUStudent, $idSkill, $beginDate, $revokedDate, $masteringLevel, $competenceInfosHashCryptPrivUT);
         } else {
             return NULL;

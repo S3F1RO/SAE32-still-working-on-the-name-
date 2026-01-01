@@ -2,7 +2,7 @@
 
   // Inclusions 
   include_once('./utils.php');
-  // include_once('./dataStorage.php');
+  include_once('./dataStorage.php');
   include_once('./dataStorageWrapper.php');
 
   // Allow JSON content
@@ -30,7 +30,6 @@
   if ($idUTeacher == NULL || $idUStudent == NULL || $idSkill == NULL || $beginDate == NULL || $masteringLevel == NULL || $competenceInfosHashCryptPrivUT == NULL) {
     fail();
   }
-  
   // add competence
   $idCompetence = addVerifiedCompetence($idUTeacher, $idUStudent, $idSkill, $beginDate, "$revokedDate", $masteringLevel, $competenceInfosHashCryptPrivUT);
   
