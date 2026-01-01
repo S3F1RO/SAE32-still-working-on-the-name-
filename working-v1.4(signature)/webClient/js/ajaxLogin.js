@@ -39,8 +39,8 @@ $(document).ready(function(){
 
   function receiveAjax(data) {
     if (data['success']) {
-      alert("Good Credentials");
-      // redirect('getCompetences.php?idC=1');
+      alert("caca");
+      redirect('getCompetences.php?idC=1');
     } else {
       var html = data["html"];
       jQuery("span").html(html);

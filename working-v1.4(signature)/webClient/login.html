@@ -4,7 +4,7 @@
   <!-- Head -->
   <head>
     <!-- CSS files -->
-    <link rel='stylesheet' type='text/css' href='./css/web.css' media='screen' />
+    <link rel='stylesheet' type='text/css' href='./css/web.css' media='screen'/>
 
     <!-- JS files -->
     <script type='text/javascript' src='./js/jquery-3.7.0.min.js'></script>
@@ -23,8 +23,6 @@
     <title>Se connecter</title>
   </head>
 
-
-
   <!-- Body -->
   <body>
     <!-- Wrapper -->
@@ -36,13 +34,16 @@
       <!-- Client field -->
       <ul>
         <li>
-          <input type='text' name='idUser' placeholder='Identifiant unique (Ex: 1,2,5)' pattern='[0-9]{0,20}' required autofocus/>
+          <input type='text' name='idUser' placeholder='Identifiant unique (Ex: 1,2,5)' autofocus/>
         </li>
         <li>
-          <input type='password' name='passphrase' placeholder='Mot de passe' pattern='.+' required />
+          <input type='password' name='passphrase' placeholder='Mot de passe'/>
         </li>
         <li>
-          <button class="ok"> OK</button>
+          <button class="ok">OK</button>
+        </li>
+        <li>
+          <p>Pas encore de compte ? <a href="addUser.html">S'inscrire</a></p>
         </li>
       </ul>
     </div>
