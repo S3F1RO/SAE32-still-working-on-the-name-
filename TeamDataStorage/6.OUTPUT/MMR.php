@@ -21,6 +21,16 @@ class MMR {
         return $node->hash;
     }
 
+    function getRoot(){
+        $peakHashes = "";
+        foreach ($this->nodes as $node) {
+            if ($node->isPeak) {
+                $peakHashes .= $node->hash;
+            }
+        }
+        return hash("sha256", $peakHashes ?: "empty");
+    }
+
     function addLeaf($nodeHash=NULL){
         if ($nodeHash === NULL) $nodeHash = "leaf_".count($this->nodes);
         $level = 0; 
@@ -85,7 +95,11 @@ $MMR->addLeaf("tx1");
 $MMR->addLeaf("tx2");
 $MMR->addLeaf("tx3");
 $MMR->addLeaf("tx4");
-
+echo "Root: " . $MMR->getRoot() . "\n";
+echo "Total nodes: " . count($MMR->nodes) . "\n";
+foreach ($MMR->nodes as $node) {
+    echo "Node {$node->idNode}: hash={$node->hash}, level={$node->level}, peak=" . ($node->isPeak ? "yes" : "no") . "\n";
+}
 
 // ----------------------------------
 // echo "Root: " . $MMR->getRoot() . "\n";
