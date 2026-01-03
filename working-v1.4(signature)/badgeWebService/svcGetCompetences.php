@@ -7,25 +7,32 @@
   // Data ajax from server
   $data = json_decode(file_get_contents('php://input'), true);
   $idCompetences = $data['idCompetences'];
+  if (preg_match("/^[0-9]+$/", $data['idStudent'])) $idStudent = escape_string($data['idStudent']);
+  if (preg_match("/^[0-9]+$/", $data['idTeacher'])) $idTeacher = escape_string($data['idTeacher']);
   
   // Check
-  if (empty($idCompetences)) fail();
+  if ($idCompetences == NULL && $idStudent == NULL && $idTeacher == NULL) fail();
   
-  //array to stock competences 
-  $idC = [];
-  // Loop through each competence ID
-  foreach ($idCompetences as $idCompetence) {
-    
-    // filtered + escaped data
-    if (preg_match("/^[0-9]+$/", $idCompetence)) $idCompetence = escape_string($idCompetence);
-    $idC[] = $idCompetence; 
-
+  if ($idCompetences != NULL) {
+    //array to stock competences 
+    $idC = [];
+    // Loop through each competence ID
+    foreach ($idCompetences as $idCompetence) {
+      // filtered + escaped data
+      if (preg_match("/^[0-9]+$/", $idCompetence)) $idCompetence = escape_string($idCompetence);
+      $idC[] = $idCompetence; 
+    }
     // Check
     if (empty($idC)) fail();
+
+    // Get competence data
+    $competences = getVerifiedCompetences($idC);
+  } elseif ($idStudent != NULL) {
+    $competences = getStudentVerifiedCompetences($idStudent);
+  } else {
+    $competences = getTeacherVerifiedCompetences($idTeacher);
   }
   
-  // Get competence data
-  $competences = getVerifiedCompetences($idC);
   
   // Send back a JSON response
   if ($competences == []) fail();

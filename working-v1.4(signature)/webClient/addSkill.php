@@ -16,7 +16,11 @@
   <!-- Head -->
   <head>
     <!-- CSS files -->
+    <link rel='stylesheet' type='text/css' href='./css/00_reset.css' media='screen' />
     <link rel='stylesheet' type='text/css' href='./css/web.css' media='screen' />
+    <!-- <link rel='stylesheet' type='text/css' href='./css/01_mobile.css' media='screen' /> -->
+    <link rel='stylesheet' type='text/css' href='./css/02_fonts.css' media='screen' />
+    <link rel='stylesheet' type='text/css' href='./css/03_icons.css' media='screen' />
 
     <!-- JS files -->
     <script type='text/javascript' src='./js/jquery-3.7.0.min.js'></script>
@@ -41,12 +45,12 @@
   <!-- Body -->
   <body>
     <!-- Wrapper -->
-    <div class='wrapper'>
+    <section>
       <h1>Ajout de skills</h1>
       <span></span>
           
       <!-- Skills field --> 
-      <section>
+      <article>
         <ul>
           <li>
             <input type='text' name='mainName' placeholder='Le titre' pattern='[a-z0-9]{0,20}' required autofocus/>
@@ -58,16 +62,22 @@
             <input type='text' name='domain' placeholder='Le domain' pattern='[a-z0-9]{0,20}' required />
           </li>
           <li>
-            <input type= "range" name="level" min = "0" max = "8" step = "1" value = "8" required />
+            <input type="range" name="level" min = "0" max = "8" step = "1" value = "8" required />
           </li>
           <li>
-            <input type= "color" value="#FF0000"/>
+            <input type="color" value="#FF0000"/>
           </li>
           <li>
-            <button id= "btnOK" type='submit'>OK</button>
+            <button id="btnOK" type='submit'>OK</button>
           </li>
         </ul>
-      </section>
-    </div>
+      </article>
+    </section>
+
+    <nav>
+      <a href="getCompetences.php?idS=<?=$idUser?>"><i class="back">&#xe5c4;</i></a>
+      <a href="inputCompetance.php" class="magnifyingGlass"><i>&#8981;</i></a>
+      <a href="getSkillsAndMasterCompetences.php"><i class="profile">&#xe853;</i></a>
+    </nav>
   </body>
 </html>
