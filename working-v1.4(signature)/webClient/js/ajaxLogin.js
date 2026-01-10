@@ -38,13 +38,8 @@ $(document).ready(function(){
   }
 
   function receiveAjax(data) {
-    if (data['success']) {
-      alert("caca");
-      redirect('getCompetences.php?idC=1');
-    } else {
-      var html = data["html"];
-      jQuery("span").html(html);
-    }
+    if (data['success']) redirect('getCompetences.php?idS=' + data["idUser"]);
+    else jQuery("span").html(data["html"]);
   };
 
 

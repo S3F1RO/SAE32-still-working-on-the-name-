@@ -303,6 +303,17 @@ span {
     font-weight: bold;
   }
 
+  select {
+    background-color: #f1f1f1;
+    border: 2px solid #D1D5DB;
+    border-radius: 8px;
+    height: 38px;
+    width: 100%;
+    font-size: 100%;
+    outline: none;
+    font-weight: bold;
+  }
+
   /* ===========================
     ACCESSIBILITÉ & LISIBILITÉ
     =========================== */
@@ -470,6 +481,12 @@ span {
 
     body > nav > a:active {
       background-color: rgba(255,255,255,0.08);
+    }
+
+    select {
+      background-color: #0d1b2a;
+      border-color: #4b4b4b;
+      color: #e6e6e6;
     }
   }
 }
