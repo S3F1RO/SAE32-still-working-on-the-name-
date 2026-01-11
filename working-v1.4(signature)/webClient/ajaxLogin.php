@@ -48,6 +48,6 @@
   session_start();
   $_SESSION['idUser'] = $idUser;
   $_SESSION['privU'] = $isKeyDecrypted;
-  success();
+  success(["idUser"=>$idUser]);
   
 ?>
