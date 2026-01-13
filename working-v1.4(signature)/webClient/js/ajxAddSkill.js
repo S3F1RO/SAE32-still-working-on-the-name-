@@ -17,16 +17,31 @@ $(document).ready(function(){
 
     sendAjax("ajxAddSkill.php", data);
   });
+
   //============================================================================
   //    Receive ajax from server
   //============================================================================
   function receiveAjax(data) {
     if (data["success"]) {
-      alert(data["idSkill"])
+      redirect("getSkillsAndMasterCompetences.php")
     } else {
       jQuery("span").html(data["html"]);
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   //============================================================================
   //  Usefull functions
   //============================================================================

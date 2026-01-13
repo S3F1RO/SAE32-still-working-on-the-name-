@@ -1,30 +1,28 @@
 <?php
 
-  //-----------------
-  // To implement later
-  //-----------------
-  // // Data from session
-  // session_start();
-  // $idUser = NULL;
-  // if (isset($_SESSION['idUser'])) $idUser = $_SESSION['idUser'];
-
-  // // Check
-  // if ($idUser == NULL) {
-  //   header("Location: logout.php");
-  //   exit();
-  // }
-
-  //-----------------
-  // To delete later
-  //-----------------
-  // Data to session
   session_start();
-  $_SESSION['idUser'] = 1;
+  $idUser = NULL;
+  if (isset($_SESSION['idUser'])) $idUser = $_SESSION['idUser'];
+  $privU = NULL;
+  if (isset($_SESSION['privU'])) $privU = $_SESSION['privU'];
 
-  $idSkill = 3; // To modify later too
+  // Check
+  if ($idUser == NULL || $privU == NULL) {
+    header("Location: logout.php");
+    exit();
+  }
+
+  // Data from client (filtered)
+  $idSkill = NULL;
+  if (preg_match("/^[0-9]{0,20}$/", $_GET['idSkill'])) $idSkill = $_GET['idSkill'];
+
+  // Check
+  if ($idSkill == NULL) {
+    header("Location: getSkillsAndMasterCompetences.php");
+    exit();
+  }
 
 ?>
-
 <!DOCTYPE html>
 
 <html>
@@ -41,7 +39,7 @@
     <meta charset='UTF-8'>
 
     <!-- Prevent from zooming -->
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0,  shrink-to-fit=no"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0,  shrink-to-fit=no">
 
     <!-- Icon -->
     <link rel='icon' type='image/png' href='./medias/RTSAE.png'/>
@@ -55,7 +53,7 @@
     <!-- Wrapper -->
     <div class='wrapper'>
 
-      <h1>Ajout Compétence</h1>
+      <h1>Ajout d'une compétence</h1>
 
       <!-- User field -->
      <span></span>
@@ -66,11 +64,11 @@
             <input name="idSkill" style="display:none" type="number" value="<?=$idSkill?>">
           </li>
           <li>
-            <input name="idUStudent" type="number" placeholder="id student">
+            <input name="idUStudent" type="number" placeholder="id student" required>
           </li>
 
           <li>
-            <select name="masteringLevel" size = "1" >
+            <select name="masteringLevel" size = "1">
               <option value="1" selected> Comprise </option>
               <option value="2"> Acquise </option>
               <option value="3"> Maîtrisée </option>
@@ -79,7 +77,7 @@
           </li>
   
           <li>
-            <input name="revokedDate" type = "date" min = "2025" max = "2047" required />
+            <input name="revokedDate" type = "date" min = "2025" max = "2047"/>
           </li>
   
           <li>

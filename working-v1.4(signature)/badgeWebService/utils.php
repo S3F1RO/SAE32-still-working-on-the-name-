@@ -139,4 +139,37 @@
     exit();
   }
 
+  function dateInFr(string $dateString): string {
+    $date = DateTime::createFromFormat('Y-m-d H:i:s', $dateString);
+    if (!$date) {
+      return '';
+    }
+
+    // Month in French
+    $month = [
+      1 => 'janv.',
+      2 => 'févr.',
+      3 => 'mars',
+      4 => 'avr.',
+      5 => 'mai',
+      6 => 'juin',
+      7 => 'juil.',
+      8 => 'août',
+      9 => 'sept.',
+      10 => 'oct.',
+      11 => 'nov.',
+      12 => 'déc.'
+    ];
+
+    $day = (int) $date->format('j');
+    $monthNbr = (int) $date->format('n');
+    $year = $date->format('Y');
+
+    // 1st day of the month
+    if ($day == 1) $day = "1er";
+
+    return $dayStr . ' ' . $month[$monthNbr] . ' ' . $year;
+  }
+
+
 ?>

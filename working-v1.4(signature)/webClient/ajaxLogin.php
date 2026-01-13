@@ -7,48 +7,47 @@
   //Open DB
   $db = new mysqli(DBWEBCLIENT_HOST, DBWEBCLIENT_LOGIN, DBWEBCLIENT_PWD, DBWEBCLIENT_NAME);
   $db->set_charset("utf8");
-  $html = "Prénom, nom ou pseudo invalide";
+  $html = "Identifiant ou mot de passe invalide";
 
   // Check
-  if (!isset($_POST['data'])) fail("Prénom, nom ou pseudo invalide");
+  if (!isset($_POST['data'])) fail($html);
 
   // JSON decode
-  $data = json_decode($_POST['data'], true);
-
   if (isset($_POST['data'])) $data = json_decode($_POST['data'], true);
   $idUser = NULL;
-  if (preg_match("/^[0-9]{1,20}$/", $data['idUser'])) $idUser = $data['idUser'];
+  if (preg_match("/^[0-9]{1,20}$/", $data['idUser'])) $idUser = $db->real_escape_string($data['idUser']);
   $passphrase = NULL;
-  if (preg_match("/^[A-Za-z0-9\-\'\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ& ]{1,20}$/", $data['passphrase'])) $passphrase = $data['passphrase'];
+  if (preg_match("/^.+$/", $data['passphrase'])) $passphrase = $db->real_escape_string($data['passphrase']);
 
   // Check
-  if ( $idUser == NULL || $passphrase == NULL ) fail($html);
+  if ($idUser == NULL || $passphrase == NULL) fail($html);
+
   
   //Get Crypted Key from DB
-  $query="SELECT * FROM tblUsers WHERE idUser='$idUser'";
+  $query="SELECT * FROM tblClientUsers WHERE id = '$idUser'";
   $result = $db->query($query);
-  
   
   //Fetch symetric items
   while($row = $result->fetch_assoc()){
     $privUCryptPassU = $row['privUCryptPassU'];
-    $privUCryptIv = $row['privUCryptIv'];
-    $privUCryptTag  = $row['privUCryptTag'];
+    $privUCryptPassUIv = $row['privUCryptPassUIv'];
+    $privUCryptPassUTag  = $row['privUCryptPassUTag'];
   }
 
   //Decode the keys to use them
   $privUCryptPassU = base64_decode($privUCryptPassU);
-  $privUCryptIv = base64_decode($privUCryptIv);
-  $privUCryptTag = base64_decode($privUCryptTag);
+  $privUCryptPassUIv = base64_decode($privUCryptPassUIv);
+  $privUCryptPassUTag = base64_decode($privUCryptPassUTag);
 
   //Decrypt data
-  $isKeyDecrypted = openssl_decrypt($privUCryptPassU, "aes-256-gcm", $passphrase, $options=0, $privUCryptIv, $privUCryptTag);
+  $isKeyDecrypted = openssl_decrypt($privUCryptPassU, "aes-256-gcm", $passphrase, $options=0, $privUCryptPassUIv, $privUCryptPassUTag);
 
   //If empty data could not be recovered then it's false
-  if (empty($isKeyDecrypted)) fail($html);
+  if (!$isKeyDecrypted) fail($html);
   
   session_start();
-  $_SESSION['isKeyDecrypted'] = $isKeyDecrypted;
-  success();
+  $_SESSION['idUser'] = $idUser;
+  $_SESSION['privU'] = $isKeyDecrypted;
+  success(["idUser"=>$idUser]);
   
 ?>
