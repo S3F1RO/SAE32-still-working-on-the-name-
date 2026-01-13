@@ -46,13 +46,14 @@ $(document).ready(function(){
   }
 
   function receiveAjax(data) {
-    if (data['success']) {
-      var idUser = data["idUser"];
-      jQuery("body").html("ID utilisateur reçu : " + idUser);
-    } else {
-      var html = data["html"];
-      jQuery("span").html(html);
-    }
+    var html = "        <li><span>À ne pas oublier</span> : l'identifiant de votre utilisateur est " + data["idUser"] + "</li>\n";
+    html += "        <li>Cet identifiant est nécessaire pour que vous vous connectiez et receviez des certifications. <span>Ne le perdez pas</span></li>\n";
+    html += "        <li>\n";
+    html += "          <p>Vous avez déjà un compte ? <a href='login.html'>Connectez-vous</a></p>\n";
+    html += "        </li>\n";
+
+    if (data['success']) jQuery("ul").html(html);
+    else jQuery("span").html(data["html"]);
   };
 
 

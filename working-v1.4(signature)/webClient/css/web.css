@@ -93,7 +93,7 @@ button,
 button:hover,
 #btnOK:hover {
     background-color: #cecece;
-    transform: translateY(-3px);
+    transform: translateY(-1.5px);
 }
 
 
@@ -236,6 +236,18 @@ span {
     justify-content: center;
   }
 
+  body > header button {
+    color: #1a1a1a;
+    border: none;
+    padding: 12px 50px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: 0.3s;
+    box-shadow: 0 5px 12px #92929266;
+  }
+
   /* ===========================
     ARTICLE
     =========================== */
@@ -245,9 +257,13 @@ span {
     flex-direction: column;
     gap: 12px;
   }
+  
+  article > h1 {
+    margin: 20px 0 0 0;
+  }
 
   /* Carte de compétence */
-  body > article > ul {
+  body > article ul {
     list-style: none;
     margin: 0;
     padding: 10px;
@@ -266,34 +282,34 @@ span {
   }
 
   /* Colonne image */
-  body > article > ul > li {
+  body > article ul > li {
     padding: 0;
     display: block;
     gap: 0px;
   }
 
-  body > article > ul > li.img {
+  body > article ul > li.img {
     grid-row: 1 / span 5;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  body > article > ul > li.img img {
+  body > article ul > li.img img {
     width: 40px;
     height: 40px;
     object-fit: contain;
   }
 
   /* Texte */
-  body > article > ul > li:not(.img) {
+  body > article ul > li:not(.img) {
     font-size: 0.85rem;
     line-height: 1.35;
     word-break: break-word;
   }
 
   /* Titre de la compétence */
-  body > article > ul > li:not(.img):first-of-type {
+  body > article ul > li:not(.img):first-of-type {
     font-weight: 600;
     font-size: 0.95rem;
   }
@@ -312,6 +328,10 @@ span {
     font-size: 100%;
     outline: none;
     font-weight: bold;
+  }
+
+  section article button {
+    padding: 9px 15%;
   }
 
   /* ===========================
@@ -343,6 +363,11 @@ span {
   }
 
   /* Liens */
+  a {
+    text-decoration: none;
+    color: #1a1a1a;
+  }
+
   body > nav > a {
     flex: 1;
     text-align: center;
@@ -409,13 +434,13 @@ span {
       border-color: #2e2e2e;
     }
 
-    #btnOK {
+    body > header button,button,#btnOK {
       color: #e6e6e6;
-      background-color: #16191c;
+      background-color: #0d1b2a;
       box-shadow: 0 5px 12px #29292966;
     }
 
-    #btnOK:hover {
+    button:hover,#btnOK:hover {
       background-color: #2b2e31;
     }
 
@@ -453,20 +478,21 @@ span {
     /* ===================
       ARTICLE
       =================== */
-    body > article > ul {
+    
+    body > article ul {
       background: linear-gradient(135deg, #1b1f24, #1b1f24bb, #1b1f2499);
       box-shadow: 0 1px 4px #000000b3;
     }
 
-    body > article > ul > li:not(.img) {
+    body > article ul > li:not(.img) {
       color: #d6d9dd;
     }
 
-    body > article > ul > li:not(.img):first-of-type {
+    body > article ul > li:not(.img):first-of-type {
       color: #ffffff;
     }
 
-    body > article > ul > li.img img {
+    body > article ul > li.img img {
       filter: brightness(0.9) contrast(1.1);
     }
 
@@ -487,6 +513,10 @@ span {
       background-color: #0d1b2a;
       border-color: #4b4b4b;
       color: #e6e6e6;
+    }
+
+    a {
+      color: #b6b6b6ab;
     }
   }
 }

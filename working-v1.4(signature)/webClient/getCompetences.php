@@ -17,13 +17,18 @@
   }
 
   $sectionHtml = "";
+  $articleHtml = "";
+  $errorHtml = "     <img src='medias/error.png' alt='error'>\n";
+  $errorHtml .= "      <ul>\n";
+  $errorHtml .= "        <li><span>Auccune aptitude trouver (눈_눈)</span></li>\n";
+  $errorHtml .= "      </ul>\n\n";
   
   if (isset($_GET['idC']) && $_GET['idC'] != "") {
     $idCompetences = explode(",", $_GET['idC']);
     $data = ['idCompetences' => $idCompetences];
     $competences = sendAjax($URL . "svcGetCompetences.php", $data);
 
-    if (!$competences['success']) $html = "Auccune compétences trouver";
+    if (!$competences['success']) $sectionHtml = $errorHtml;
     else {
       if ($competences['competences'][0]['masteringLevel'] == 1) $formattedMasteringLevel = "Comprise";
       else if ($competences['competences'][0]['masteringLevel'] == 2) $formattedMasteringLevel = "Acquise";
@@ -34,10 +39,17 @@
       $sectionHtml .= "\n        <img src='" . $competences['competences'][0]["skill"]['imgUrl'] . "' alt='Image certif'/>\n";
       $sectionHtml .= "\n        <ul>";
       $sectionHtml .= "\n          <li>" . $competences['competences'][0]["skill"]['mainName'] . "</li>";
+      if ($competences['competences'][0]["skill"]['subName'] != NULL || $competences['competences'][0]["skill"]['subName'] != "") {
+        $sectionHtml .= "\n          <li>" . $competences['competences'][0]["skill"]['subName'] . "</li>";
+      }
       $sectionHtml .= "\n          <li>N° d'aptitude : " . $competences['competences'][0]['idSkill'] . "</li>";
       $sectionHtml .= "\n          <li>N° de compétence : " . $competences['competences'][0]['idCompetence'] . "</li>";
-      $sectionHtml .= "\n          <li>Créateur : " . $competences['competences'][0]["skill"]['creator']["nickname"] . "</li>";
-      $sectionHtml .= "\n          <li>Donné par : " . $competences['competences'][0]['teacher']["nickname"] . "</li>";
+      if ($competences['competences'][0]["skill"]['creator']["nickname"] == $competences['competences'][0]['teacher']["nickname"]) {
+        $sectionHtml .= "\n          <li>Créé et donner par : " . $competences['competences'][0]["skill"]['creator']["nickname"] . "</li>";
+      } else {
+        $sectionHtml .= "\n          <li>Créateur : " . $competences['competences'][0]["skill"]['creator']["nickname"] . "</li>";
+        $sectionHtml .= "\n          <li>Donné par : " . $competences['competences'][0]['teacher']["nickname"] . "</li>";
+      }
       $sectionHtml .= "\n          <li>À : " . $competences['competences'][0]['student']["nickname"] . "</li>";
       $sectionHtml .= "\n          <li>Niveau de maîtrise : " . $formattedMasteringLevel . "</li>";
       $sectionHtml .= "\n          <li>Date d'obtention : " . dateInFr($competences['competences'][0]['beginDate']) . "</li>";
@@ -66,7 +78,7 @@
 
     $data = ['idTeacher' => $idTeacher];
     $competences = sendAjax($URL . "svcGetCompetences.php", $data);
-    if (!$competences['success']) $html = "Auccune compétences trouver";
+    if (!$competences['success']) $sectionHtml = $errorHtml;
     else {
       if ($competences['competences'][0]['masteringLevel'] == 1) $formattedMasteringLevel = "Comprise";
       else if ($competences['competences'][0]['masteringLevel'] == 2) $formattedMasteringLevel = "Acquise";
@@ -77,10 +89,17 @@
       $sectionHtml .= "\n        <img src='" . $competences['competences'][0]["skill"]['imgUrl'] . "' alt='Image certif'/>\n";
       $sectionHtml .= "\n        <ul>";
       $sectionHtml .= "\n          <li>" . $competences['competences'][0]["skill"]['mainName'] . "</li>";
+      if ($competences['competences'][0]["skill"]['subName'] != NULL || $competences['competences'][0]["skill"]['subName'] != "") {
+        $sectionHtml .= "\n          <li>" . $competences['competences'][0]["skill"]['subName'] . "</li>";
+      }
       $sectionHtml .= "\n          <li>N° d'aptitude : " . $competences['competences'][0]['idSkill'] . "</li>";
       $sectionHtml .= "\n          <li>N° de compétence : " . $competences['competences'][0]['idCompetence'] . "</li>";
-      $sectionHtml .= "\n          <li>Créateur : " . $competences['competences'][0]["skill"]['creator']["nickname"] . "</li>";
-      $sectionHtml .= "\n          <li>Donné par : " . $competences['competences'][0]['teacher']["nickname"] . "</li>";
+      if ($competences['competences'][0]["skill"]['creator']["nickname"] == $competences['competences'][0]['teacher']["nickname"]) {
+        $sectionHtml .= "\n          <li>Créé et donner par : " . $competences['competences'][0]["skill"]['creator']["nickname"] . "</li>";
+      } else {
+        $sectionHtml .= "\n          <li>Créateur : " . $competences['competences'][0]["skill"]['creator']["nickname"] . "</li>";
+        $sectionHtml .= "\n          <li>Donné par : " . $competences['competences'][0]['teacher']["nickname"] . "</li>";
+      }
       $sectionHtml .= "\n          <li>À : " . $competences['competences'][0]['student']["nickname"] . "</li>";
       $sectionHtml .= "\n          <li>Niveau de maîtrise : " . $formattedMasteringLevel . "</li>";
       $sectionHtml .= "\n          <li>Date d'obtention : " . dateInFr($competences['competences'][0]['beginDate']) . "</li>";
@@ -110,7 +129,7 @@
 
     $data = ['idStudent' => $idStudent];
     $competences = sendAjax($URL . "svcGetCompetences.php", $data);
-    if (!$competences['success']) $html = "Auccune compétences trouver";
+    if (!$competences['success']) $sectionHtml = $errorHtml;
     else {
       if ($competences['competences'][0]['masteringLevel'] == 1) $formattedMasteringLevel = "Comprise";
       else if ($competences['competences'][0]['masteringLevel'] == 2) $formattedMasteringLevel = "Acquise";
@@ -121,10 +140,17 @@
       $sectionHtml .= "\n        <img src='" . $competences['competences'][0]["skill"]['imgUrl'] . "' alt='Image certif'/>\n";
       $sectionHtml .= "\n        <ul>";
       $sectionHtml .= "\n          <li>" . $competences['competences'][0]["skill"]['mainName'] . "</li>";
+      if ($competences['competences'][0]["skill"]['subName'] != NULL || $competences['competences'][0]["skill"]['subName'] != "") {
+        $sectionHtml .= "\n          <li>" . $competences['competences'][0]["skill"]['subName'] . "</li>";
+      }
       $sectionHtml .= "\n          <li>N° d'aptitude : " . $competences['competences'][0]['idSkill'] . "</li>";
       $sectionHtml .= "\n          <li>N° de compétence : " . $competences['competences'][0]['idCompetence'] . "</li>";
-      $sectionHtml .= "\n          <li>Créateur : " . $competences['competences'][0]["skill"]['creator']["nickname"] . "</li>";
-      $sectionHtml .= "\n          <li>Donné par : " . $competences['competences'][0]['teacher']["nickname"] . "</li>";
+      if ($competences['competences'][0]["skill"]['creator']["nickname"] == $competences['competences'][0]['teacher']["nickname"]) {
+        $sectionHtml .= "\n          <li>Créé et donner par : " . $competences['competences'][0]["skill"]['creator']["nickname"] . "</li>";
+      } else {
+        $sectionHtml .= "\n          <li>Créateur : " . $competences['competences'][0]["skill"]['creator']["nickname"] . "</li>";
+        $sectionHtml .= "\n          <li>Donné par : " . $competences['competences'][0]['teacher']["nickname"] . "</li>";
+      }
       $sectionHtml .= "\n          <li>À : " . $competences['competences'][0]['student']["nickname"] . "</li>";
       $sectionHtml .= "\n          <li>Niveau de maîtrise : " . $formattedMasteringLevel . "</li>";
       $sectionHtml .= "\n          <li>Date d'obtention : " . dateInFr($competences['competences'][0]['beginDate']) . "</li>";

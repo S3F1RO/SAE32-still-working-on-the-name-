@@ -38,7 +38,6 @@
   if ($revokedDate != NULL) $revokedDate .= " 00:00:00";
 
   // Signature
-  $privUT = base64_decode($privUT);
   $signatureData = $idUTeacher . $idUStudent . $idSkill . $beginDate . $revokedDate . $masteringLevel;
   openssl_sign($signatureData, $competenceInfosHashCryptPrivUT, $privUT, OPENSSL_ALGO_SHA256);
   $competenceInfosHashCryptPrivUT = base64_encode($competenceInfosHashCryptPrivUT);

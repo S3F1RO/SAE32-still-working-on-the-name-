@@ -171,5 +171,19 @@
     return $day . ' ' . $month[$monthNbr] . ' ' . $year;
   }
 
+  function deleteDir($dir) {
+    foreach (scandir($dir) as $f) {
+      if ($f != "." && $f != "..") {
+        if (is_dir("$dir/$f")) {
+            deleteDir("$dir/$f");
+          } else {
+            unlink("$dir/$f");
+          }
+      }
+    }
+    rmdir($dir);
+  }
+
+
 
 ?>

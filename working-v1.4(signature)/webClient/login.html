@@ -26,26 +26,28 @@
   <!-- Body -->
   <body>
     <!-- Wrapper -->
-    <div class='wrapper'>
-
+    <section>
       <h1>Se connecter</h1>
       <span></span>
 
       <!-- Client field -->
-      <ul>
-        <li>
-          <input type='text' name='idUser' placeholder='Identifiant unique (Ex: 1,2,5)' autofocus/>
-        </li>
-        <li>
-          <input type='password' name='passphrase' placeholder='Mot de passe'/>
-        </li>
-        <li>
-          <button class="ok">OK</button>
-        </li>
-        <li>
-          <p>Pas encore de compte ? <a href="addUser.html">S'inscrire</a></p>
-        </li>
-      </ul>
-    </div>
+      <article>
+        <ul>
+          <li>
+            <input type='number' name='idUser' placeholder='Identifiant unique (Ex: 1,2,5)' autofocus/>
+          </li>
+          <li>
+            <input type='password' name='passphrase' placeholder='Mot de passe'/>
+          </li>
+          <li>
+            <button class="ok">OK</button>
+          </li>
+          <li>
+            <p>Pas encore de compte ? <a href="addUser.html">S'inscrire</a></p>
+          </li>
+          <a href="importUser.php"><button><li>Importer un utilisateur depuis un fichier (.txt)</li></button></a>
+        </ul>
+      </article>
+    </section>
   </body>
 </html>

@@ -173,7 +173,7 @@
     function getVerifiedSkills($idSkills){
         $skills = [];
         foreach ($idSkills as $idSkill){
-            $skills[] = getVerifiedSkill($idSkill);
+          $skills[] = getVerifiedSkill($idSkill);
         }
         return $skills;
     }
@@ -190,17 +190,16 @@
         return $teacherCompetences;
     }
 
-    function getCreatorSkills($idUCreator){
+    function getCreatorVerifiedSkills($idUCreator){
         $creatorSkills = [];
         $creatorIdSkills = DataStorage::getCreatorIdSkills($idUCreator);
         foreach ($creatorIdSkills as $creatorIdSkill) {
             $creatorSkills[] = getVerifiedSkill($creatorIdSkill);
         }
-        echo $InfosHashCryptPrivU;
         return $creatorSkills;
     }
 
-    print_r(getVerifiedCompetence("15"));
+    // print_r(getCreatorVerifiedSkills("2"));
     // print_r(verifyData("1","2","3"));
 
 ?>

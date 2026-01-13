@@ -33,7 +33,7 @@ $(document).ready(function() {
   //============================================================================
   function receiveAjax(data) {
     if (data['success']) {
-      redirect("getCompetences.php?isJustCreated=true&idC=" + data['id'])
+      redirect("getCompetences.php?isJustCreated=true&idC=" + data['idCompetence'])
     } else {
       jQuery("span").html(data["html"]);
     }

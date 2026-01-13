@@ -23,7 +23,7 @@ $(document).ready(function(){
   //============================================================================
   function receiveAjax(data) {
     if (data["success"]) {
-      alert(data["idSkill"])
+      redirect("getSkillsAndMasterCompetences.php")
     } else {
       jQuery("span").html(data["html"]);
     }

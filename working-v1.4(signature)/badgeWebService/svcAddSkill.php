@@ -11,13 +11,13 @@
   $data = json_decode(file_get_contents('php://input'), true);
 
   $idUCreator = NULL;
-  if (preg_match("/^[0-9]+$/", $data['idUCreator'])) $idUCreator = escape_string($data['idUCreator']);
+  if (preg_match("/^[0-9]{0,20}$/", $data['idUCreator'])) $idUCreator = escape_string($data['idUCreator']);
   $mainName = NULL;
-  if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]{1,20}$/", $data['mainName'])) $mainName = escape_string($data['mainName']);
+  if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\'\.:,! ]{1,20}$/", $data['mainName'])) $mainName = escape_string($data['mainName']);
   $subName = "";
-  if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]{1,20}$/", $data['subName'])) $subName = escape_string($data['subName']);
+  if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\'\.:,! ]{1,20}$/", $data['subName'])) $subName = escape_string($data['subName']);
   $domain = NULL;
-  if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\' ]{1,20}$/", $data['domain'])) $domain = escape_string($data['domain']);
+  if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\'\.:,! ]{1,20}$/", $data['domain'])) $domain = escape_string($data['domain']);
   $level = NULL;
   if (preg_match("/^[0-9]+$/", $data['level'])) $level = escape_string($data['level']);
   $imgUrl = "";

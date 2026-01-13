@@ -24,10 +24,8 @@
   <!-- Head -->
   <head>
     <!-- CSS files -->
-    <link rel='stylesheet' type='text/css' href='./css/00_reset.css' media='screen' />
     <link rel='stylesheet' type='text/css' href='./css/web.css' media='screen' />
     <!-- <link rel='stylesheet' type='text/css' href='./css/01_mobile.css' media='screen' /> -->
-    <link rel='stylesheet' type='text/css' href='./css/02_fonts.css' media='screen' />
     <link rel='stylesheet' type='text/css' href='./css/03_icons.css' media='screen' />
 
     <!-- JS files -->
@@ -52,7 +50,6 @@
 
   <!-- Body -->
   <body>
-    <!-- Wrapper -->
     <section>
       <h1>Ajout de skills</h1>
       <span></span>
