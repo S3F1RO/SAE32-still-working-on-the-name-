@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+  <!-- Head -->
+  <head>
+    <!-- CSS files -->
+    <link rel='stylesheet' type='text/css' href='./css/web.css' media='screen'/>
+
+    <!-- JS files -->
+    <script type='text/javascript' src='./js/jquery-3.7.0.min.js'></script>
+    <script type='text/javascript' src='./js/ajaxLogin.js'></script>
+
+    <!-- UTF8 encoding -->
+    <meta charset='UTF-8'>
+
+    <!-- Prevent from zooming -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0,  shrink-to-fit=no">
+
+    <!-- Icon -->
+    <link rel='icon' type='image/png' href='./medias/RTSAE.png'/>
+
+    <!-- Title -->
+    <title>Se connecter</title>
+  </head>
+
+  <!-- Body -->
+  <body>
+    <!-- Wrapper -->
+    <section>
+      <h1>Se connecter</h1>
+      <span></span>
+
+      <!-- Client field -->
+      <article>
+        <ul>
+          <li>
+            <input type='number' name='idUser' placeholder='Identifiant unique (Ex: 1,2,5)' autofocus/>
+          </li>
+          <li>
+            <input type='password' name='passphrase' placeholder='Mot de passe'/>
+          </li>
+          <li>
+            <button class="ok">OK</button>
+          </li>
+          <li>
+            <p>Pas encore de compte ? <a href="addUser.html">S'inscrire</a></p>
+          </li>
+          <a href="importUser.php"><button><li>Importer un utilisateur depuis un fichier (.txt)</li></button></a>
+        </ul>
+      </article>
+    </section>
+  </body>
+</html>
