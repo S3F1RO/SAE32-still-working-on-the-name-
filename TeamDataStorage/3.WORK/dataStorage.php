@@ -30,7 +30,7 @@ class DataStorage {
     }
 
     //ADD Skill
-    static function addSkill(string $idUCreator, string $mainName, string $subName, string $domain, int $level, string $imgUrl, string $color, string $skillInfosHashCryptPrivUC) {
+    static function addSkill(int $idUCreator, string $mainName, string $subName, string $domain, int $level, string $imgUrl, string $color, string $skillInfosHashCryptPrivUC) {
         // DB open
         include_once("./cfgDb.php");
         $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);
@@ -53,7 +53,7 @@ class DataStorage {
     }
 
     //ADD Competence
-    static function addCompetence(string $idUTeacher, string $idUStudent, string $idSkill, string $revokedDate, int $masteryLevel, string $competenceInfosHashCryptPrivUT) {
+    static function addCompetence(int $idUTeacher, int $idUStudent, int $idSkill, string $revokedDate, int $masteryLevel, string $competenceInfosHashCryptPrivUT) {
         // DB open
         include_once("./cfgDb.php");
         $db = new mysqli(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME);

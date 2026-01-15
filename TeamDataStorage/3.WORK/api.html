@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html>
+  <!-- Head -->
+  <head>
+    <!-- CSS files -->
+    <link rel='stylesheet' type='text/css' href='./css/web.css' media='screen' />
+    <!-- <link rel='stylesheet' type='text/css' href='./css/00_reset.css' media='screen' /> -->
+    <!-- <link rel='stylesheet' type='text/css' href='./css/01_mobile.css' media='screen' /> -->
+    <link rel='stylesheet' type='text/css' href='./css/02_fonts.css' media='screen' />
+    <link rel='stylesheet' type='text/css' href='./css/03_icons.css' media='screen' />
+
+    <!-- JS files -->
+    <script type='text/javascript' src='./js/jquery-3.7.0.min.js'></script>
+    <script type='text/javascript' src='./js/ajaxAddUser.js'></script> 
+    <!-- <script type='text/javascript' src='./js/refresh1s.js'></script> -->
+    <script type='text/javascript' src='./js/web.js'></script>
+    <!-- UTF8 encoding -->
+    <meta charset='UTF-8'>
+
+    <!-- Prevent from zooming -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0,  shrink-to-fit=no"> -->
+
+    <!-- Icon -->
+    <link rel='icon' type='image/png' href='./medias/iut.png' />
+
+    <!-- Title -->
+    <title>Client</title>
+  </head>
+
+
+
+  <!-- Body -->
+  <body>
+    <!-- Wrapper -->
+    <div class='wrapper'>
+
+				<h1>API Documentation</h1>
+        <!-- Champ des utilisateurs-->
+     
+        <ul>
+            <h4>addUser</h4>
+            <li>
+            <h4>In</h4>
+            <p>
+                "firstName" : "string"
+                "lastName" : "string"
+                "nickname" : "string" 
+                "pubU" : "string"  (base64)
+                "userInfosHashCryptPrivU" : "string"  (base64)
+            </p>
+            </li>
+            <li>
+            <h4>Out</h4>
+            <p>
+                "lastInsertedId" : "int"
+            </p>
+            </li>
+        </ul>
+        <li>
+            <h4>addSkill</h4>
+            <p>In</p>
+            <p>
+                "idUCreator" : "int"
+                "mainName" : "string"
+                "subName" : "string" 
+                "domain" : "string"  
+                "level" : "int"  
+                "imgUrl" : "string"
+            </p>
+            <p>Out</p>
+            <p>
+                "lastInsertedId" : "int"
+            </p>
+        </li>
+        <li>
+            <h4>addCompetence</h4>
+            <p>In</p>
+            <p>
+                "idUTeacher" : "int"
+                "idUStudent" : "int"
+                "idSkill" : "int" 
+                "domain" : "string"  
+                "level" : "int"  
+                "imgUrl" : "string"
+            </p>
+            <p>Out</p>
+            <p>
+                "lastInsertedId" : "int"
+            </p>
+        </li>
+        <li>
+            <h4>getUser</h4>
+            <p>In</p>
+            <p>
+                "idUser" : "int"
+            </p>
+            <p>Out</p>
+            <p>
+                "idUser" : "int"
+                "firstName" : "string"
+                "lastName" : "string"
+                "nickname" : "string"
+                "pubU" : "string"
+                "userInfosHashCryptPrivU" : "string"
+            </p>
+        </li>
+        <li>
+            <h4>getCompetence</h4>
+            <p>In</p>
+            <p>
+                "idCompetence" : "int"
+            </p>
+            <p>Out</p>
+            <p>
+                "idCompetence" : "int"
+                "idUTeacher" : "int"
+                "idUStudent" : "int"
+                "idSkill" : "int" 
+                "domain" : "string"  
+                "level" : "int"  
+                "imgUrl" : "string"
+            </p>
+        </li>
+        <li>
+            <h4>getSkill</h4>
+            <p>In</p>
+            <p>
+                "idSkill" : "int"
+            </p>
+            <p>Out</p>
+            <p>
+                "idSkill" : "int"
+                "idUCreator" : "int"
+                "mainName" : "string"
+                "subName" : "string"
+                "domain" : "string"
+                "level" : "int"
+                "imgUrl" : "string"
+            </p>
+        </li>
+        <li>
+            <h4>getFullSkill</h4>
+            <p>In</p>
+            <p>
+                "idSkill" : "int"
+            </p>
+            <p>Out</p>
+            <p>
+                {
+                "idSkill" : "int"
+                "idUCreator" : "int"
+                    {
+                        "idUser" : "int"
+                        "firstName" : "string"
+                        "lastName" : "string"
+                        "nickname" : "string"
+                        "pubU" : "string"
+                        "userInfosHashCryptPrivU" : "string"
+                    }
+                "mainName" : "string"
+                "subName" : "string" 
+                "domain" : "string"  
+                "level" : "int"  
+                "imgUrl" : "string"
+                }
+            </p>
+
+        </li>
+        </li>
+
+
+
+
+    </div>
+  </body>
+</html>
