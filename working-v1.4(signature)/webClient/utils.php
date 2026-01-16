@@ -168,22 +168,56 @@
     // 1st day of the month
     if ($day == 1) $day = "1er";
 
-    return $day . ' ' . $month[$monthNbr] . ' ' . $year;
+    return $dayStr . ' ' . $month[$monthNbr] . ' ' . $year;
   }
 
-  function deleteDir($dir) {
-    foreach (scandir($dir) as $f) {
-      if ($f != "." && $f != "..") {
-        if (is_dir("$dir/$f")) {
-            deleteDir("$dir/$f");
-          } else {
-            unlink("$dir/$f");
-          }
-      }
+  function sendAjaxImg(string $url, array $data, array $files = null): array {
+    // Prepare cURL
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    //With img
+    if ($files !== null) {
+
+        foreach ($files as $key => $file) {
+            if ($file['error'] === UPLOAD_ERR_OK) {
+                $data[$key] = new CURLFile($file['tmp_name'], $file['type'], $file['name']);
+            }
+        }
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        // JSON Headers
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ["Accept: application/json",]);
+
+      //sans img
+    } else {
+      $jsonPayload = json_encode($data);
+
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonPayload);
+      curl_setopt($ch, CURLOPT_HTTPHEADER, [
+          "Content-Type: application/json",
+          "Content-Length: " . strlen($jsonPayload)
+      ]);
     }
-    rmdir($dir);
+
+    // Run query
+    $response = curl_exec($ch);
+
+    // cURL error
+    if ($response == false) {
+      return null;
+    }
+
+    curl_close($ch);
+
+    // Return the decoded JSON response
+    $decoded = json_decode($response, true);
+
+    if ($decoded != null) {
+      return $decoded;
+    } else {
+      return null;
+    }
   }
-
-
 
 ?>

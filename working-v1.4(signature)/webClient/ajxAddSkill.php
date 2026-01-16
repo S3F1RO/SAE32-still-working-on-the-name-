@@ -63,7 +63,7 @@
 
   // Check response
   if (!$data["success"]) {
-    fail($data["html"]);
+    fail($html);
   } else {
     // Client response
     success(["idSkill" => $data["idSkill"]]);

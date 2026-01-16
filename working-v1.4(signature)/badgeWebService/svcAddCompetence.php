@@ -4,7 +4,6 @@
   include_once('./utils.php');
   include_once('./params.php');
   include_once('./dataStorageWrapper.php');
-
   // Allow JSON content
   header("Content-Type: application/json; charset=UTF-8");
 
@@ -32,17 +31,19 @@
   }
 
   $skill = getVerifiedSkill($idSkill);
-
+  
   if ($skill == NULL) fail();
-
+  
   // Create bage
   $dataForImgGenerator = ["color"=>$skill["color"], "level"=>$skill["level"], "masteringLevel"=>$masteringLevel, "imgUrl"=>$skill["imgUrl"], "mainName"=>$skill["mainName"], "subName"=>$skill["subName"], "domain"=>$skill["domain"]];
-  $imgCUrl = sendAjax($URL . "imageGenerator.php", $dataForImgGenerator);
+  $imgPath = sendAjax($URL . "imageGenerator.php", $dataForImgGenerator);
 
-  if (!$imgCUrl["success"]) fail($imgCUrl["html"]);
+  if (!$imgPath["success"]) fail($imgPath["html"]);
+
+  $imgUrl = $URL . $imgPath["imgPath"];
 
   // add competence
-  $idCompetence = addVerifiedCompetence($idUTeacher, $idUStudent, $idSkill, $beginDate, "$revokedDate", $masteringLevel, $imgCUrl, $competenceInfosHashCryptPrivUT);
+  $idCompetence = addVerifiedCompetence($idUTeacher, $idUStudent, $idSkill, $beginDate, "$revokedDate", $masteringLevel, $imgUrl, $competenceInfosHashCryptPrivUT);
   
   // JSON send back
   if ($idCompetence == NULL) fail();

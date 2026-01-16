@@ -15,9 +15,9 @@
   } 
   
   // Save file 
-  $newFilename = generateRandomString($length=20);
+  $newFileName = generateRandomString($length=20);
   
-  $imgPath = "uploads/$newFilename.png";
+  $imgPath = "StickerGenerator/IN/$newFileName.png";
 
   if (file_exists($imgPath)) {
     fail();

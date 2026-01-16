@@ -67,21 +67,21 @@ elif (( $# == 10 )); then
 	cp -f "$IMAGEDIR/$IMAGE.png" "$TMPDIR/image.png"                       && echo -e "\t[OK]   Copy image $IMAGE" || echo -e "\t[FAIL] Copy image $IMAGE";
 
 	# Replace background color
-	infilesreplace "$TMPDIR/tmplBack.svg" ffcc00 $COLOR                    && echo -e "\t[OK]   Replace background color" || echo -e "\t[FAIL] Replace background color";
+	/var/www/html/gitSAE32/working-v1.4\(signature\)/imgWebService/StickerGenerator/ScriptsAutocollant/infilesreplace "$TMPDIR/tmplBack.svg" ffcc00 $COLOR                    && echo -e "\t[OK]   Replace background color" || echo -e "\t[FAIL] Replace background color";
 
 	# Replace content texts
-	infilesreplace "$TMPDIR/tmplContent.svg" '#comp1#' "$TXTCOMP1"         && echo -e "\t[OK]   Replace text competence line 1" || echo -e "\t[FAIL] Replace text competence line 1";
-	infilesreplace "$TMPDIR/tmplContent.svg" '#comp2#' "$TXTCOMP2"         && echo -e "\t[OK]   Replace text competence line 2" || echo -e "\t[FAIL] Replace text competence line 2";
-	infilesreplace "$TMPDIR/tmplContent.svg" '#topic#' "$TXTTOPIC"         && echo -e "\t[OK]   Replace text topic" || echo -e "\t[FAIL] Replace text topic";
-	infilesreplace "$TMPDIR/tmplContent.svg" '#code#' "$TXTCODE"           && echo -e "\t[OK]   Replace text code" || echo -e "\t[FAIL] Replace text code";
+	/var/www/html/gitSAE32/working-v1.4\(signature\)/imgWebService/StickerGenerator/ScriptsAutocollant/infilesreplace "$TMPDIR/tmplContent.svg" '#comp1#' "$TXTCOMP1"         && echo -e "\t[OK]   Replace text competence line 1" || echo -e "\t[FAIL] Replace text competence line 1";
+	/var/www/html/gitSAE32/working-v1.4\(signature\)/imgWebService/StickerGenerator/ScriptsAutocollant/infilesreplace "$TMPDIR/tmplContent.svg" '#comp2#' "$TXTCOMP2"         && echo -e "\t[OK]   Replace text competence line 2" || echo -e "\t[FAIL] Replace text competence line 2";
+	/var/www/html/gitSAE32/working-v1.4\(signature\)/imgWebService/StickerGenerator/ScriptsAutocollant/infilesreplace "$TMPDIR/tmplContent.svg" '#topic#' "$TXTTOPIC"         && echo -e "\t[OK]   Replace text topic" || echo -e "\t[FAIL] Replace text topic";
+	/var/www/html/gitSAE32/working-v1.4\(signature\)/imgWebService/StickerGenerator/ScriptsAutocollant/infilesreplace "$TMPDIR/tmplContent.svg" '#code#' "$TXTCODE"           && echo -e "\t[OK]   Replace text code" || echo -e "\t[FAIL] Replace text code";
 	
 	# Replace front texts
-	infilesreplace "$TMPDIR/tmplFront.svg" '#year#' "$TXTYEAR"             && echo -e "\t[OK]   Replace text year" || echo -e "\t[FAIL] Replace text year";
-	infilesreplace "$TMPDIR/tmplFront.svg" '#orga#' "$TXTORGA"             && echo -e "\t[OK]   Replace text orga" || echo -e "\t[FAIL] Replace text orga";
-	infilesreplace "$TMPDIR/tmplFront.svg" '#level#' "$LEVEL"              && echo -e "\t[OK]   Replace text level" || echo -e "\t[FAIL] Replace text level";
+	/var/www/html/gitSAE32/working-v1.4\(signature\)/imgWebService/StickerGenerator/ScriptsAutocollant/infilesreplace "$TMPDIR/tmplFront.svg" '#year#' "$TXTYEAR"             && echo -e "\t[OK]   Replace text year" || echo -e "\t[FAIL] Replace text year";
+	/var/www/html/gitSAE32/working-v1.4\(signature\)/imgWebService/StickerGenerator/ScriptsAutocollant/infilesreplace "$TMPDIR/tmplFront.svg" '#orga#' "$TXTORGA"             && echo -e "\t[OK]   Replace text orga" || echo -e "\t[FAIL] Replace text orga";
+	/var/www/html/gitSAE32/working-v1.4\(signature\)/imgWebService/StickerGenerator/ScriptsAutocollant/infilesreplace "$TMPDIR/tmplFront.svg" '#level#' "$LEVEL"              && echo -e "\t[OK]   Replace text level" || echo -e "\t[FAIL] Replace text level";
 
 	# Generate sticker
-	magick -background none -density 800 \( $TMPDIR/tmplBackWhite.svg -resize 500x \)     \( $TMPDIR/tmplBack.svg -resize 500x \) -composite     \( $TMPDIR/image.png -resize 300x \) -gravity center -geometry +0+0 -composite     \( $TMPDIR/tmplContent.svg -resize 500x \) -composite     \( $TMPDIR/tmplBorder.png -resize 500x \) -composite     \( $TMPDIR/tmplFront.svg -resize 500x \) -composite     "$OUTDIR/sticker-$TXTCODE.png"     && echo -e "\t[OK]   Generate sticker" || echo -e "\t[FAIL] Generate sticker";
+	/usr/local/bin/magick -background none -density 800 \( $TMPDIR/tmplBackWhite.svg -resize 500x \)     \( $TMPDIR/tmplBack.svg -resize 500x \) -composite     \( $TMPDIR/image.png -resize 300x \) -gravity center -geometry +0+0 -composite     \( $TMPDIR/tmplContent.svg -resize 500x \) -composite     \( $TMPDIR/tmplBorder.png -resize 500x \) -composite     \( $TMPDIR/tmplFront.svg -resize 500x \) -composite     "$OUTDIR/sticker-$TXTCODE.png"     && echo -e "\t[OK]   Generate sticker" || echo -e "\t[FAIL] Generate sticker";
 	# magick -background none -density 800 \( $TMPDIR/tmplBackWhite.svg -resize 500x \)     \( $TMPDIR/tmplBack.svg -resize 500x \) -composite     \( $TMPDIR/image.png -resize 300x -alpha set -channel A -evaluate Multiply 0.75 +channel \) -gravity center -geometry +0+0 -composite     \( $TMPDIR/tmplContent.svg -resize 500x \) -composite     \( $TMPDIR/tmplBorder.png -resize 500x \) -composite     \( $TMPDIR/tmplFront.svg -resize 500x \) -composite     "$OUTDIR/sticker-$TXTCODE.png"     && echo -e "\t[OK]   Generate sticker" || echo -e "\t[FAIL] Generate sticker";
 
 	# Delete TMP dir

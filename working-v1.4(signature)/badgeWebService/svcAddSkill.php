@@ -30,11 +30,10 @@
     fail();
   }
 
-  
   // ----- Send img to image WebService -----
   $data = sendAjaxImg($URL . "addImgSkill.php", [], ["file" => $imgFile]);
   $imgUrl = NULL;
-  if (preg_match("/^.{32}$/", $data['imgPath'])) $imgUrl = $URL . escape_string($data['imgPath']);
+  if (preg_match("/^.{1,200}$/", $data['imgPath'])) $imgUrl = $URL . escape_string($data['imgPath']);
 
   // Check
   if ($imgUrl == NULL) {
