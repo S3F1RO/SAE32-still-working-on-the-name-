@@ -4,7 +4,7 @@
   <!-- Head -->
   <head>
     <!-- CSS files -->
-    <link rel='stylesheet' type='text/css' href='./css/web.css' media='screen' />
+    <link rel='stylesheet' type='text/css' href='./css/web1.css' media='screen' />
     <!-- <link rel='stylesheet' type='text/css' href='./css/00_reset.css' media='screen' /> -->
     <!-- <link rel='stylesheet' type='text/css' href='./css/01_mobile.css' media='screen' /> -->
     <link rel='stylesheet' type='text/css' href='./css/02_fonts.css' media='screen' />
@@ -44,15 +44,16 @@
     <h4 class="slidable">addUser</h4>
     <ul>
       <li>
+        <p>Creates a user to the database</p>
         <h5>In</h5>
         <pre>{
-  "firstName": "string",
-  "lastName": "string",
-  "nickname": "string",
-  "pubU": "string",
-  "userInfosHashCryptPrivU": "string"
+  "firstName": "string", (2 min, 20 max)
+  "lastName": "string", (2 min, 20 max)
+  "nickname": "string", (1 min, 20 max)
+  "pubU": "string", (base64, 2048 max)
+  "userInfosHashCryptPrivU": "string" 
 }</pre>
-      </li>
+      </li> 
       <li>
         <h5>Out</h5>
         <pre>{
@@ -67,14 +68,17 @@
     <h4 class="slidable">addSkill</h4>
     <ul>
       <li>
+        <p>Creates a skill into the database</p>
         <h5>In</h5>
         <pre>{
   "idUCreator": "int",
-  "mainName": "string",
-  "subName": "string",
-  "domain": "string",
-  "level": "int",
-  "imgUrl": "string"
+  "mainName": "string", (max size : 20)
+  "subName": "string",  (max size: 20)
+  "domain": "string", (max size: 15)
+  "level": "int", (min value : 0, max value : 8)
+  "imgUrl": "string",
+  "color": "string"
+  "skillInfosHashCryptPrivUC": "string" Infos du créateur hashées et cryptées avec sa clé privée (sha256)
 }</pre>
       </li>
       <li>
@@ -91,14 +95,16 @@
     <h4 class="slidable">addCompetence</h4>
     <ul>
       <li>
+        <p>Creates a "competence" into the database</p>
         <h5>In</h5>
         <pre>{
   "idUTeacher": "int",
   "idUStudent": "int",
   "idSkill": "int",
-  "domain": "string",
-  "level": "int",
-  "imgUrl": "string"
+  "revokedDate": "string"
+  "masteryLevel": "int" 
+  "competenceInfosHashCryptPrivUT" : "string" Infos du teacher hashées puis cryptées avec sa clé privé (sha256) (max size: 2048)
+
 }</pre>
       </li>
       <li>
@@ -115,6 +121,7 @@
     <h4 class="slidable">getUser</h4>
     <ul>
       <li>
+        <p>Gets a user and their infos by their id number</p>
         <h5>In</h5>
         <pre>{
   "idUser": "int"
@@ -139,6 +146,7 @@
     <h4 class="slidable">getSkill</h4>
     <ul>
       <li>
+        <p>Gets a skill and its infos by its id number</p>
         <h5>In</h5>
         <pre>{
   "idSkill": "int"
@@ -163,6 +171,7 @@
     <h4 class="slidable">getCompetence</h4>
     <ul>
       <li>
+        <p>Gets a competence and its infos by its id number</p>
         <h5>In</h5>
         <pre>{
   "idCompetence": "int"
@@ -188,6 +197,7 @@
     <h4 class="slidable">getFullSkill</h4>
     <ul>
       <li>
+        <p>Gets a skill and its creator's infos by its id number</p>
         <h5>In</h5>
         <pre>{
   "idSkill": "int"
@@ -219,6 +229,7 @@
     <h4 class="slidable">getFullCompetence</h4>
     <ul>
       <li>
+        <p>Gets infos on a competence, infos about teachers who gave it and student who got it by its id number</p>
         <h5>In</h5>
         <pre>{
   "idCompetence": "int"

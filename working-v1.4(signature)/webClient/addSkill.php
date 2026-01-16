@@ -56,16 +56,16 @@
       <article>
         <ul>
           <li>
-            <input type='text' name='mainName' placeholder='Le titre' autofocus/>
+            <input type='text' name='mainName'  maxlength="20" placeholder='Le titre' autofocus/>
           </li>
           <li>
-            <input type='text' name='subName' placeholder='Sous-titre'/>
+            <input type='text' name='subName' maxlength="20" placeholder='Sous-titre'/>
           </li>
           <li>
-            <input type='text' name='domain' placeholder='Le domain'/>
+            <input type='text' name='domain' maxlength="15" placeholder='Le domain'/>
           </li>
           <li>
-            <input type='file' name='file'/> 
+            <input type='file' maxlength="20" name='file'/> 
           </li>
           <li>
             <input type="range" name="level" min = "0" max = "8" step = "1" value = "8"/>

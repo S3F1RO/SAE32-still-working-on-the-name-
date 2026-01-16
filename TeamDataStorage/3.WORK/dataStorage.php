@@ -214,7 +214,7 @@ class DataStorage {
         $fullCompetence = DataStorage::getCompetence($idCompetence);
         $fullCompetence['teacher'] = DataStorage::getUser($fullCompetence['idUTeacher']);
         $fullCompetence['student'] = DataStorage::getUser($fullCompetence['idUStudent']);
-        $fullCompetence['skill'] = DataStorage::getSkill($fullCompetence['idSkill']);
+        $fullCompetence['skill'] = DataStorage::getFullSkill($fullCompetence['idSkill']);
         return $fullCompetence;
         // DB close
 

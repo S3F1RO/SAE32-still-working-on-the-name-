@@ -9,7 +9,7 @@
   header("Content-Type: application/json; charset=UTF-8");
 
   // Data from client (ajax)
-  $idUCreator = NULL;
+  $idUCreator =  NULL;
   if (preg_match("/^[0-9]{1,20}$/", $_POST['idUCreator'])) $idUCreator = escape_string($_POST['idUCreator']);
   $mainName = NULL;
   if (preg_match("/^[A-Za-z0-9\-\#éèêëÉÈÊËàâäÀÂÄïìîÏÌÎÿŷỳŸỲŶùûüÙÛÜòôöÒÔÖçÇ&\'\.:,! ]{1,20}$/", $_POST['mainName'])) $mainName = escape_string($_POST['mainName']);
