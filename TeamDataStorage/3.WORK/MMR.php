@@ -92,52 +92,16 @@ class MMR {
 }
 
 
-// Test
-$MMR = new MMR();
-$MMR->addLeaf("tx1");
-$MMR->addLeaf("tx2");
-$MMR->addLeaf("tx3");
-$MMR->addLeaf("tx4");
-$MMR->addLeaf("tx5");
-$MMR->addLeaf("tx6");
-$MMR->addLeaf("tx7");
-$MMR->addLeaf("tx8");
-// $MMR->addLeaf("tx9");
-// echo json_encode($MMR);
-echo json_encode($MMR,JSON_PRETTY_PRINT);
-
-// ----------------------------------
-// echo "Root: " . $MMR->getRoot() . "\n";
-// print_r($MMR->nodes);
-// $testNode = new Node(1,"xxc",1,NULL,NULL,true);
-// $testNode2 = new Node(1,"xxc",1,1,2,true);
-// $testPeak = new Node(2,"xxc",2,0,1,true);
-echo "Root Hash : ",$MMR->getRootHash();
+// // Test
 // $MMR = new MMR();
-// $MMR->addLeaf("xxx");
-// ----------------------------------
-// $MMR->addLeaf($testNode2);
-// $MMR->addLeaf($testPeak);
-// $node0=$MMR->getNode(0);
-// echo "-----------------Get Node Level -------------------\n";
-// echo json_encode($MMR->getNodeLevel(0));
-// echo "\n";
-// echo json_encode($MMR->getNodeLevel(1));
-// echo "\n";
-// echo json_encode($MMR->getNodeLevel(2));
-// echo "\n";
+// $MMR->addLeaf("tx1");
+// $MMR->addLeaf("tx2");
+// $MMR->addLeaf("tx3");
+// $MMR->addLeaf("tx4");
+// $MMR->addLeaf("tx5");
+// $MMR->addLeaf("tx6");
+// $MMR->addLeaf("tx7");
+// $MMR->addLeaf("tx8");
 // echo json_encode($MMR,JSON_PRETTY_PRINT);
-// ----------------------------------
-// echo "-----------------Get MMR-------------------\n";
-// echo json_encode($MMR,JSON_PRETTY_PRINT);
-// echo $MMR->getLastNodeId();
-// ----------------------------------
-// echo "\n-----------------Get Node------------------\n";
-// echo json_encode($node0,JSON_PRETTY_PRINT);
-// echo "\n-----------------Get Peak Of Level------------------\n";
-
-// $peakNode=$MMR->getPeakOfLevel(1);
-// $peakNode=$MMR->getNodeHash($peakNode->idNode);
-// echo json_encode($peakNode,JSON_PRETTY_PRINT);
-// $MMR->addParent(1,2);
+// echo "Root Hash : ",$MMR->getRootHash();
 ?>

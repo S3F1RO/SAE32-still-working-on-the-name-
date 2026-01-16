@@ -1,0 +1,26 @@
+{
+    "chain": [
+        {
+            "header": {
+                "index": 0,
+                "previousHash": "0",
+                "mmrRoot": "78aabdaab6767cb50621a2c9e344b188925d055bfa859eb7292b98bd6d57fc72",
+                "blockTimestamp": "2026-01-16 12:49:41",
+                "hash": "a960e8e836eb51da4c4506f43dc494a9ddfb54dd22dbebde47f22c55010cc0fa",
+                "nonce": ""
+            },
+            "transactions": [
+                {
+                    "id": 0,
+                    "hash": "8f5f8a4f99af9b451b7641203170f9a06e2c2efc888cb484c44cc6234d44e873",
+                    "transactionTimeStamp": "2026-01-16 12:49:41",
+                    "transactionType": "GENESIS",
+                    "hashData": "08dd6cc190838377b5f706f30ec91ac8750c206a155f48280bdfc1da8a7c46ad",
+                    "data": {
+                        "GENESIS": "Start"
+                    }
+                }
+            ]
+        }
+    ]
+}

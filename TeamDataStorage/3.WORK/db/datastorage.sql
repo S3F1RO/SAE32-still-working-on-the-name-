@@ -105,7 +105,7 @@ CREATE TABLE `tblUsers` (
 
 INSERT INTO `tblUsers` (`id`, `firstName`, `lastName`, `nickname`, `pubU`, `userInfosHashCryptPrivU`) VALUES
 (1, 'MACABOU', 'Benjamin', 'AigleJohn973', '', ''),
-(22, 'Lucas', 'Douez Ribal', 'lulupro973', '-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmB8Kn+/YegeCEXGncHvK\nyVdzF749skR0kRkO50j6i8ExWVzzvradR9Cy4GEBwFT5EBc7efC1BtnjtIh+X1qK\nmgSBJm2BSJWP4xAttOHCaJoJVFYIXMe5VQTh6eytMCyv8lUyOiWhwiwgQbgeDO+c\nrHBldPGFWaFBOlsXLNHWeiXLwfnO1APfcVcY/xmRME7IJbOm4g8SV1/jDl3GE/BI\neyrkR+AuOK8KOCKpNyDk9j88o6KjBmhYuxONc65wg+9rkugL3PRwn6ZJ6q7qgc98\nl1XmOop3kz1TbczMnM/N5atBhJDH0t9EWafvTcfpL2SxsRZn1C1xNP3GyE6QvqIu\nqQIDAQAB\n-----END PUBLIC KEY-----', ''),
+(22, 'Lucas', 'Douez Ribal', 'lulupro973', '-----BEGIN (PUBLIC) KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmB8Kn+/YegeCEXGncHvK\nyVdzF749skR0kRkO50j6i8ExWVzzvradR9Cy4GEBwFT5EBc7efC1BtnjtIh+X1qK\nmgSBJm2BSJWP4xAttOHCaJoJVFYIXMe5VQTh6eytMCyv8lUyOiWhwiwgQbgeDO+c\nrHBldPGFWaFBOlsXLNHWeiXLwfnO1APfcVcY/xmRME7IJbOm4g8SV1/jDl3GE/BI\neyrkR+AuOK8KOCKpNyDk9j88o6KjBmhYuxONc65wg+9rkugL3PRwn6ZJ6q7qgc98\nl1XmOop3kz1TbczMnM/N5atBhJDH0t9EWafvTcfpL2SxsRZn1C1xNP3GyE6QvqIu\nqQIDAQAB\n-----END PUBLIC KEY-----', ''),
 (23, 'Benjamin', 'Macabou', 'Splenchy', '', ''),
 (24, 'Sulyvan', 'Papaya', 'sheyboiii972', '', ''),
 (25, 'Kinberly', 'Lauristin', 'Kini', '', ''),
