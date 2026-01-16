@@ -36,7 +36,7 @@
       else if ($competences['competences'][0]['masteringLevel'] == 4) $formattedMasteringLevel = "Enseignée";
 
       if ($_GET['isJustCreated'] == "true") $sectionHtml .= "<h1>La compétence que vous venez de donner a pour id " . $idCompetences[0] . "</h1>";
-      $sectionHtml .= "\n        <img src='" . $competences['competences'][0]["imgCUrl"] . "' alt='Image certif'/>\n";
+      $sectionHtml .= "\n        <a href='#'><img src='" . $competences['competences'][0]["imgCUrl"] . "' alt='Image certif'/></a>\n";
       $sectionHtml .= "\n        <ul>";
       $sectionHtml .= "\n          <li>" . $competences['competences'][0]["skill"]['mainName'] . "</li>";
       if ($competences['competences'][0]["skill"]['subName'] != NULL || $competences['competences'][0]["skill"]['subName'] != "") {
@@ -86,7 +86,7 @@
       else if ($competences['competences'][0]['masteringLevel'] == 4) $formattedMasteringLevel = "Enseignée";
 
       $sectionHtml .= "<h1>Toutes les compétences donné par " . $competences['competences'][0]['teacher']['lastName'] . " " . $competences['competences'][0]['teacher']['firstName'] . "</h1>";
-      $sectionHtml .= "\n        <img src='" . $competences['competences'][0]["imgCUrl"] . "' alt='Image certif'/>\n";
+      $sectionHtml .= "\n        <a href='#'><img src='" . $competences['competences'][0]["imgCUrl"] . "' alt='Image certif'/></a>\n";
       $sectionHtml .= "\n        <ul>";
       $sectionHtml .= "\n          <li>" . $competences['competences'][0]["skill"]['mainName'] . "</li>";
       if ($competences['competences'][0]["skill"]['subName'] != NULL || $competences['competences'][0]["skill"]['subName'] != "") {
@@ -137,7 +137,7 @@
       else if ($competences['competences'][0]['masteringLevel'] == 4) $formattedMasteringLevel = "Enseignée";
 
       $sectionHtml .= "<h1>Toutes les compétences de " . $competences['competences'][0]['student']['lastName'] . " " . $competences['competences'][0]['student']['firstName'] . "</h1>";
-      $sectionHtml .= "\n        <img src='" . $competences['competences'][0]["imgCUrl"] . "' alt='Image certif'/>\n";
+      $sectionHtml .= "\n        <a href='#'><img src='" . $competences['competences'][0]["imgCUrl"] . "' alt='Image certif'/></a>\n";
       $sectionHtml .= "\n        <ul>";
       $sectionHtml .= "\n          <li>" . $competences['competences'][0]["skill"]['mainName'] . "</li>";
       if ($competences['competences'][0]["skill"]['subName'] != NULL || $competences['competences'][0]["skill"]['subName'] != "") {

@@ -1,3 +1,3 @@
 <?php
-  $stickerNumber = 2600049;
+  $stickerNumber = 2600052;
 ?>
